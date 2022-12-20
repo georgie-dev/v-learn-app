@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@200&display=swap');
+
+@font-face {
+    font-family: Machina;
+    src: url(./fonts/neue-machina-free-for-personal-use/Neue\ Machina\ -\ Free\ for\ Personal\ Use/NeueMachina-Regular.otf);
+  }
+
+  @font-face {
+    font-family: MachinaB;
+    src: url(./fonts/neue-machina-free-for-personal-use/Neue\ Machina\ -\ Free\ for\ Personal\ Use/NeueMachina-Ultrabold.otf);
+  }
+  
+  @font-face {
+    font-family: V;
+    src: url(./fonts/script-mt-bold-font/SCRIPTBL.TTF);
+  }
+  
+  body {
+  margin: 0;
+  padding: 0;
+  }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
