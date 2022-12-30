@@ -8,8 +8,8 @@ const Sign = () => {
     window.history.back()
   }
   return (
-    <div className=' bg-main-dark-bg w-screen h-screen'>
-        <div className=' lg:px-10 px-4 py-4'>
+    <div className=' bg-main-dark-bg w-screen h-screen block lg:flex'>
+        <div className=' lg:px-6 px-4 py-4'>
           <BsArrowLeftCircleFill
           onClick={goBack}
           className="lg:text-5xl text-2xl text-white hover:text-slate-500"

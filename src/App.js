@@ -14,7 +14,7 @@ function App() {
       </Route>
       <Route path='/sign' element={<Sign/>}>
       <Route index element={<Login/>}/>
-      <Route path='sign/register'element={<Register/>}/>
+      <Route path='register'element={<Register/>}/>
       </Route>
       <Route path='/dashboard' element={<Dashboard/>}>
       {/* OverView */}

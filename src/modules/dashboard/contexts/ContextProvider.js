@@ -1,4 +1,5 @@
 import React, {useContext, createContext, useState} from 'react';
+import db from '../../auth/auth';
 
 
 const StateContext= createContext();
@@ -36,7 +37,8 @@ export const ContextProvider= ({children})=>{
             handleClick,
             screenSize,
             setscreenSize,
-            handleClose
+            handleClose,
+            db
         }}
         >
             {children}

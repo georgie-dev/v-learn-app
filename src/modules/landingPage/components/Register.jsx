@@ -2,109 +2,185 @@ import React from 'react'
 import { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 import { Link } from 'react-router-dom';
+import {set, ref} from 'firebase/database'
+import { useStateContext } from '../../dashboard/contexts/ContextProvider';
 
 const Register = () => {
-
-
+  
+  const {db} = useStateContext()
   const [input, setInput] = useState({})
+  const [passwordShow, setpasswordShow] = useState(false);
+  const [isValid, setisValid] = useState(false)
 
+  const [departments, setDepartments] = useState([]);
+  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [dropdown, setDropdown] = useState({});
+  
+  const email = document.getElementById('email');
+  const matricNo = document.getElementById('matricNo');
+  const CheckPassword = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const firstName = document.getElementById('firstName');
+  const lastName = document.getElementById('lastName');
+  const image = document.getElementById('image');
+  const faculty = document.getElementById('faculty')
+  const level = document.getElementById('level')
+  const department = document.getElementById('department')
+  
+  const showPassword = () =>{
+    setpasswordShow(!passwordShow)
+  }
+  
   const handleChange=(event)=>{
     const name = event.target.name;
     const value = event.target.value;
     setInput(values=>({...values, [name]:value}))
-  }
+    console.log(input)
 
-  const handleSubmit = (event) =>{
-    event.preventDefault();
-    checkInputs();
-  }
+    name === 'firstname' && value.trim() === '' ? 
+    setErrorFor(firstName, 'First Name cannot be blank') :
+    setSuccessFor(firstName)
 
-  const [password, setpassword] = useState(false);
-
-  const showPassword = () =>{
-    setpassword(!password)
-  }
-
-  const optionsLevel = [
-   '100 Level', '200 Level', '300 Level', '400 Level'
- ];
-
- const optionsFaculty = [
-  'FAMSS',  'FOL',  'FOS',
- ];
-
- const optionsFacultyScience = [
-   'Applied Physics & Renewable Energy',  'Computer Science', 'Conservation & environmental Biology',  'CyberSecurity', 'Forensic Science', 'Software Engineering.'
-  ];
-
-  const optionsFacultyFAMSS = [
-   'Economics',  'International Relations',  'English',
-  ];
-
-  const optionsFacultyFL = [
-   'Law',
-  ];
-
-  const [dropdownValue, setdropdownValue] = useState({})
-
-  const handleSelect=(event)=>{
-   const name = event.label;
-   const value = event.value;
-   setdropdownValue(values=>({...values, [name]:value}))
-   console.log(dropdownValue)
-  }
-
-const email = document.getElementById('email');
-const CheckPassword = document.getElementById('password');
-const confirmPassword = document.getElementById('confirmPassword');
-const firstName = document.getElementById('firstName');
-const lastName = document.getElementById('lastName');
-const image = document.getElementById('image')
-
-const checkInputs= ()=> {
-	const emailValue = email.value.trim();
-	const passwordValue = CheckPassword.value.trim();
-	const confirmPasswordValue = confirmPassword.value.trim();
-  const firstNameValue = firstName.value.trim();
-  const lastNameValue = lastName.value.trim();
-  const imageValue = image.value
-
-  try {
-    firstNameValue === '' ? 
-  setErrorFor(firstName, 'First Name cannot be blank') :
-  setSuccessFor(firstName)
-  } catch (error) {
-    
-  }
-
-  lastNameValue === '' ?
+    name === 'lastname' && value.trim() === '' ?
 		setErrorFor(lastName, 'Last Name cannot be blank'):
 		setSuccessFor(lastName)
 
-  passwordValue === '' ?
+    name === 'faculty' && value === '' ?
+		setErrorFor(faculty, 'Please Select a Value'):
+		setSuccessFor(faculty)
+
+    name === 'level' && value === ''?
+		setErrorFor(level, 'Please Select a Value'):
+		setSuccessFor(level)
+
+    name === 'department' && value === '' ?
+		setErrorFor(department, 'Please Select a Value'):
+		setSuccessFor(department)
+
+    name === 'password' && value.trim() === '' ?
     setErrorFor(CheckPassword, 'Password cannot be blank') :
-    passwordValue.length <= 7 ?
+    name === 'password' && value.length <= 7 ?
     setErrorFor(CheckPassword, 'Too Short') :
     setSuccessFor(CheckPassword)
 
-  emailValue === '' ?
+    name === 'email' && value.trim() === '' ?
 		setErrorFor(email, 'Email cannot be blank') :
-    !isEmail(emailValue) ?
+    name === 'email' && !isEmail(value) ?
 		setErrorFor(email, 'Enter a valid email') :
 		setSuccessFor(email)
+
+    name === 'matricNo' && matricNo.value.trim().split('/') === '' ? 
+    setErrorFor(matricNo, 'Matric Number cannot be blank') :
+    name === 'matricNo' && matricNo.value.trim().split('/').includes('ADUN') === false ?
+    setErrorFor(matricNo, 'This is not a valid Matric Number') :
+    name === 'matricNo' && selectedFaculty === 'FOS'  && matricNo.value.trim().split('/').includes('FS') === false ?
+    setErrorFor(matricNo, 'This is Matric Number does not belong to the Faculty of Science') :
+    name === 'matricNo' && selectedFaculty === 'FOL' && matricNo.value.trim().split('/').includes('FL') === false ?
+    setErrorFor(matricNo, 'This is Matric Number does not belong to the Faculty of Law') :
+    name === 'matricNo' && selectedFaculty === 'FAMSS' && matricNo.value.trim().split('/').includes('FAMSS') === false ?
+    setErrorFor(matricNo, 'This is Matric Number does not belong to the Faculty Management and Social Sciences') :
+    name === 'matricNo' && matricNo.value.trim().split('/').length < 4 ?
+    setErrorFor(matricNo, 'Incomplete Matric Number') :
+    setSuccessFor(matricNo)
 	
-	confirmPasswordValue === '' ?
+    name === 'confirmPassword' && value.trim() === '' ?
 		setErrorFor(confirmPassword, 'Confirm Password') :
-	  passwordValue !== confirmPasswordValue ?
+    name === 'confirmPassword' && CheckPassword.value.trim() !== confirmPassword.value.trim() ?
 		setErrorFor(confirmPassword, 'Passwords does not match') :
 		setSuccessFor(confirmPassword)
 
-    imageValue === '' ? 
+    name === 'image' && value.trim() === '' ? 
     setErrorFor(image, 'Please Select an Image') :
-    setSuccessFor(firstName)
+    setSuccessFor(image)
+  }
+  
+
+  const facultyDepartments={
+    FAMSS:['Economics',  'International Relations',  'English'],
+    FOL: ['Law'],
+    FOS: ['Applied Physics & Renewable Energy',  'Computer Science', 'Conservation & environmental Biology',  'CyberSecurity', 'Forensic Science', 'Software Engineering.'],
+ }
+
+ const departmentList = Object.keys(facultyDepartments).map(key => ({
+  name: key
+}));
+
+  const handleFacultySelect = (e) => {
+    const facultySel = e.target.value;
+    const departmentSel = facultySel !== "" ? facultyDepartments[facultySel] : "";
+    setSelectedFaculty(facultySel);
+    setDepartments(departmentSel);
+    setDropdown("");
+  }
+
+  function handleSelect(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setDropdown(values=>({...values, [name]:value}));
+    console.log(dropdown)
+  }
+
+
+
+const checkInputs= ()=> {
+
+  firstName.value.trim() === '' ? 
+  setErrorFor(firstName, 'First Name cannot be blank') :
+  setSuccessFor(firstName)
+
+
+    lastName.value.trim() === '' ?
+		setErrorFor(lastName, 'Last Name cannot be blank'):
+		setSuccessFor(lastName)
+
+    faculty.value === '' ?
+		setErrorFor(faculty, 'Please Select a Value'):
+		setSuccessFor(faculty)
+
+    level.value === '' ?
+		setErrorFor(level, 'Please Select a Value'):
+		setSuccessFor(level)
+
+    department.value === '' ?
+		setErrorFor(department, 'Please Select a Value'):
+		setSuccessFor(department)
+
+    CheckPassword.value.trim() === '' ?
+    setErrorFor(CheckPassword, 'Password cannot be blank') :
+    CheckPassword.value.length <= 7 ?
+    setErrorFor(CheckPassword, 'Too Short') :
+    setSuccessFor(CheckPassword)
+
+    email.value.trim() === '' ?
+		setErrorFor(email, 'Email cannot be blank') :
+    !isEmail(email.value.trim()) ?
+		setErrorFor(email, 'Enter a valid email') :
+		setSuccessFor(email)
+	
+    confirmPassword.value.trim() === '' ?
+		setErrorFor(confirmPassword, 'Confirm Password') :
+    CheckPassword.value.trim() !== confirmPassword.value.trim() ?
+		setErrorFor(confirmPassword, 'Passwords does not match') :
+		setSuccessFor(confirmPassword)
+
+    image.value.trim() === '' ? 
+    setErrorFor(image, 'Please Select an Image') :
+    setSuccessFor(image)
+
+    matricNo.value.trim() === '' ? 
+    setErrorFor(matricNo, 'Matric Number cannot be blank') :
+    matricNo.value.trim().split('/').includes('ADUN') === false ?
+    setErrorFor(matricNo, 'This is not a valid Matric Number') :
+    selectedFaculty === 'FOS'  && matricNo.value.trim().split('/').includes('FS') === false ?
+    setErrorFor(matricNo, 'This is Matric Number does not belong to the Faculty of Science') :
+    selectedFaculty === 'FOL' && matricNo.value.trim().split('/').includes('FL') === false ?
+    setErrorFor(matricNo, 'This is Matric Number does not belong to the Faculty of Law') :
+    selectedFaculty === 'FAMSS' && matricNo.value.trim().split('/').includes('FAMSS') === false ?
+    setErrorFor(matricNo, 'This is Matric Number does not belong to the Faculty Management and Social Sciences') :
+    matricNo.value.trim().split('/').length < 4 ?
+    setErrorFor(matricNo, 'Incomplete Matric Number') :
+    setSuccessFor(matricNo)
   
 }
 
@@ -114,6 +190,7 @@ const setErrorFor = (input, message) => {
   formControl.classList.add = 'form-element error';
   small.className= 'block text-red-500'
 	small.innerText = message;
+  setisValid(false)
 }
 
 const setSuccessFor = (input) => {
@@ -121,15 +198,31 @@ const setSuccessFor = (input) => {
 	formControl.classList.add = 'form-element success';
   const small = formControl.querySelector('small');
   small.innerText = '';
+  setisValid(true)
 }
 const isEmail = (email) => {
 	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
 
+
+const handleSubmit = (event) =>{
+  event.preventDefault();
+  checkInputs();
+  console.log(isValid)
+}
+
+const writeUserData = (userId, name, email, imageUrl) =>{
+  set(ref( db, 'users/' + userId), {
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}
+
   return (
-   <div className=' bg-slate-100 lg:w-2/3 w-96 h-auto border-white mx-auto rounded-xl'>
-      <header className='font-Machina lg:text-4xl text-2xl font-bold p-5'>Create an Account</header>
+   <div className=' bg-slate-100 lg:w-2/3 w-96 h-auto border-white mx-auto self-center rounded-xl'>
+      <header className='font-Machina lg:text-3xl text-2xl font-bold p-5'>Create an Account</header>
    <div className=' flex-col lg:flex-row lg:flex pb-5 lg:mx-auto mx-4'>
 
       <div className='mt-6 lg:px-8 px-3 w-100 lg:w-1/2 mx-auto'>
@@ -177,42 +270,71 @@ const isEmail = (email) => {
        </div>
 
        <div className='flex lg:flex-row flex-col gap-10 mt-6'>
-         <div className='flex flex-col lg:w-1/2 w-80 '>
-      <Dropdown 
-       options={optionsFaculty}  
-       name='faculty' 
-       value={dropdownValue.faculty || ""} 
-       onChange={handleSelect}
-       className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 placeholder:font-Machina faculty'
-       placeholder="Select your Faculty" />
+         <div className='flex flex-col lg:w-1/2 w-80  '>
+           <select
+          name="faculty"
+          onChange={e => handleFacultySelect(e)}
+          value={selectedFaculty}
+          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina'
+          id='faculty'
+          >
+          <option value="" disabled>Select your Faculty</option>
+          {departmentList.map((faculty, key) => (
+            <option key={key} value={faculty.name}>
+              {faculty.name}
+            </option>
+          ))}
+        </select>
+         <small className='hidden'>Error message</small>
        </div>
 
        <div className='flex flex-col lg:w-1/2 w-80'>
-       <Dropdown 
-       options={optionsLevel}  
-       name='level' 
-       value={dropdownValue.level || ""} 
-       onChange={handleSelect}
-       className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 placeholder:font-Machina level'
-       placeholder="Select your level" />
+       <select
+          name="level"
+          onChange={e => handleSelect(e)}
+          value={dropdown.level || ""}
+          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina'
+          id='level'
+        >
+          <option value="" disabled>Select your Level</option>
+          <option value="100 Level" >100 Level</option>
+          <option value="200 Level" >200 Level</option>
+          <option value="300 Level" >300 Level</option>
+          <option value="400 Level" >400 Level</option>
+        </select>
+        <small className='hidden'>Error message</small>
        </div>
          </div>
 
          <div className='flex flex-col mt-6 lg:w-full w-80 '>
-      <Dropdown 
-      className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 placeholder:font-Machina department' 
-       options={
-        dropdownValue.FAMSS ? 
-        optionsFacultyFAMSS : 
-        dropdownValue.FOS ?
-         optionsFacultyScience : 
-         dropdownValue.FOL ? 
-         optionsFacultyFL : []
-       }  
-       name='department' 
-       value={dropdownValue.department || ""} 
-       onChange={handleSelect}
-       placeholder="Select your Department" />
+         <select
+          name="department"
+          onChange={e => handleSelect(e)}
+          value={dropdown.department || ""}
+          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina'
+          id='department'
+        >
+          <option value="" disabled>Select your Department</option>
+          {departments.map((department, key) => (
+            <option key={key} value={department}>
+              {department}
+            </option>
+          ))}
+        </select>
+        <small className='hidden'>Error message</small>
+       </div>
+
+       <div className='flex flex-col  mt-6 lg:w-full w-80'>
+          <input
+          type='text'
+          name='matricNo'
+          id='matricNo'
+          value={input.matricNo ||""}
+          onChange={handleChange}
+          className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina placeholder:normal-case'
+          placeholder='Matric Number e.g ADUN/FS/19/324'
+          />
+          <small className='hidden'>Error message</small>
        </div>
 
 
@@ -221,7 +343,7 @@ const isEmail = (email) => {
          <div className='flex flex-col lg:w-1/2 w-80 relative '>
           <input
           type={
-            password ? 'text': 'password'
+            passwordShow ? 'text': 'password'
           }
           name='password'
           id='password'
@@ -233,7 +355,7 @@ const isEmail = (email) => {
           <small className='hidden'>Error message</small>
           <div className='lg:hidden'>
           {
-            password ?
+            passwordShow ?
             <AiOutlineEyeInvisible 
           className='text-2xl absolute right-2 top-3 opacity-50 cursor-pointer'
            onClick={ showPassword}
@@ -249,7 +371,7 @@ const isEmail = (email) => {
        <div className='flex flex-col lg:w-1/2 w-80 relative'>
           <input
           type={
-            password ? 'text': 'password'
+            passwordShow ? 'text': 'password'
           }
           name='confirmPassword'
           id='confirmPassword'
@@ -261,7 +383,7 @@ const isEmail = (email) => {
           <small className='hidden'>Error message</small>
           <div className='lg:hidden'>
           {
-            password ?
+            passwordShow ?
             <AiOutlineEyeInvisible 
           className='text-2xl absolute right-2 top-3 opacity-50 cursor-pointer'
            onClick={ showPassword}
@@ -275,7 +397,7 @@ const isEmail = (email) => {
        </div>
        <div className='hidden lg:flex'>
        {
-        password ?
+        passwordShow ?
         <AiOutlineEyeInvisible
        className=' self-center text-2xl '
        onClick={showPassword}/> :
@@ -291,19 +413,25 @@ const isEmail = (email) => {
          <div className='flex flex-col mt-6 lg:w-full w-80'>
           <input
           type='file'
-          name='email'
+          name='image'
           id='image'
           value={input.image ||""}
           accept='image/*'
           onChange={handleChange}
-          className='p-2 border rounded-lg border-slate-300 bg-white placeholder:font-Machina'
+          className='block w-full text-sm text-slate-500
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-violet-50 file:text-slate-500
+          hover:file:bg-main-dark-bg
+          font-Machina'
           />
           <small className='hidden'>Error message</small>
        </div>
 
-       <div className='flex justify-between my-5 lg:w-full w-80'>
+       <div className='flex justify-between mt-4 lg:w-full w-80'>
          <div>
-          <Link to='/sign' className=' font-Machina px-6 text-dark'>Sign in instead?</Link>
+          <Link to='/sign' className=' font-Machina text-dark self-center'>Sign in instead?</Link>
        </div>
 
        <div>
@@ -317,20 +445,6 @@ const isEmail = (email) => {
 
       </form>
       </div>
-
-    {/* <div className='absolute opacity-40'>
-      <div className=' w-24 h-24 bg-gray-200 rounded-full absolute top-4 left-56'>
-    </div>
-    <div className=' w-24 h-24 bg-gray-200 absolute top-24 transform rotate-45 left-36'>
-    </div>
-    <div className=' w-24 h-24 bg-gray-200 absolute top-60 transform rotate-12 left-60'>
-    </div>
-    <div className=' w-40 h-24 bg-gray-200 absolute top-60 left-2 rotate-45'>
-    </div>
-    <div class=" w-28 overflow-hidden inline-block absolute top-0 left-10">
-    <div class=" h-40 w-28 bg-gray-200 rotate-45 transform origin-top-left"></div>
-    </div>
-      </div> */}
     <div className=' h-full lg:w-1/2 w-80 mx-auto hidden lg:block self-center px-10'>
      <img src="https://cdni.iconscout.com/illustration/premium/thumb/sign-up-page-1886582-1598253.png" alt="" />
      <p className='text-center lg:text-2xl text-xl font-bold font-Machina my-2'>Welcome to <span className='font-V'>V-</span>learn</p>

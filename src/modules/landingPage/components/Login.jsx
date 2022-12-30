@@ -4,7 +4,9 @@ import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 
 import { Link } from 'react-router-dom';
 
+
 const Login = () => {
+
 
   const [password, setpassword] = useState(false);
 
@@ -39,12 +41,12 @@ const Login = () => {
 
        <div className='flex flex-col mt-6'>
           <input
-          type='email'
-          name='email'
-          value={input.email ||""}
+          type='text'
+          name='matricNo'
+          value={input.matricNo ||""}
           onChange={handleChange}
           className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina'
-          placeholder='Email Address'
+          placeholder='Matric No'
           />
        </div>
 
@@ -82,7 +84,7 @@ const Login = () => {
        </div>
 
        <div className='lg:mt-20 mt-10 text-center'>
-          <Link to='sign/register' className=' font-Machina text-dark'>Don't have an account? Sign Up</Link>
+          <Link to='register' className=' font-Machina text-dark'>Don't have an account? Sign Up</Link>
        </div>
 
       </form>
