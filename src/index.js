@@ -13,16 +13,14 @@ import store from './modules/auth/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    {/* <Provider store={store}/> */}
-    <ContextProvider>
+  <ContextProvider>
+  <Provider store={store}>
+    <React.StrictMode> 
     <App />
+    </React.StrictMode>
+  </Provider>
     </ContextProvider>
-    {/* <Provider/>  */}
-  </React.StrictMode>
 );
-
-console.log(store.getState())
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

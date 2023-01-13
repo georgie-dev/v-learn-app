@@ -1,10 +1,29 @@
 import React from 'react'
 import { useStateContext } from '../../../contexts/ContextProvider'
-import { set, ref } from 'firebase/database'
+import { set, ref, onValue } from 'firebase/database'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 const CourseRegistration = () => {
   const {db} = useStateContext()
+  const select= useSelector(state=> state.user.userDetails)
 
+  const [semester, setsemester] = useState("FirstSemester");
+
+  const handleSemesterSelect = (e) => {
+    const semester = e.target.value;
+    setsemester(semester);
+  }
+  const dbSemester= semester.split(' ').join('')
+  const level= select.Level.split(' ')
+  const department= select.Department.split(' ').join('');
+
+  const coursesAPI = ref( db, `courses/${select.Faculty}/${department}/${level[0]}/${dbSemester}`)
+
+  onValue(coursesAPI, (snapshot)=>{
+    const courses= snapshot.val()
+    console.log(courses)
+  })
 
 // const testdb = ()=>{
 //   set(ref( db, 'courses/FS/SoftwareEngineering/100/SecondSemester'), {
@@ -21,49 +40,45 @@ const CourseRegistration = () => {
   return (
     <div className=' bg-slate-100 lg:w-2/3 w-96 h-2/3 border-white mx-auto self-center rounded-xl px-4'>
       <header className='font-Machina disabled:cursor-not-allowed disabled:bg-gray-300 lg:text-3xl text-2xl font-bold p-5'>Register your Courses</header>
-      <div className='flex mt-4 mx-10'>
-      <div className=' w-80'>
+      <div className='flex flex-col lg:flex-row gap-5 mt-4 mx-10'>
+      <div>
        <select
-          name="level"
-          // value={dropdown.level || ""}
-          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
+          className='p-2 w-72 lg:w-auto  rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
-          <option value="100 Level" >FAMSS</option>
+          <option>{select.Faculty}</option>
         </select>
        </div>
-       <div className=' w-80'>
+       <div>
        <select
-          name="level"
-          // value={dropdown.level || ""}
-          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
+          className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
-          <option value="100 Level" >Economics</option>
+          <option>{select.Department}</option>
         </select>
        </div>
-       <div className=' w-80'>
+       <div>
        <select
-          name="level"
-          // value={dropdown.level || ""}
-          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
+          className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
-          <option value="100 Level" >100 Level</option>
+          <option>{select.Level}</option>
         </select>
        </div>
        <div className='w-80'>
         
        <select
-          name="level"
-          // value={dropdown.level || ""}
-          className='p-2 rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed'
+          name="semester"
+          value={semester || ''}
+          onChange={handleSemesterSelect}
+          className='p-2 w-72 lg:w-auto rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed'
         >
-          <option value="100 Level" >First Semester</option>
-          <option value="100 Level" >Second Semester</option>
+          <option value='First Semester'>First Semester</option>
+          <option value='Second Semester'>Second Semester</option>
         </select>
        </div>
       </div>
+
       {/* <button
       type='button'
       onClick={testdb()}

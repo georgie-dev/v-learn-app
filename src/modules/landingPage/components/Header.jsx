@@ -18,8 +18,8 @@ function Header(){
         
         <div className='block lg:flex justify-between  py-5 shadow-md items-center bg-white' id='nav'>
         <img src={logo} alt="logo" className='w-52 pl-4 lg:pl-10' />
-           <div className='hidden lg:block lg:relative absolute w-full lg:w-auto text-center h-auto pb-10 lg:p-0 rounded-b-xl lg:rounded-non z-30 pt-8 lg:pt-0 ' id='mobileNav'>
-           <ul className='flex-col flex lg:flex-row gap-10 pr-10 bg-white' id='list'>
+           <div className='hidden lg:block lg:relative absolute w-full lg:w-auto text-center h-auto lg:h-auto pb-10 lg:p-0 rounded-b-xl lg:rounded-non z-30 pt-5 lg:pt-0 ' id='mobileNav'>
+           <ul className='flex-col flex lg:flex-row gap-10 pr-10 py-5 lg:py-0 bg-white'>
                 <li className='font-bold text-lg hover:text-gray-600'>
                    <Link to='/'>Home</Link>
                 </li>

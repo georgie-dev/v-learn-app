@@ -7,6 +7,8 @@ import Swal from 'sweetalert2'
 import { Link, useNavigate} from 'react-router-dom';
 import {set, ref, onValue} from 'firebase/database'
 import { useStateContext } from '../../../contexts/ContextProvider';
+import { useDispatch } from 'react-redux'
+import { register } from '../../auth/user'
 
 const Register = () => {
   
@@ -14,7 +16,10 @@ const Register = () => {
   const [input, setInput] = useState({})
   const [passwordShow, setpasswordShow] = useState(false);
   const [loading, setloading] = useState(false)
+
+
   const navigate = useNavigate()
+  const dispatch= useDispatch()
 
   const [departments, setDepartments] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState("");
@@ -103,7 +108,7 @@ const Register = () => {
   const facultyDepartments={
     FAMSS:['Economics',  'International Relations',  'English'],
     FOL: ['Law'],
-    FOS: ['Applied Physics & Renewable Energy',  'Computer Science', 'Conservation & environmental Biology',  'CyberSecurity', 'Forensic Science', 'Software Engineering.'],
+    FOS: ['Applied Physics & Renewable Energy',  'Computer Science', 'Conservation & environmental Biology',  'CyberSecurity', 'Forensic Science', 'Software Engineering'],
  }
 
  const departmentList = Object.keys(facultyDepartments).map(key => ({
@@ -242,18 +247,18 @@ const writeUserData = (input, faculty, dropdown) =>{
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-  const checkUser =  ref(db, 'users/' + userID);
-onValue(checkUser, (snapshot) => {
+  const user =  ref(db, 'users/' + userID);
+  onValue(user,async (snapshot) => {
  if(snapshot.exists()){
     setloading(false)
-    formReset()
+  formReset()
   Submit.disabled = false;
-  Toast.fire({
+ await Toast.fire({
     icon: 'error',
     title: 'Account already exists'
   })
  }else{
-  set(ref( db, 'users/' + userID), {
+ await set(user, {
     'username': firstname,
     'Last Name': lastname,
     'Email address': email,
@@ -263,14 +268,18 @@ onValue(checkUser, (snapshot) => {
     'Level': level,
     'Department': department
   })
-  .then(()=>{
+  .then(async()=>{
     setloading(true)
     Submit.disabled = true;
-    Toast.fire({
+   await Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
     })
-    navigate('/sign/CourseRegistration')
+    onValue(user, (snapshot)=>{
+      const userData =snapshot.val()
+   dispatch(register(userData))
+   navigate('/sign/CourseRegistration')
+    })
   })
   .catch((error)=>{
     Toast.fire({
@@ -283,7 +292,7 @@ onValue(checkUser, (snapshot) => {
 }
 
   return (
-   <div className=' bg-slate-100 lg:w-2/3 w-96 h-auto border-white mx-auto self-center rounded-xl'>
+   <div className=' bg-slate-100 lg:w-2/3 w-11/12 h-auto border-white mx-auto self-center rounded-xl'>
       <header className='font-Machina lg:text-3xl text-2xl font-bold p-5'>Create an Account</header>
    <div className=' flex-col lg:flex-row lg:flex pb-5 lg:mx-auto mx-4'>
 
