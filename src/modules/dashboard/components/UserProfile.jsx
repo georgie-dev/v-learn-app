@@ -3,7 +3,7 @@ import George from '../img/George.jpg'
 import { MdOutlineCancel, MdExitToApp} from 'react-icons/md'
 import {FaRegUserCircle} from 'react-icons/fa'
 import {AiOutlineSetting} from 'react-icons/ai'
-import { useStateContext } from '../contexts/ContextProvider'
+import { useStateContext } from '../../../contexts/ContextProvider'
 
 
 const Icon=({ color, bgColor, icon})=>{

@@ -7,7 +7,7 @@ import {FiSearch} from 'react-icons/fi'
 import {BsChatLeft} from 'react-icons/bs'
 import {RiNotification3Line} from 'react-icons/ri'
 import { MdKeyboardArrowDown, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
-import { useStateContext } from '../contexts/ContextProvider'
+import { useStateContext } from '../../../contexts/ContextProvider'
 import {Chat, Notification, UserProfile} from './'
 
 import George from '../img/George.jpg'

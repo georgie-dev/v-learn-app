@@ -10,7 +10,7 @@ import { NavLink, Link} from "react-router-dom";
  import {BsPersonCheck} from 'react-icons/bs'
  import {AiOutlineSchedule} from 'react-icons/ai'
 
- import { useStateContext } from '../contexts/ContextProvider';
+ import { useStateContext } from '../../../contexts/ContextProvider';
 
 const Sidebar = () => {
 

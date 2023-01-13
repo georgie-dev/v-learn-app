@@ -1,5 +1,5 @@
 import React, {useContext, createContext, useState} from 'react';
-import db from '../../auth/auth';
+import db from '../modules/auth/auth';
 
 
 const StateContext= createContext();

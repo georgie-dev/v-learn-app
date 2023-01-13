@@ -16,17 +16,17 @@ function Header(){
     return(
         <>
         
-        <div className=' block lg:flex justify-between  py-5 shadow-lg items-center' id='nav'>
+        <div className='block lg:flex justify-between  py-5 shadow-md items-center bg-white' id='nav'>
         <img src={logo} alt="logo" className='w-52 pl-4 lg:pl-10' />
-           <div className='hidden lg:block lg:relative absolute w-full lg:w-auto text-center h-auto pb-10 lg:p-0 rounded-b-xl lg:rounded-none bg-white z-30 pt-8 lg:pt-0 ' id='mobileNav'>
-           <ul className='flex-col flex lg:flex-row gap-10 pr-10 ' id='list'>
+           <div className='hidden lg:block lg:relative absolute w-full lg:w-auto text-center h-auto pb-10 lg:p-0 rounded-b-xl lg:rounded-non z-30 pt-8 lg:pt-0 ' id='mobileNav'>
+           <ul className='flex-col flex lg:flex-row gap-10 pr-10 bg-white' id='list'>
                 <li className='font-bold text-lg hover:text-gray-600'>
                    <Link to='/'>Home</Link>
                 </li>
                 <li className='font-bold text-lg hover:text-gray-600'><a href='#about'>About</a></li>
                 <li className='font-bold text-lg hover:text-gray-600'><a href='#pricing'>Pricing</a></li>
                 <li className='font-bold text-lg hover:text-gray-600'><a href='#contact'>Contact Us</a></li>
-                <li><Link to='sign' className=' bg-main-dark-bg px-7 py-4 text-lg text-white font-bold rounded-full hover:bg-gray-600'>Log In</Link></li>
+                <li><Link to='/sign' className=' bg-main-dark-bg px-7 py-4 text-lg text-white font-bold rounded-full hover:bg-gray-600'>Log In</Link></li>
             </ul>
            </div>
             <AiOutlineMenu 

@@ -16,6 +16,18 @@ module.exports = {
         'light-gray': '#F7F7F7',
         'half-transparent': 'rgba(0, 0, 0, 0.5)',
       },
+      backgroundImage: {
+        'hero-pattern':
+          "url('https://cdni.iconscout.com/illustration/premium/thumb/college-student-2753733-2294268.png')",
+          'test':
+           "url('https://cdni.iconscout.com/illustration/premium/thumb/test-administrator-checking-test-results-5968222-4928038.png')",
+          'assignment': 
+          "url('https://cdni.iconscout.com/illustration/premium/thumb/businessman-with-lots-of-pending-work-5892607-4889693.png')",
+          'class': 
+          "url('https://cdni.iconscout.com/illustration/premium/thumb/digital-classroom-3465477-2932170.png')",
+          'cm': 
+          "url('https://cdni.iconscout.com/illustration/premium/thumb/books-3327973-2793942.png')"
+      },
     },
   },
   plugins: [],

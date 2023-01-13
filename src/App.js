@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Header, Login, Register, Sign } from './modules/landingPage/components';
+import { Header, Login, Register, Sign, CourseRegistration } from './modules/landingPage/components';
 import Home from './modules/landingPage/pages/Home'
 import Dashboard from './modules/dashboard/App'
 import {Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable} from './modules/dashboard/pages'
@@ -15,6 +15,7 @@ function App() {
       <Route path='/sign' element={<Sign/>}>
       <Route index element={<Login/>}/>
       <Route path='register'element={<Register/>}/>
+      <Route path ='CourseRegistration' element={<CourseRegistration/>}/>
       </Route>
       <Route path='/dashboard' element={<Dashboard/>}>
       {/* OverView */}

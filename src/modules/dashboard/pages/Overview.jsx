@@ -6,6 +6,38 @@ import Button from '../components/Button'
 import { Attendance } from '../components'
 
 const Overview = () => {
+
+
+  const boxes = [
+    {
+      icon: <SiGoogleclassroom/>,
+      value: 2,
+      title: 'Today Class(es)',
+      bg: 'bg-class'
+
+    },
+    {
+      icon: <MdOutlineAssignment/>,
+      value: 4,
+      title: 'Pending Assignment(s)',
+      bg: 'bg-assignment'
+
+    },
+    {
+      icon: <VscFileSubmodule/>,
+      value: 2,
+      title: 'New course Material(s)',
+      bg: 'bg-cm'
+
+    },
+    {
+      icon: <MdOutlineClass/>,
+      value: 1,
+      title: 'Upcoming Test(s)',
+      bg:'bg-test'
+
+    }
+  ]
   return (
     <div className='mt-12'>
       <div className='flex flex-wrap lg:flex-nowrap justify-center'>
@@ -18,50 +50,22 @@ const Overview = () => {
           </div>
         </div>
         <div className=' flex flex-wrap justify-center gap-1 items-center font-rokkitt'>
+        {boxes.map((items)=>(
             <div className='drop-shadow-2xl bg-white dark:bg-secondary-dark-bg text-gray-200 w-40 md:w-56 lg:w-50 mt-4 h-40 rounded-2xl p-4 pt-9 relative '>
-              <div className='bg-class opacity-25 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full'></div>
-            <div className=' text-black dark:text-gray-200 relative'>
-              <div className='flex'>
-              <Button color="black" bgColor="#03C9D7" icon={<SiGoogleclassroom/>}/>
-              <p className='text-6xl lg:text-6xl font-bold items-center mx-auto '>2</p>
-              </div>
-              <p className=' text-md mt-4 font-semibold '>Today's Class(s)</p>
+              <div key={items.bg} className={`${items.bg} opacity-25 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full`}></div>
+             <div className=' text-black dark:text-gray-200 relative flex flex-col gap-3'>
+             <div className='flex items-center'>
+             <Button key={items.icon} color="black" bgColor="#03C9D7" icon={items.icon}/>
+             <p key={items.value} className='text-5xl font-bold mx-auto '>{items.value}</p>
+             </div>
+             <small key={items.title} className=' text-sm mt-4 font-semibold '>{items.title}</small>
+           </div>
             </div>
-            </div>
-            <div className='bg-white drop-shadow-2xl dark:bg-secondary-dark-bg text-gray-200 w-40 md:w-56 lg:w-50 mt-4 h-40 rounded-2xl p-4 pt-9 relative '>
-            <div className='bg-assignment opacity-25 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full'></div>
-            <div className=' text-black dark:text-gray-200 relative'>
-              <div className='flex'>
-              <Button color="black" bgColor="#03C9D7" icon={<MdOutlineAssignment/>}/>
-              <p className='text-6xl font-bold items-center mx-auto '>2</p>
-              </div>
-              <p className=' text-md mt-4 font-semibold '>Pending Assignments</p>
-            </div>
-            </div>
-            <div className=' drop-shadow-2xl bg-white dark:bg-secondary-dark-bg text-gray-200 w-40 md:w-56 lg:w-50 mt-4 h-40 rounded-2xl p-4 pt-9 relative '>
-            <div className='bg-cm opacity-25 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full'></div>
-            <div className=' text-black dark:text-gray-200 relative'>
-              <div className='flex'>
-              <Button color="black" bgColor="#03C9D7" icon={<VscFileSubmodule/>}/>
-              <p className='text-2xl font-bold items-center mx-auto uppercase '>Sen 304</p>
-              </div>
-              <p className=' text-md mt-4 font-semibold '>New Course Material</p>
-            </div>
-            </div>
-            <div className=' drop-shadow-2xl bg-white dark:bg-secondary-dark-bg text-gray-200 w-40 md:w-56 lg:w-50 mt-4 h-40 rounded-2xl p-4 pt-9 relative '>
-            <div className='bg-class opacity-25 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full'></div>
-            <div className=' text-black dark:text-gray-200 relative'>
-              <div className='flex'>
-              <Button color="black" bgColor="#03C9D7" icon={<MdOutlineClass/>}/>
-              <p className='text-2xl font-bold items-center mx-auto uppercase '>GST 201</p>
-              </div>
-              <p className=' text-md mt-4 font-semibold '>Upcoming Test</p>
-            </div>
-            </div>
+            ))}
           </div>
       </div>
       <div className='mt-12'>
-        <div className='w-full px-3 lg:w-720 flex justify-center'>
+        <div className='w-full px-3 flex justify-center'>
         <Attendance/>
         </div>
       </div>

@@ -1,14 +1,24 @@
 
 @font-face {
   font-family: Machina;
-  src: url(./modules/landingPage/assets/fonts/neue-machina-free-for-personal-use/Neue\ Machina\ -\ Free\ for\ Personal\ Use/NeueMachina-Regular.otf);
+  src: url(./modules/fonts/neue-machina-free-for-personal-use/Neue\ Machina\ -\ Free\ for\ Personal\ Use/NeueMachina-Regular.otf);
 }
 
 @import url('https://fonts.cdnfonts.com/css/script-mt');
 
-body {
-background-color: #fff;
+@font-face {
+  font-family: V;
+  src: url(./modules/fonts/script-mt-bold-font/SCRIPTBL.TTF);
 }
+
+html, body { height: 100%; }
+body {
+  background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
+  overflow-x:hidden;
+  margin: 0;
+  padding: 0;
+}
+
 
 @tailwind base;
 @tailwind components;

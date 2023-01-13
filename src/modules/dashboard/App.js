@@ -4,9 +4,8 @@ import { Outlet } from 'react-router-dom'
 import {Sidebar, Navbar, Footer} from './components'
 // import {Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable} from './pages'
 
-import './App.css'
 
-import { useStateContext } from './contexts/ContextProvider'
+import { useStateContext } from '../../contexts/ContextProvider'
 
 
 const App = () => {
