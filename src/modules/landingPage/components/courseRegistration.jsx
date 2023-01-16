@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react'
 import { useStateContext } from '../../../contexts/ContextProvider'
 import { ref, onValue } from 'firebase/database'
@@ -43,7 +44,7 @@ const CourseRegistration = () => {
       const courses= snapshot.val()
       setcoursesReg(courses)  
     })
-  }, [semester])
+  }, [db, dbSemester, department, level, select.Faculty, semester])
 
 
   const handleSelectAll = e => {
@@ -56,7 +57,8 @@ const CourseRegistration = () => {
 
   const onChange = e => {
     const { id, checked } = e.target;
-    coursesReg.filter((item )=> {
+    // eslint-disable-next-line array-callback-return
+    coursesReg.filter((item ) => {
       if(item.id == id){
         setIsCheck([...isCheck, item])
       }
