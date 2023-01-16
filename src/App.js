@@ -1,9 +1,39 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import { Header, Login, Register, Sign, CourseRegistration } from './modules/landingPage/components';
 import Home from './modules/landingPage/pages/Home'
 import Dashboard from './modules/dashboard/App'
 import {Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable} from './modules/dashboard/pages'
+import { useSelector } from 'react-redux';
+import { useStateContext } from './contexts/ContextProvider';
+
+const ProtectedRoute = ({redirectPath= '/sign'})=>{
+  const selector =useSelector(state=> state.user.isAuthenticated)
+  const {Toast} = useStateContext()
+  const navigate = useNavigate()
+  if(!selector){
+     navigate(redirectPath, {replace:true})
+     Toast.fire({
+      icon: 'error',
+      title: 'You are not Logged In'
+    })
+  }
+  return <Dashboard/>
+}
+
+// const ProtectedRoutes = ({redirectPath= '/sign/register'})=>{
+//   const selector =useSelector(state=> state.user.isAuthenticated)
+//   const {Toast} = useStateContext()
+//   const navigate = useNavigate()
+//   if(!selector){
+//      navigate(redirectPath, {replace:true})
+//      Toast.fire({
+//       icon: 'error',
+//       title: 'You are not Logged In'
+//     })
+//   }
+//   return <CourseRegistration/>
+// }
 
 function App() {
   return (
@@ -17,7 +47,7 @@ function App() {
       <Route path='register'element={<Register/>}/>
       <Route path ='CourseRegistration' element={<CourseRegistration/>}/>
       </Route>
-      <Route path='/dashboard' element={<Dashboard/>}>
+      <Route path='/dashboard' element={<ProtectedRoute/>}>
       {/* OverView */}
       <Route index element={<Overview/>} />
       <Route path="overview" element={<Overview/>} />

@@ -4,15 +4,20 @@ export const userSlice= createSlice({
     name: 'user',
     initialState:{
         isAuthenticated: false,
-        userDetails: {}
+        userDetails: {},
+        courses: []
     },
     reducers:{
         register: (state, action)=>{
             state.userDetails = action.payload
             state.isAuthenticated = true
-        }
+        },
+        coursesList: (state, action)=>{
+            state.courses = action.payload
+        
     }
+}
 })
 
-export const {register}= userSlice.actions;
+export const {register, coursesList}= userSlice.actions;
 export default userSlice.reducer

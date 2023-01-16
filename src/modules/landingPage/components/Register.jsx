@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 import ScaleLoader from 'react-spinners/ScaleLoader'
-import Swal from 'sweetalert2'
 
 import { Link, useNavigate} from 'react-router-dom';
 import {set, ref, onValue} from 'firebase/database'
@@ -12,7 +11,7 @@ import { register } from '../../auth/user'
 
 const Register = () => {
   
-  const {db} = useStateContext()
+  const {db,Toast} = useStateContext()
   const [input, setInput] = useState({})
   const [passwordShow, setpasswordShow] = useState(false);
   const [loading, setloading] = useState(false)
@@ -236,17 +235,6 @@ const writeUserData = (input, faculty, dropdown) =>{
   const {level, department} = dropdown
   const userID= matricNo.split('/').join("-")
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
   const user =  ref(db, 'users/' + userID);
   onValue(user,async (snapshot) => {
  if(snapshot.exists()){

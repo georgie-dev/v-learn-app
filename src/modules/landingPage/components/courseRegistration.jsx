@@ -1,49 +1,102 @@
 import React from 'react'
 import { useStateContext } from '../../../contexts/ContextProvider'
-import { set, ref, onValue } from 'firebase/database'
+import { ref, onValue } from 'firebase/database'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import ScaleLoader from 'react-spinners/ScaleLoader'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import {BsBoxArrowRight} from 'react-icons/bs'
+import { coursesList } from '../../auth/user'
 
 const CourseRegistration = () => {
-  const {db} = useStateContext()
+  const {db, Toast} = useStateContext()
   const select= useSelector(state=> state.user.userDetails)
 
   const [semester, setsemester] = useState("FirstSemester");
+  const [coursesReg, setcoursesReg] = useState([])
+
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+  const [loading, setloading] = useState(false)
+
+  const navigate = useNavigate()
+  const dispatch= useDispatch()
 
   const handleSemesterSelect = (e) => {
     const semester = e.target.value;
+    setIsCheckAll(false);
     setsemester(semester);
   }
   const dbSemester= semester.split(' ').join('')
   const level= select.Level.split(' ')
   const department= select.Department.split(' ').join('');
 
-  const coursesAPI = ref( db, `courses/${select.Faculty}/${department}/${level[0]}/${dbSemester}`)
-
-  onValue(coursesAPI, (snapshot)=>{
-    const courses= snapshot.val()
-    console.log(courses)
-  })
-
-// const testdb = ()=>{
-//   set(ref( db, 'courses/FS/SoftwareEngineering/100/SecondSemester'), {
-//     'Title': ['Programming Logic & Design', 'Introduction to Software Applications and Cyber security', 'Use of English II', 'Nigerian Peoples and Culture', 'History & Philosophy of Science', 'Elementary Mathematics 3 (Calculus)', 'General Physics II', '	General Physics Laboratory II', '		Statistics & Probability'],
-//     'Code': ['CSC 102', 'CYB 102', 'GST 102', 'GST 104', 'GST 108', 'MTH 102', 'PHY 102', 'PHY 108', 'STA 102'],
-//     'Unit': [2, 2, 2, 2, 2, 3, 3, 1, 2],
-//     'Status':['C', 'C','C','C','C','C','C','C','C' ],
-//     'Lecturers': []
-//   })
 
 
-// }
+
+  useEffect(() => {
+    const coursesAPI = ref( db, `courses/${select.Faculty}/${department}/${level[0]}/${dbSemester}`)
+    onValue(coursesAPI, (snapshot)=>{
+      const courses= snapshot.val()
+      setcoursesReg(courses)  
+    })
+  }, [semester])
+
+
+  const handleSelectAll = e => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(coursesReg.map(value => value))
+    if (isCheckAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const onChange = e => {
+    const { id, checked } = e.target;
+    coursesReg.filter((item )=> {
+      if(item.id == id){
+        setIsCheck([...isCheck, item])
+      }
+    });
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item.id != id));
+    }
+  };
+
+  const totalCreditUnit = isCheck.map((e) => e.courseUnit).reduce((a, b) => a + b, 0);
+
+  const dashboard = async()=>{
+    if(totalCreditUnit === 0){
+      await Toast.fire({
+        icon: 'error',
+        title: 'You must Register a minimum of one Course'
+      })
+    }else if(totalCreditUnit >24){
+      await Toast.fire({
+        icon: 'error',
+        title: 'You cannot register above 24 Credit Units'
+      })
+    }else{
+      setloading(true)
+     await Toast.fire({
+        icon: 'success',
+        title: 'Success'
+      })
+      dispatch(coursesList(isCheck))
+      navigate('/dashboard')
+    }
+  }
 
   return (
-    <div className=' bg-slate-100 lg:w-2/3 w-96 h-2/3 border-white mx-auto self-center rounded-xl px-4'>
+    <div className=' bg-slate-100 lg:w-auto w-96 h-auto border-white mx-auto self-center rounded-xl px-4'>
       <header className='font-Machina disabled:cursor-not-allowed disabled:bg-gray-300 lg:text-3xl text-2xl font-bold p-5'>Register your Courses</header>
       <div className='flex flex-col lg:flex-row gap-5 mt-4 mx-10'>
       <div>
        <select
-          className='p-2 w-72 lg:w-auto  rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
+          className='p-2 w-72 lg:w-auto  rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
           <option>{select.Faculty}</option>
@@ -51,7 +104,7 @@ const CourseRegistration = () => {
        </div>
        <div>
        <select
-          className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
+          className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
           <option>{select.Department}</option>
@@ -59,7 +112,7 @@ const CourseRegistration = () => {
        </div>
        <div>
        <select
-          className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
+          className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
           <option>{select.Level}</option>
@@ -71,7 +124,7 @@ const CourseRegistration = () => {
           name="semester"
           value={semester || ''}
           onChange={handleSemesterSelect}
-          className='p-2 w-72 lg:w-auto rounded-lg border bg-white border-slate-300 my-0 w-100 font-Machina disabled:cursor-not-allowed'
+          className='p-2 w-72 lg:w-auto rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed'
         >
           <option value='First Semester'>First Semester</option>
           <option value='Second Semester'>Second Semester</option>
@@ -79,14 +132,75 @@ const CourseRegistration = () => {
        </div>
       </div>
 
-      {/* <button
-      type='button'
-      onClick={testdb()}
-      className='py-2 px-6 border rounded-lg bg-main-dark-bg my-0 text-white font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2 disabled:cursor-not-allowed disabled:bg-gray-400'
-      >
-        DB
+      <div>
+        <div className='flex my-4 mx-auto border-2 rounded-md p-3'>
+          <table className='mx-auto'>
+            <thead>
+              <tr>
+              <th className='lg:px-10' scope="col">
+                    <input
+                    type="checkbox"
+                    name="selectAll"
+                    id="selectAll"
+                    onChange={handleSelectAll}
+                    checked={isCheckAll}
+                    />
+                  </th>
+                  <th className='lg:px-10' scope="col">S/N</th>
+                  <th className='lg:px-10' scope="col">Course Code</th>
+                  <th className='lg:px-10' scope="col">Course Title</th>
+                  <th className='lg:px-10' scope="col">Status</th>
+                  <th className='lg:px-10' scope="col">Credit Unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coursesReg.map((data)=>(
+                <tr key={data.id}>
+                      <th className='lg:px-10' scope="row">
+                      <input
+                        key={data.id}
+                        type="checkbox"
+                        id={data.id}
+                        onChange={onChange}
+                        checked={isCheck.includes(data)}
+                      />
+                    </th>
+                  <td className='lg:px-10 px-3 py-2'>{data.id}</td>
+                  <td className='lg:px-10 px-3 py-2'>{data.courseCode}</td>
+                  <td className='lg:px-10 px-3 py-2'>{data.courseTitle}</td>
+                  <td className='lg:px-10 px-3 py-2'>{data.courseStatus}</td>
+                  <td className='lg:px-10 px-3 py-2'>{data.courseUnit}</td>
+                </tr>
+              ))
+                
+              }
+            </tbody>
+          </table>
+        </div>
+        <div className='flex justify-between my-2'>
+        <p
+        className='py-2 px-6 text-xs lg:text-sm border rounded-lg bg-gray-500 my-0 text-slate-800 font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2'
+        >Total Credit Unit: {totalCreditUnit}</p>
 
-      </button> */}
+        <button
+        type='button'
+        onClick={dashboard}
+        className='py-2 text-xs lg:text-sm px-6 border rounded-lg bg-main-dark-bg my-0 text-white font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2 disabled:cursor-not-allowed disabled:bg-gray-400'
+      >
+        Proceed to Dashboard {!loading? <BsBoxArrowRight/>:
+               <ScaleLoader
+               color='#B7E8EB'
+               loading={loading}
+               height={20}
+               aria-label="Loading Spinner"
+               data-testid="loader"
+             />
+       }
+
+
+      </button>
+        </div>
+      </div>
     </div>
   )
 }
