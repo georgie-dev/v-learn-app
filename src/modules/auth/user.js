@@ -13,8 +13,6 @@ export const userSlice= createSlice({
             state.isAuthenticated = true
         },
         coursesList: (state, action)=>{
-            state.courses = action.payload
-        
     }
 }
 })

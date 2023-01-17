@@ -13,28 +13,32 @@ const Overview = () => {
       icon: <SiGoogleclassroom/>,
       value: 2,
       title: 'Today Class(es)',
-      bg: 'bg-class'
+      bg: 'bg-class',
+      id: 1
 
     },
     {
       icon: <MdOutlineAssignment/>,
       value: 4,
       title: 'Pending Assignment(s)',
-      bg: 'bg-assignment'
+      bg: 'bg-assignment',
+      id: 2
 
     },
     {
       icon: <VscFileSubmodule/>,
       value: 2,
       title: 'New course Material(s)',
-      bg: 'bg-cm'
+      bg: 'bg-cm',
+      id: 3
 
     },
     {
       icon: <MdOutlineClass/>,
       value: 1,
       title: 'Upcoming Test(s)',
-      bg:'bg-test'
+      bg:'bg-test',
+      id: 4
 
     }
   ]
@@ -51,12 +55,12 @@ const Overview = () => {
         </div>
         <div className=' flex flex-wrap justify-center gap-1 items-center font-rokkitt'>
         {boxes.map((items)=>(
-            <div className='drop-shadow-2xl bg-white dark:bg-secondary-dark-bg text-gray-200 w-40 md:w-56 lg:w-50 mt-4 h-40 rounded-2xl p-4 pt-9 relative '>
+            <div key={items.id} className='drop-shadow-2xl bg-white dark:bg-secondary-dark-bg text-gray-200 w-40 md:w-56 lg:w-50 mt-4 h-40 rounded-2xl p-4 pt-9 relative '>
               <div key={items.bg} className={`${items.bg} opacity-25 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full`}></div>
-             <div className=' text-black dark:text-gray-200 relative flex flex-col gap-3'>
-             <div className='flex items-center'>
+             <div key={items.id} className=' text-black dark:text-gray-200 relative flex flex-col gap-3'>
+             <div key={items.id} className='flex items-center'>
              <Button key={items.icon} color="black" bgColor="#03C9D7" icon={items.icon}/>
-             <p key={items.value} className='text-5xl font-bold mx-auto '>{items.value}</p>
+             <p key={items.id} className='text-5xl font-bold mx-auto '>{items.value}</p>
              </div>
              <small key={items.title} className=' text-sm mt-4 font-semibold '>{items.title}</small>
            </div>

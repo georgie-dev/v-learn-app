@@ -1,14 +1,35 @@
 import React from 'react'
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { useState, useEffect } from 'react';
+import { useStateContext } from '../../../contexts/ContextProvider';
 
 const Attendance = () => {
+
+  const {screenSize, setscreenSize}= useStateContext()
+
+  useEffect(() => {
+    
+    const handleScreen=()=>{
+      setscreenSize( window.innerWidth )
+    }
+
+    window.addEventListener("resize", handleScreen)
+
+    handleScreen()
+  
+    return () => {
+      window.removeEventListener("resize", handleScreen)
+    }
+  }, [])
+
 
     const options = {
         chart: {
           type: 'areaspline',
           backgroundColor:'lightgray',
-          borderRadius: 20
+          borderRadius: 20,
+          width: screenSize <900 ? 350 :1000
         },
         title: {
           text: 'Total Attendance',

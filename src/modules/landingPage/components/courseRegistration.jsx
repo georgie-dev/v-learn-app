@@ -1,16 +1,14 @@
 /* eslint-disable eqeqeq */
 import React from 'react'
 import { useStateContext } from '../../../contexts/ContextProvider'
-import { ref, onValue } from 'firebase/database'
+import { ref, onValue, update } from 'firebase/database'
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 
 import ScaleLoader from 'react-spinners/ScaleLoader'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import {BsBoxArrowRight} from 'react-icons/bs'
-import { coursesList } from '../../auth/user'
 
 const CourseRegistration = () => {
   const {db, Toast} = useStateContext()
@@ -24,12 +22,12 @@ const CourseRegistration = () => {
   const [loading, setloading] = useState(false)
 
   const navigate = useNavigate()
-  const dispatch= useDispatch()
 
   const handleSemesterSelect = (e) => {
     const semester = e.target.value;
-    setIsCheckAll(false);
     setsemester(semester);
+    setIsCheckAll(false)
+    setIsCheck([]);
   }
   const dbSemester= semester.split(' ').join('')
   const level= select.Level.split(' ')
@@ -44,7 +42,8 @@ const CourseRegistration = () => {
       const courses= snapshot.val()
       setcoursesReg(courses)  
     })
-  }, [db, dbSemester, department, level, select.Faculty, semester])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [semester])
 
 
   const handleSelectAll = e => {
@@ -69,6 +68,9 @@ const CourseRegistration = () => {
   };
 
   const totalCreditUnit = isCheck.map((e) => e.courseUnit).reduce((a, b) => a + b, 0);
+  const user= select.MatricNumber
+  const userID= user.split('/').join("-")
+
 
   const dashboard = async()=>{
     if(totalCreditUnit === 0){
@@ -87,14 +89,16 @@ const CourseRegistration = () => {
         icon: 'success',
         title: 'Success'
       })
-      dispatch(coursesList(isCheck))
+      update(ref(db, 'users/' + userID ),  {
+        courses: isCheck
+      })
       navigate('/dashboard')
     }
   }
 
   return (
     <div className=' bg-slate-100 lg:w-auto w-96 h-auto border-white mx-auto self-center rounded-xl px-4'>
-      <header className='font-Machina disabled:cursor-not-allowed disabled:bg-gray-300 lg:text-3xl text-2xl font-bold p-5'>Register your Courses</header>
+      <header className='font-Machina lg:text-3xl text-2xl font-bold p-5'>Register your Courses</header>
       <div className='flex flex-col lg:flex-row gap-5 mt-4 mx-10'>
       <div>
        <select

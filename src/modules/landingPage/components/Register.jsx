@@ -228,6 +228,7 @@ const formReset = ()=>{
   setDepartments([])
   setSelectedFaculty("")
   setDropdown({})
+  setpasswordShow(false)
 }
 
 const writeUserData = (input, faculty, dropdown) =>{
@@ -247,26 +248,25 @@ const writeUserData = (input, faculty, dropdown) =>{
   })
  }else{
  await set(user, {
-    'username': firstname,
-    'Last Name': lastname,
-    'Email address': email,
-    'Matric Number': matricNo,
+    'Username': firstname,
+    'LastName': lastname,
+    'EmailAddress': email,
+    'MatricNumber': matricNo,
     'Password': password,
     'Faculty': faculty,
     'Level': level,
     'Department': department
   })
-  .then(async()=>{
+  .then(()=>{
     setloading(true)
     Submit.disabled = true;
-   await Toast.fire({
+   Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
     })
     onValue(user, (snapshot)=>{
       const userData =snapshot.val()
    dispatch(register(userData))
-   navigate('/sign/CourseRegistration')
     })
   })
   .catch((error)=>{
@@ -275,6 +275,9 @@ const writeUserData = (input, faculty, dropdown) =>{
       title: error
     })
   })
+  .finally(
+    navigate('/sign/CourseRegistration')
+  )
  }
 });
 }
