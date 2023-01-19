@@ -1,5 +1,5 @@
 import React, {useContext, createContext, useState} from 'react';
-import db from '../modules/auth/auth';
+import db from '../modules/auth/database';
 import Swal from 'sweetalert2'
 
 

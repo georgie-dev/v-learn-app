@@ -217,6 +217,7 @@ const setSuccessFor = (input) => {
 const  handleSubmit = (event) =>{
   event.preventDefault();
   checkInputs();
+  formReset()
   if(errors.length === 0){
     writeUserData(input, selectedFaculty, dropdown)
   }
@@ -225,9 +226,6 @@ const  handleSubmit = (event) =>{
 
 const formReset = ()=>{
   setInput({})
-  setDepartments([])
-  setSelectedFaculty("")
-  setDropdown({})
   setpasswordShow(false)
 }
 
@@ -236,17 +234,19 @@ const writeUserData = (input, faculty, dropdown) =>{
   const {level, department} = dropdown
   const userID= matricNo.split('/').join("-")
 
+
   const user =  ref(db, 'users/' + userID);
-  onValue(user,async (snapshot) => {
+  onValue(user, async (snapshot) => {
  if(snapshot.exists()){
-    setloading(false)
-  formReset()
+  setloading(false)
   Submit.disabled = false;
- await Toast.fire({
+ Toast.fire({
     icon: 'error',
     title: 'Account already exists'
   })
  }else{
+  setloading(true)
+  Submit.disabled = true;
  await set(user, {
     'Username': firstname,
     'LastName': lastname,
@@ -257,10 +257,8 @@ const writeUserData = (input, faculty, dropdown) =>{
     'Level': level,
     'Department': department
   })
-  .then(()=>{
-    setloading(true)
-    Submit.disabled = true;
-   Toast.fire({
+  .then(async()=>{
+  Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
     })
