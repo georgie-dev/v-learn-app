@@ -1,58 +1,61 @@
-import React from 'react'
-import { useState } from 'react'
-import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
-
+import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ScaleLoader from 'react-spinners/ScaleLoader';
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
+
 import { login} from '../../auth/user';
 import { onValue, ref } from 'firebase/database';
 import { useStateContext } from '../../../contexts/ContextProvider';
-import { useNavigate } from 'react-router-dom';
-import ScaleLoader from 'react-spinners/ScaleLoader'
 
 
 const Login = () => {
 
-  const {db, Toast} = useStateContext()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const {db, Toast} = useStateContext();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
   const [password, setpassword] = useState(false);
-  const [loading, setloading] = useState(false)
+  const [loading, setloading] = useState(false);
+  const [input, setInput] = useState({});
+  
+  
+  const Submit = document.getElementById('submit');
 
-  const showPassword = () =>{
-    setpassword(!password)
+  
+  
+  
+  const formReset = ()=>{
+    setInput({});
+    setpassword(false)
   }
-
-
-  const [input, setInput] = useState({})
-
   const handleChange=(event)=>{
     const name = event.target.name;
     const value = event.target.value;
     setInput(values=>({...values, [name]:value}))
   }
-
-  const formReset = ()=>{
-    setInput({});
-    setpassword(false)
-  }
-
+  
+  
   const handleSubmit = (event) =>{
     event.preventDefault();
     formReset();
     Login();
   }
-
+  
+  const showPassword = () =>{
+    setpassword(!password)
+  }
   const Login = () => {
     const userID = input.matricNo.split('/').join('-')
-    console.log(input)
     setloading(true)
+    Submit.disabled = true;
 
     onValue(ref(db, 'users/' + userID), async(snapshot) => {
-      console.log(snapshot.val())
       if(snapshot.exists()){
       const  userData = await snapshot.val()
-      console.log(userData)
 
       if(userData.Password === input.password){
         Toast.fire({
@@ -67,6 +70,7 @@ const Login = () => {
           title: 'Incorrect Details'
       })
       setloading(false)
+      Submit.disabled = false;
       }
     }else{
        Toast.fire({
@@ -74,6 +78,7 @@ const Login = () => {
         title: 'Account does not exist'
     })
     setloading(false)
+    Submit.disabled = false;
   }
 })
   }
@@ -129,6 +134,7 @@ const Login = () => {
        <div className='mt-10'>
           <button
           type='Submit'
+          id='submit'
           className='py-2 px-6 border rounded-lg items-center gap-3 bg-main-dark-bg my-0 w-full text-white font-bold font-Machina cursor-pointer hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-gray-400'
           >
             { loading ? '' : 'Login'}

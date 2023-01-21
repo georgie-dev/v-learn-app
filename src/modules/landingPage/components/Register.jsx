@@ -234,6 +234,9 @@ const writeUserData = (input, faculty, dropdown) =>{
   const {level, department} = dropdown
   const userID= matricNo.split('/').join("-")
 
+  setloading(true)
+  Submit.disabled = true;
+
 
   const user =  ref(db, 'users/' + userID);
   onValue(user, async (snapshot) => {
@@ -245,8 +248,6 @@ const writeUserData = (input, faculty, dropdown) =>{
     title: 'Account already exists'
   })
  }else{
-  setloading(true)
-  Submit.disabled = true;
  await set(user, {
     'Username': firstname,
     'LastName': lastname,
@@ -274,7 +275,9 @@ const writeUserData = (input, faculty, dropdown) =>{
     })
   })
   .finally(
-    navigate('/sign/CourseRegistration')
+    setTimeout(()=>{
+      navigate('/sign/CourseRegistration')
+    }, 2000)
   )
  }
 });

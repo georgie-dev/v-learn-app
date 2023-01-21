@@ -1,63 +1,65 @@
-import React, {useContext, createContext, useState} from 'react';
-import db from '../modules/auth/database';
-import Swal from 'sweetalert2'
+import React, { useContext, createContext, useState } from "react";
+import db from "../modules/auth/database";
+import Swal from "sweetalert2";
 
+const StateContext = createContext();
 
-const StateContext= createContext();
-
-const initialState= {
+const initialState = {
     chat: false,
     notification: false,
-    userProfile: false
-}
+    userProfile: false,
+};
 
-export const ContextProvider= ({children})=>{
+export const ContextProvider = ({ children }) => {
+    const [activeMenu, setactiveMenu] = useState(true);
 
-    const [activeMenu, setactiveMenu,] = useState(true);
+    const [isClicked, setisClicked] = useState(initialState);
 
-    const [isClicked, setisClicked] = useState(initialState)
+    const handleClick = (clicked) => {
+        setisClicked({
+            ...initialState,
+            [clicked]: true,
+        });
+    };
+    const handleClose = (clicked) => {
+        setisClicked({
+            ...initialState,
+            [clicked]: false,
+        });
+    };
 
-    const handleClick=(clicked)=>{
-        setisClicked({...initialState , [clicked]: true
-        })
-    }
-    const handleClose=(clicked)=>{
-        setisClicked({...initialState , [clicked]: false
-        })
-    }
-
-    const [screenSize, setscreenSize] = useState(undefined)
+    const [screenSize, setscreenSize] = useState(undefined);
 
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: "bottom-start",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+    });
 
-    return(
+    return (
         <StateContext.Provider
-        
-        value={{activeMenu, 
-            setactiveMenu,
-            isClicked,
-            setisClicked,
-            handleClick,
-            screenSize,
-            setscreenSize,
-            handleClose,
-            db,
-            Toast
-        }}
+            value={{
+                activeMenu,
+                setactiveMenu,
+                isClicked,
+                setisClicked,
+                handleClick,
+                screenSize,
+                setscreenSize,
+                handleClose,
+                db,
+                Toast,
+            }}
         >
             {children}
         </StateContext.Provider>
-    )
-}
+    );
+};
 
-export const useStateContext=()=> useContext(StateContext)
+export const useStateContext = () => useContext(StateContext);
