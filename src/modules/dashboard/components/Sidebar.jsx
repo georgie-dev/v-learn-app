@@ -29,7 +29,7 @@ const Sidebar = () => {
       <div className='ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10'>
         {activeMenu && <>
             <div className=" flex justify-between align-middle m-4 items-center mb-8 ">
-              <Link onClick={handleCloseSidebar} to='/dashboard' className='items-center ml-3 mt-4 text-2xl font-bold tracking-tight dark:text-white text-slate-900'>
+              <Link onClick={handleCloseSidebar} to='/' className='items-center ml-3 mt-4 text-2xl font-bold tracking-tight dark:text-white text-slate-900'>
                 <span style={{fontFamily: "V"}} >V-</span>Learn
                </Link>
                <MdOutlineCancel className='mt-3 dark:text-white hover:text-slate-500 dark:hover:text-black'

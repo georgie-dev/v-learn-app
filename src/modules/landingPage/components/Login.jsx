@@ -63,7 +63,9 @@ const Login = () => {
           title: 'Login Successful'
         })
         dispatch(login(snapshot.val()))
-        navigate('/dashboard')
+        setTimeout(()=>{
+          navigate('/dashboard')
+        }, 2000)
       }else{
         Toast.fire({
           icon: 'error',
