@@ -2,8 +2,7 @@ import React from 'react'
 import {MdOutlineAssignment , MdOutlineClass} from 'react-icons/md'
 import {VscFileSubmodule} from 'react-icons/vsc'
 import {SiGoogleclassroom} from 'react-icons/si'
-import Button from '../components/Button'
-import { Attendance } from '../components'
+import { OverviewAttendance, Button } from '../components'
 import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -80,7 +79,7 @@ const Overview = () => {
       </div>
       <div className='mt-12'>
         <div className='w-full px-3 flex justify-center'>
-        <Attendance/>
+        <OverviewAttendance/>
         </div>
       </div>
     </div>
