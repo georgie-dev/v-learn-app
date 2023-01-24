@@ -47,7 +47,7 @@ function Timetable() {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-      <p className='text-2xl font-extrabold font-rokkitt'>Loading...</p>
+      <p className='text-2xl font-extrabold font-display'>Loading...</p>
       </div>
       :
       <Eventcalendar
