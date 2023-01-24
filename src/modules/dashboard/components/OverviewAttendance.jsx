@@ -1,7 +1,7 @@
 import React from 'react'
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useStateContext } from '../../../contexts/ContextProvider';
 
 const OverviewAttendance = () => {
@@ -21,7 +21,7 @@ const OverviewAttendance = () => {
     return () => {
       window.removeEventListener("resize", handleScreen)
     }
-  }, [])
+  }, [setscreenSize])
 
 
     const options = {

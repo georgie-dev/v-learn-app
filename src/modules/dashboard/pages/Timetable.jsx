@@ -9,7 +9,8 @@ function Timetable() {
 
     const [myEvents, setEvents] = useState([]);
     const [loading, setloading] = useState(true)
-  
+
+
   
 
 
@@ -19,7 +20,7 @@ function Timetable() {
             setloading(false)
         }, 'jsonp');
     }, []);
-    
+
     const onEventClick = useCallback((event) => {
         toast({
             message: event.event.title
@@ -47,12 +48,11 @@ function Timetable() {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-      <p className='text-2xl font-extrabold font-display'>Loading...</p>
       </div>
       :
       <Eventcalendar
       locale={localeEnGB}
-      theme="ios" 
+      theme='auto'
       themeVariant= 'auto'
       clickToCreate={true}
       dragToCreate={true}
