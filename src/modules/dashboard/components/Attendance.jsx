@@ -56,6 +56,7 @@ const Attendance = () => {
       backgroundColor:'lightgray',
       borderRadius: 20,
       width: screenSize <900 ? 350 :1000,
+      height: 500,
     },
     title: {
       align: 'left',
@@ -82,6 +83,9 @@ const Attendance = () => {
     legend: {
       enabled: false
     },
+    credits:{
+      enabled: false
+  },
     plotOptions: {
       series: {
         borderWidth: 0,
@@ -100,7 +104,53 @@ const Attendance = () => {
     series: [
       {
         name: 'Courses',
-        data: values
+        data: [
+          {
+            name: 'BIO 101',
+            y: 78,
+            drilldown: 'BIO 101'
+           },
+           {
+            name: 'MTH 101',
+            y: 87,
+            drilldown: 'MTH 101'
+           },
+           {
+            name: 'GST 101',
+            y: 92,
+            drilldown: 'GST 101'
+           },
+           {
+            name: 'GST 103',
+            y: 79.4,
+            drilldown: 'GST 103'
+           },
+           {
+            name: 'GST 105',
+            y: 69.78,
+            drilldown: 'GST 105'
+           },
+           {
+            name: 'CSC 101',
+            y: 82,
+            drilldown: 'CSC 101'
+           },
+           {
+            name: 'MTH 103',
+            y: 70.12,
+            drilldown: 'MTH 103'
+           },
+           {
+            name: 'PHY 101',
+            y: 84,
+            drilldown: 'PHY 101'
+           },
+           {
+            name: 'PHY 107',
+            y: 100,
+            drilldown: 'PHY 107'
+           }
+        ]
       }
     ],
     drilldown : {
