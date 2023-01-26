@@ -13,7 +13,7 @@ const Sign = () => {
         <div className=' lg:px-6 px-4 py-4'>
           <BsArrowLeftCircleFill
           onClick={goBack}
-          className="lg:text-5xl text-2xl text-white hover:text-slate-500"
+          className="lg:text-5xl text-2xl text-black hover:text-slate-500"
           />
             </div>
          

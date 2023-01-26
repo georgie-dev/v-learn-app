@@ -13,7 +13,7 @@
 
 html, body { height: 100%; }
 body {
-  background:radial-gradient(ellipse at center, rgba(255,254,234,1) 0%, rgba(255,254,234,1) 35%, #B7E8EB 100%);
+  background: rgba(255,254,250,1) ;
   overflow-x:hidden;
   margin: 0;
   padding: 0;

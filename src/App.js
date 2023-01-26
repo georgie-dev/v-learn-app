@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
-import { Header, Login, Register, Sign, CourseRegistration, NotFound } from './modules/landingPage/components';
+import { Header, Login, Register, CourseRegistration, NotFound } from './modules/landingPage/components';
 import Home from './modules/landingPage/pages/Home'
 
 import Dashboard from './modules/dashboard/App'
 import { Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable } from './modules/dashboard/pages'
 
 import { useSelector } from 'react-redux';
+import Sign from './modules/landingPage/pages/Sign'
 
 import './App.css';
 
