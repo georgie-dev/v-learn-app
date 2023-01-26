@@ -77,13 +77,15 @@ const UserProfile = () => {
             </div>
 
           </div>
-          <button
+          <button 
+          data-modal-target="popup-modal" 
+          data-modal-toggle="popup-modal" 
+          type="button"
           onClick= {()=>{Logout()}}
           className=' bg-sky-500 hover:bg-sky-600 w-full mt-3 rounded-lg p-1 text-white font-Machina text-xl  font-bold flex justify-center items-center'
           >
             <MdExitToApp/>&nbsp;Logout
           </button>
-
         </div>
       </div>
     </div>

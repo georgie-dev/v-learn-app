@@ -16,6 +16,7 @@ const Attendance = () => {
 
   useEffect(() => {
 
+    // eslint-disable-next-line array-callback-return
     select.map((items)=>{
       console.log(items)
       setvalues([

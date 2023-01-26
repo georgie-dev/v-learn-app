@@ -8,7 +8,7 @@ const CourseMaterials = () => {
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg">
-      <Header category='App' title="Course Materials" />
+      <Header category='Pages' title="Course Materials" />
 <div className=' w-full mt-12 p-2 h-auto flex flex-wrap gap-3 items-center justify-center'>
 
    {select.map((items)=>(

@@ -6,7 +6,7 @@ const Assignments = () => {
   const select= [1,2,3,4,5,6,7,8,9,10]
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg">
-    <Header category='App' title="Assignments " />
+    <Header category='pages' title="Assignments " />
     <div>
       <div>
         <input

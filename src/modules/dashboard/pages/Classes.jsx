@@ -4,7 +4,7 @@ import Header from '../components/Header'
 const Classes = () => {
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  dark:bg-secondary-dark-bg">
-    <Header category='App' title="Classes" />
+    <Header category='Pages' title="Classes" />
     <div className='p-5 h-auto block lg:flex md:flex gap-4 mt-12'>
       <div className='uppercase border text-slate-400 border-slate-400 rounded-xl w-full mb-6 lg:mb-0 lg:w-3/4 h-64 justify-center flex items-center bg-main-bg'>
         Video calling api section
