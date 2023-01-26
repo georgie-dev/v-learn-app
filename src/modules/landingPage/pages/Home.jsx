@@ -3,8 +3,8 @@ import About from '../components/About';
 function Home(){
     return(
         <>
-        <div className='lg:flex block pt-12 lg:p-auto shadow-md'>
-            <div className=' w-full lg:w-1/2 self-center p-10 lg:px-28'>
+        <div className='lg:flex block bg-secondary-dark-bg pt-12 lg:p-auto shadow-md'>
+            <div className=' w-full lg:w-1/2 self-center p-10 lg:px-28 text-white'>
                 <h1 className='text-6xl font-extrabold font-Machina'><span className=' font-V'>V-</span>Learn</h1>
                 <p className='text-xl font-Machina mt-4'> Lorem ipsum dolor sit amet consectetur, 
                     adipisicing elit. Veniam reiciendis perferendis

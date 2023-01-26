@@ -1,12 +1,13 @@
 import React from 'react'
 import George from '../img/George.jpg'
-import { MdOutlineCancel, MdExitToApp} from 'react-icons/md'
+import { MdOutlineCancel, } from 'react-icons/md'
 import {FaRegUserCircle} from 'react-icons/fa'
-import {AiOutlineSetting, AiOutlineWarning} from 'react-icons/ai'
+import {AiOutlinePoweroff, AiOutlineSetting, AiOutlineWarning} from 'react-icons/ai'
 import { useStateContext } from '../../../contexts/ContextProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { logout } from '../../auth/user'
+
 
 
 
@@ -88,9 +89,9 @@ const UserProfile = () => {
           data-modal-toggle="popup-modal" 
           type="button"
           onClick= {()=>{setshowModal(true)}}
-          className=' bg-red-600  hover:bg-red-900 w-full mt-3 rounded-lg p-1 text-white font-Machina text-xl  font-bold flex justify-center items-center'
+          className='w-full mt-2 p-2.5 flex-1 text-white bg-sky-600 hover:bg-sky-800 rounded-md outline-none flex gap-2 justify-center items-center text-xl font-Machina font-semibold'
           >
-            <MdExitToApp/>&nbsp;Logout
+           <AiOutlinePoweroff/> Logout
           </button>
         </div>
       </div>
