@@ -31,7 +31,6 @@ const Register = () => {
   const confirmPassword = document.getElementById('confirmPassword');
   const firstName = document.getElementById('firstName');
   const lastName = document.getElementById('lastName');
-  const image = document.getElementById('image');
   const faculty = document.getElementById('faculty')
   const level = document.getElementById('level')
   const department = document.getElementById('department')
@@ -97,10 +96,6 @@ const Register = () => {
     name === 'confirmPassword' && CheckPassword.value.trim() !== confirmPassword.value.trim() ?
 		setErrorFor(confirmPassword, 'Passwords does not match') :
 		setSuccessFor(confirmPassword)
-
-    name === 'image' && value.trim() === '' ? 
-    setErrorFor(image, 'Please Select an Image') :
-    setSuccessFor(image)
   }
   
 
@@ -184,13 +179,7 @@ const checkInputs= ()=> {
 		setErrorFor(confirmPassword, 'Confirm Password') :
     CheckPassword.value.trim() !== confirmPassword.value.trim() ?
 		setErrorFor(confirmPassword, 'Passwords does not match') :
-		setSuccessFor(confirmPassword)
-
-    image.value.trim() === '' ? 
-    setErrorFor(image, 'Please Select an Image') :
-    setSuccessFor(image)
-
-  
+		setSuccessFor(confirmPassword)  
   }
 const isEmail = (email) => {
     // eslint-disable-next-line
