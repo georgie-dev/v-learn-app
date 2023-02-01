@@ -11,10 +11,14 @@ import { useNavigate } from 'react-router-dom'
 import {BsBoxArrowRight} from 'react-icons/bs'
 
 const CourseRegistration = () => {
+  
+    const [semester, setsemester] = useState("FirstSemester");
   const {db, Toast} = useStateContext()
   const select= useSelector(state=> state.user.userDetails)
-
-  const [semester, setsemester] = useState("FirstSemester");
+  console.log(select.level)
+  const dbSemester= semester.split(' ').join('')
+  const level= select.level.split(' ')
+  const department= select.department.split(' ').join('');
   const [coursesReg, setcoursesReg] = useState([])
 
   const [isCheckAll, setIsCheckAll] = useState(false);
@@ -29,10 +33,6 @@ const CourseRegistration = () => {
     setIsCheckAll(false)
     setIsCheck([]);
   }
-  const dbSemester= semester.split(' ').join('')
-  const level= select.Level.split(' ')
-  const department= select.Department.split(' ').join('');
-
 
 
 
@@ -69,7 +69,7 @@ const CourseRegistration = () => {
 
   const totalCreditUnit = isCheck.map((e) => e.courseUnit).reduce((a, b) => a + b, 0);
   const user= select.MatricNumber
-  const userID= user.split('/').join("-")
+  const userID= user
 
 
   const dashboard = async()=>{
@@ -105,7 +105,7 @@ const CourseRegistration = () => {
           className='p-2 w-72 lg:w-auto  rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
-          <option>{select.Faculty}</option>
+          <option>{select.faculty}</option>
         </select>
        </div>
        <div>
@@ -113,7 +113,7 @@ const CourseRegistration = () => {
           className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
-          <option>{select.Department}</option>
+          <option>{select.department}</option>
         </select>
        </div>
        <div>
@@ -121,7 +121,7 @@ const CourseRegistration = () => {
           className='p-2  w-72 lg:w-auto rounded-lg border bg-white border-slate-300 font-Machina disabled:cursor-not-allowed disabled:bg-gray-300'
           disabled
         >
-          <option>{select.Level}</option>
+          <option>{select.level}</option>
         </select>
        </div>
        <div className='w-80'>
@@ -160,7 +160,7 @@ const CourseRegistration = () => {
               </tr>
             </thead>
             <tbody>
-              {coursesReg.map((data)=>(
+              {/* {coursesReg.map((data)=>(
                 <tr key={data.id}>
                       <th className='lg:px-10' scope="row">
                       <input
@@ -179,7 +179,7 @@ const CourseRegistration = () => {
                 </tr>
               ))
                 
-              }
+              } */}
             </tbody>
           </table>
         </div>
