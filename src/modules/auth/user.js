@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Cookies } from 'react-cookie';
-import axios from 'axios'
+import axiosInstance from './axios';
 import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({
@@ -24,13 +24,15 @@ export const ADD_USER = createAsyncThunk('user/ADD_USER', async (userDetails, th
 
 
   try {
-    const user = await axios.post('/students/', userDetails)
+    const user = await axiosInstance.post('/students/', userDetails)
     Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
     });
+    console.log(user)
     return user.data
   } catch (error) {
+    console.log(error)
     Toast.fire({
       icon: 'error',
       title: 'Account Already exists'

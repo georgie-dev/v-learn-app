@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const [input, setInput] = useState({})
   const [passwordShow, setpasswordShow] = useState(false);
-  const {isLoading, isSuccess} = useSelector(state => state.user)
+  const { isLoading, isSuccess } = useSelector(state => state.user)
 
 
   const dispatch = useDispatch()
@@ -31,7 +31,6 @@ const Register = () => {
   const faculty = document.getElementById('faculty')
   const level = document.getElementById('level')
   const department = document.getElementById('department')
-  const Submit = document.getElementById('submit')
 
 
   const showPassword = () => {
@@ -230,14 +229,12 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if(isSuccess){
-      navigate('/sign/courseRegistration')
-    }
-    if(isLoading){
-      Submit.disabled = true
-    }
-  }, [Submit, isLoading, isSuccess, navigate])
-  
+    isSuccess ?
+      navigate('/sign/courseRegistration') :
+      navigate('/sign/register')
+      
+  }, [isSuccess, navigate])
+
 
   return (
     <div className=' bg-slate-100 lg:w-2/3 w-11/12 h-auto border-white mx-auto self-center rounded-xl'>
@@ -441,8 +438,8 @@ const Register = () => {
               <div>
                 <button
                   type='Submit'
-                  id='submit'
                   className='py-2 px-6 border rounded-lg bg-main-dark-bg my-0 text-white font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2 disabled:cursor-not-allowed disabled:bg-gray-400'
+                  disabled={isLoading}
                 >
                   Next
                   <ScaleLoader
