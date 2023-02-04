@@ -1,32 +1,31 @@
 /* eslint-disable eqeqeq */
 import React from 'react'
 import { useStateContext } from '../../../contexts/ContextProvider'
-import { ref, onValue } from 'firebase/database'
-import { useSelector } from 'react-redux'
+import { useSelector,  useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 
 import ScaleLoader from 'react-spinners/ScaleLoader'
 import { useNavigate } from 'react-router-dom'
 
 import { BsBoxArrowRight } from 'react-icons/bs'
+import {REGISTER_COURSE} from '../../auth/user'
+import axiosInstance from '../../auth/axios'
 
 const CourseRegistration = () => {
 
-  const [semester, setsemester] = useState("FirstSemester");
+  const [semester, setsemester] = useState("First Semester");
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
   const [coursesReg, setcoursesReg] = useState([])
 
 
-  const navigate = useNavigate()
-  const { db, Toast } = useStateContext()
+  // const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {Toast } = useStateContext()
   const { faculty, level, department } = useSelector(state => state.user.userDetails)
   const {isLoading} =useSelector(state=> state.user)
 
 
-  const dbSemester = semester.split(' ').join('')
-  const userLevel = level.split(' ')
-  const userDepartment = department.split(' ').join('');
 
 
 
@@ -40,11 +39,20 @@ const CourseRegistration = () => {
 
 
   useEffect(() => {
-    const coursesAPI = ref(db, `courses/${faculty}/${userDepartment}/${userLevel[0]}/${dbSemester}`)
-    onValue(coursesAPI, (snapshot) => {
-      const courses = snapshot.val()
-      setcoursesReg(courses)
-    })
+    const fetchcourses =async()=>{
+      try{
+        const courses= await axiosInstance.get(`/api/courses/?level=${level}&department=${department}&semester=${semester}`)
+        setcoursesReg(courses.data.results)
+      }
+      catch(error){
+        Toast.fire({
+          icon: 'error',
+          title: error
+        });
+      }
+    }
+    
+    fetchcourses()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [semester])
 
@@ -73,7 +81,7 @@ const CourseRegistration = () => {
   const totalCreditUnit = isCheck.map((e) => e.courseUnit).reduce((a, b) => a + b, 0);
 
 
-  const dashboard = async () => {
+  const courseRegister = async () => {
     if (totalCreditUnit === 0) {
       await Toast.fire({
         icon: 'error',
@@ -85,12 +93,9 @@ const CourseRegistration = () => {
         title: 'You cannot register above 24 Credit Units'
       })
     } else {
-      // setloading(true)
-      await Toast.fire({
-        icon: 'success',
-        title: 'Success'
+      coursesReg.map((item)=>{
+        dispatch(REGISTER_COURSE(item))
       })
-      navigate('/dashboard')
     }
   }
 
@@ -150,11 +155,10 @@ const CourseRegistration = () => {
                     checked={isCheckAll}
                   />
                 </th>
-                <th className='lg:px-10' scope="col">S/N</th>
-                <th className='lg:px-10' scope="col">Course Code</th>
-                <th className='lg:px-10' scope="col">Course Title</th>
-                <th className='lg:px-10' scope="col">Status</th>
-                <th className='lg:px-10' scope="col">Credit Unit</th>
+                <th className='lg:px-5 text-center' scope="col">Course Code</th>
+                <th className='lg:px-5 text-center' scope="col">Course Title</th>
+                <th className='lg:px-5 text-center' scope="col">Status</th>
+                <th className='lg:px-5 text-center' scope="col">Credit Unit</th>
               </tr>
             </thead>
             <tbody>
@@ -169,11 +173,10 @@ const CourseRegistration = () => {
                       checked={isCheck.includes(data)}
                     />
                   </th>
-                  <td className='lg:px-10 px-3 py-2'>{data.id}</td>
-                  <td className='lg:px-10 px-3 py-2'>{data.courseCode}</td>
-                  <td className='lg:px-10 px-3 py-2'>{data.courseTitle}</td>
-                  <td className='lg:px-10 px-3 py-2'>{data.courseStatus}</td>
-                  <td className='lg:px-10 px-3 py-2'>{data.courseUnit}</td>
+                  <td className='lg:px-10 px-1 text-center py-2'>{data.courseCode}</td>
+                  <td className='lg:px-10 px-1 text-center py-2'>{data.courseTitle}</td>
+                  <td className='lg:px-10 px-1 text-center py-2'>{data.courseStatus}</td>
+                  <td className='lg:px-10 px-1 text-center py-2'>{data.courseUnit}</td>
                 </tr>
               ))
 
@@ -188,7 +191,7 @@ const CourseRegistration = () => {
 
           <button
             type='button'
-            onClick={dashboard}
+            onClick={courseRegister}
             className='py-2 text-xs lg:text-sm px-6 border rounded-lg bg-main-dark-bg my-0 text-white font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2 disabled:cursor-not-allowed disabled:bg-gray-400'
           >
             Proceed to Dashboard {!isLoading? <BsBoxArrowRight /> :

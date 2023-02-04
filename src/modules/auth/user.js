@@ -24,22 +24,37 @@ export const ADD_USER = createAsyncThunk('user/ADD_USER', async (userDetails, th
 
 
   try {
-    const user = await axiosInstance.post('/students/', userDetails)
+    const user = await axiosInstance.post('/api/students/', userDetails)
     Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
     });
-    console.log(user)
     return user.data
   } catch (error) {
-    console.log(error)
     Toast.fire({
       icon: 'error',
-      title: 'Account Already exists'
+      title: 'error'
     });
     return thunkAPI.rejectWithValue(error)
   }
 
+})
+
+export const REGISTER_COURSE =createAsyncThunk('user/REGISTER_COURSE', async(userCourses, thunkAPI)=>{
+  try {
+    const courses = await axiosInstance.post('/api/courses/', userCourses)
+    Toast.fire({
+      icon: 'success',
+      title: 'Registration Successful'
+    });
+    return courses.data
+  } catch (error) {
+    Toast.fire({
+      icon: 'error',
+      title: error
+    });
+    return thunkAPI.rejectWithValue(error)
+  }
 })
 
 export const userSlice = createSlice({
@@ -48,7 +63,8 @@ export const userSlice = createSlice({
     isAuthenticated: false,
     userDetails: user || {},
     isLoading: false,
-    isSuccess: false
+    isSuccess: false,
+    courses: {}
   },
   reducers: {
     reset: (state) => {
@@ -79,6 +95,19 @@ export const userSlice = createSlice({
         state.isAuthenticated = false
         state.userDetails = {}
         state.isSuccess = false
+      })
+
+      .addCase(REGISTER_COURSE.pending, (state)=>{
+        state.isLoading = true
+      })
+
+      .addCase(REGISTER_COURSE.fulfilled, (state, action)=>{
+        state.isLoading= false
+        state.courses = action.payload
+      })
+      .addCase(REGISTER_COURSE.rejected, (state)=>{
+        state.isLoading = false
+        state.courses={}
       })
   }
 })
