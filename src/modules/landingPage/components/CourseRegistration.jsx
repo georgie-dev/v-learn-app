@@ -22,7 +22,7 @@ const CourseRegistration = () => {
   // const navigate = useNavigate()
   const dispatch = useDispatch()
   const {Toast } = useStateContext()
-  const { faculty, level, department } = useSelector(state => state.user.userDetails)
+  const { faculty, level, department, id } = useSelector(state => state.user.userDetails)
   const {isLoading} =useSelector(state=> state.user)
 
 
@@ -59,7 +59,7 @@ const CourseRegistration = () => {
 
   const handleSelectAll = e => {
     setIsCheckAll(!isCheckAll);
-    setIsCheck(coursesReg.map(value => value))
+    setIsCheck(coursesReg.map(value => value.id))
     if (isCheckAll) {
       setIsCheck([]);
     }
@@ -70,11 +70,11 @@ const CourseRegistration = () => {
     // eslint-disable-next-line array-callback-return
     coursesReg.filter((item) => {
       if (item.id == id) {
-        setIsCheck([...isCheck, item])
+        setIsCheck([...isCheck, item.id])
       }
     });
     if (!checked) {
-      setIsCheck(isCheck.filter(item => item.id != id));
+      setIsCheck(isCheck.filter(item => item != id));
     }
   };
 
@@ -93,9 +93,8 @@ const CourseRegistration = () => {
         title: 'You cannot register above 24 Credit Units'
       })
     } else {
-      coursesReg.map((item)=>{
-        dispatch(REGISTER_COURSE(item))
-      })
+        dispatch(REGISTER_COURSE(isCheck))
+        console.log(isCheck)
     }
   }
 
@@ -170,7 +169,7 @@ const CourseRegistration = () => {
                       type="checkbox"
                       id={data.id}
                       onChange={onChange}
-                      checked={isCheck.includes(data)}
+                      checked={isCheck.includes(data.id)}
                     />
                   </th>
                   <td className='lg:px-10 px-1 text-center py-2'>{data.courseCode}</td>

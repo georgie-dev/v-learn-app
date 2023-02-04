@@ -40,9 +40,11 @@ export const ADD_USER = createAsyncThunk('user/ADD_USER', async (userDetails, th
 
 })
 
-export const REGISTER_COURSE =createAsyncThunk('user/REGISTER_COURSE', async(userCourses, thunkAPI)=>{
+export const REGISTER_COURSE =createAsyncThunk('user/REGISTER_COURSE', async(id, userCourses, thunkAPI)=>{
+  console.log(id, 'ID')
+  console.log(userCourses, '')
   try {
-    const courses = await axiosInstance.post('/api/courses/', userCourses)
+    const courses = await axiosInstance.patch(`/api/students/${id}/`, `"courses":${userCourses}}`)
     Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
