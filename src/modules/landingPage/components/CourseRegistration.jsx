@@ -1,37 +1,48 @@
 /* eslint-disable eqeqeq */
 import React from 'react'
-import { useStateContext } from '../../../contexts/ContextProvider'
 import { useSelector,  useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 
 import ScaleLoader from 'react-spinners/ScaleLoader'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 import { BsBoxArrowRight } from 'react-icons/bs'
 import {REGISTER_COURSE} from '../../auth/user'
 import axiosInstance from '../../auth/axios'
+import Swal from "sweetalert2";
 
 const CourseRegistration = () => {
 
-  const [semester, setsemester] = useState("First Semester");
+  const [semester, setSemester] = useState("First Semester");
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
-  const [coursesReg, setcoursesReg] = useState([])
+  const [coursesReg, setCoursesReg] = useState([])
+  const [totalUnit, setTotalUnit] = useState(0)
 
 
   // const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {Toast } = useStateContext()
-  const { faculty, level, department, id } = useSelector(state => state.user.userDetails)
+  const { faculty, level, department} = useSelector(state => state.user.userDetails)
   const {isLoading} =useSelector(state=> state.user)
 
 
-
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "bottom-start",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+  
 
 
   const handleSemesterSelect = (e) => {
     const semester = e.target.value;
-    setsemester(semester);
+    setSemester(semester);
     setIsCheckAll(false)
     setIsCheck([]);
   }
@@ -39,10 +50,10 @@ const CourseRegistration = () => {
 
 
   useEffect(() => {
-    const fetchcourses =async()=>{
+    const fetchCourses =async()=>{
       try{
         const courses= await axiosInstance.get(`/api/courses/?level=${level}&department=${department}&semester=${semester}`)
-        setcoursesReg(courses.data.results)
+        setCoursesReg(courses.data.results)
       }
       catch(error){
         Toast.fire({
@@ -52,7 +63,7 @@ const CourseRegistration = () => {
       }
     }
     
-    fetchcourses()
+    fetchCourses()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [semester])
 
@@ -60,41 +71,54 @@ const CourseRegistration = () => {
   const handleSelectAll = e => {
     setIsCheckAll(!isCheckAll);
     setIsCheck(coursesReg.map(value => value.id))
+    const totalUnit =coursesReg.map(value=>value.courseUnit)
+    setTotalUnit(totalUnit.reduce((a,b)=>a + b, 0))
     if (isCheckAll) {
       setIsCheck([]);
+      setTotalUnit(0);
     }
   };
 
   const onChange = e => {
-    const { id, checked } = e.target;
+    const { id, checked, value } = e.target;
     // eslint-disable-next-line array-callback-return
     coursesReg.filter((item) => {
       if (item.id == id) {
         setIsCheck([...isCheck, item.id])
+        setTotalUnit(totalUnit + item.courseUnit )
       }
     });
     if (!checked) {
       setIsCheck(isCheck.filter(item => item != id));
+      setTotalUnit(totalUnit - value)
     }
+
   };
 
-  const totalCreditUnit = isCheck.map((e) => e.courseUnit).reduce((a, b) => a + b, 0);
+  useEffect(() => {
+    if(isCheck.length === coursesReg.length && isCheck.length !== 0){
+      setIsCheckAll(true)
+    }else{
+      setIsCheckAll(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCheck])
+  
 
 
   const courseRegister = async () => {
-    if (totalCreditUnit === 0) {
+    if (totalUnit === 0) {
       await Toast.fire({
         icon: 'error',
         title: 'You must Register a minimum of one Course'
       })
-    } else if (totalCreditUnit > 24) {
+    } else if (totalUnit > 24) {
       await Toast.fire({
         icon: 'error',
         title: 'You cannot register above 24 Credit Units'
       })
     } else {
         dispatch(REGISTER_COURSE(isCheck))
-        console.log(isCheck)
     }
   }
 
@@ -168,6 +192,7 @@ const CourseRegistration = () => {
                       key={data.id}
                       type="checkbox"
                       id={data.id}
+                      value={data.courseUnit}
                       onChange={onChange}
                       checked={isCheck.includes(data.id)}
                     />
@@ -186,7 +211,9 @@ const CourseRegistration = () => {
         <div className='flex justify-between my-2'>
           <p
             className='py-2 px-6 text-xs lg:text-sm border rounded-lg bg-gray-500 my-0 text-slate-800 font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2'
-          >Total Credit Unit: {totalCreditUnit}</p>
+          >
+            Total Credit Unit: {totalUnit}
+          </p>
 
           <button
             type='button'

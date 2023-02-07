@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Cookies } from 'react-cookie';
 import axiosInstance from './axios';
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -22,7 +23,6 @@ const user = cookie.get('user')
 
 export const ADD_USER = createAsyncThunk('user/ADD_USER', async (userDetails, thunkAPI) => {
 
-
   try {
     const user = await axiosInstance.post('/api/students/', userDetails)
     Toast.fire({
@@ -40,11 +40,9 @@ export const ADD_USER = createAsyncThunk('user/ADD_USER', async (userDetails, th
 
 })
 
-export const REGISTER_COURSE =createAsyncThunk('user/REGISTER_COURSE', async(id, userCourses, thunkAPI)=>{
-  console.log(id, 'ID')
-  console.log(userCourses, '')
+export const REGISTER_COURSE =createAsyncThunk('user/REGISTER_COURSE', async(userCourses, thunkAPI)=>{
   try {
-    const courses = await axiosInstance.patch(`/api/students/${id}/`, `"courses":${userCourses}}`)
+    const courses = await axiosInstance.patch(`/api/students/${user.id}/`, {courses: userCourses})
     Toast.fire({
       icon: 'success',
       title: 'Registration Successful'
