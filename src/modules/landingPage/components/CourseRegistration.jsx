@@ -4,7 +4,7 @@ import { useSelector,  useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 
 import ScaleLoader from 'react-spinners/ScaleLoader'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { BsBoxArrowRight } from 'react-icons/bs'
 import {REGISTER_COURSE} from '../../auth/user'
@@ -19,11 +19,10 @@ const CourseRegistration = () => {
   const [coursesReg, setCoursesReg] = useState([])
   const [totalUnit, setTotalUnit] = useState(0)
 
-
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { faculty, level, department} = useSelector(state => state.user.userDetails)
-  const {isLoading} =useSelector(state=> state.user)
+  const {isLoading, isCourseRegister, userDetails} =useSelector(state=> state.user)
 
 
   const Toast = Swal.mixin({
@@ -101,8 +100,11 @@ const CourseRegistration = () => {
     }else{
       setIsCheckAll(false)
     }
+    if(isCourseRegister){
+      navigate('/sign/')
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCheck])
+  }, [isCheck, isCourseRegister])
   
 
 
@@ -118,7 +120,7 @@ const CourseRegistration = () => {
         title: 'You cannot register above 24 Credit Units'
       })
     } else {
-        dispatch(REGISTER_COURSE(isCheck))
+        dispatch(REGISTER_COURSE(isCheck, userDetails.id))
     }
   }
 

@@ -12,13 +12,20 @@ import Sign from './modules/landingPage/pages/Sign'
 import './App.css';
 
 const ProtectedRoute = ({ redirectPath = '/sign' }) => {
-  const selector = useSelector(state => state.user.isAuthenticated)
-  if (!selector) {
+  const {isAuthenticated} = useSelector(state => state.user)
+  if (!isAuthenticated) {
     return <Navigate to={redirectPath} />
   }
   return <Dashboard />
 }
 
+const RequireReg =({redirectPath = '/sign/register'}) => {
+  const {isSuccess} = useSelector(state => state.user)
+  if (!isSuccess) {
+    return <Navigate to={redirectPath} />
+  }
+  return <CourseRegistration/>
+}
 
 function App() {
   return (
@@ -30,7 +37,7 @@ function App() {
         <Route path='/sign' element={<Sign />}>
           <Route index element={<Login />} />
           <Route path='register' element={<Register />} />
-          <Route path='CourseRegistration' element={<CourseRegistration />} />
+          <Route path='CourseRegistration' element={<RequireReg />} />
         </Route>
         <Route path='/dashboard' element={<ProtectedRoute />}>
           {/* OverView */}
