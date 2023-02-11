@@ -23,7 +23,7 @@ const Icon=({ color, bgColor, icon})=>{
 }
 
 const UserProfile = () => {
-  const select = useSelector(state=> state.user.userDetails)
+  const {firstname, email, department, lastname} = useSelector(state=> state.user.userDetails)
   const {handleClose}= useStateContext()
   const dispatch = useDispatch()
 
@@ -49,9 +49,9 @@ const UserProfile = () => {
             <img src={George} alt='User Profile' className=' rounded-full w-20 h-20' />
 
           <div className='flex flex-col'>
-            <p className='font-extrabold font-display'>{`${select.Username} ${select.LastName}`}</p>
-            <p className=' font-semibold'>{select.Department}</p>
-            <p className='font-extralight font-1 text-xs'>{select.EmailAddress}</p>
+            <p className='font-extrabold font-display capitalize'>{`${firstname} ${lastname}`}</p>
+            <p className=' font-semibold'>{department}</p>
+            <p className='font-extralight font-1 text-xs'>{email}</p>
 
           </div>
 

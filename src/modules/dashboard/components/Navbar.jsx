@@ -37,7 +37,7 @@ const Navbar = () => {
   const theme = document.body.classList
   const [dark, setdark] = useState(theme.value)
 
-  const select = useSelector(state=> state.user.userDetails)
+  const {firstname} = useSelector(state=> state.user.userDetails)
 
   useEffect(() => {
     
@@ -134,7 +134,7 @@ const Navbar = () => {
 
         <p>
         <span className='text-14 text-light-gray dark:text-slate-400'>Hi,</span> {''}
-        <span className='text-14 text-light-gray font-bold dark:text-slate-400' style={{fontFamily: "Machina"}}>{select.Username}</span>
+        <span className='text-14 text-light-gray font-bold dark:text-slate-400' style={{fontFamily: "Machina"}}>{firstname}</span>
         </p>
         <MdKeyboardArrowDown className='text-14 text-light-gray dark:text-slate-400' />
        </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading } = useSelector(state => state.user)
+  const { isLoading, isAuthenticated } = useSelector(state => state.user)
 
 
   setTimeout(()=>{
@@ -42,12 +42,22 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     formReset();
-    dispatch(LOGIN(input.matricNo))
+    // const data = JSON.stringify(input)
+    // console.log(data)
+    dispatch(LOGIN(input))
   }
 
   const showPassword = () => {
     setpassword(!password)
   }
+
+  useEffect(() => {
+    if(isAuthenticated){
+      navigate('/dashboard')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated])
+  
 
   return (
     <div className=' lg:bg-white bg-slate-100 lg:w-1/2 w-80 h-2/3 self-center mx-auto rounded-xl lg:flex block lg:mt-10 mt-4'>
@@ -63,8 +73,8 @@ const Login = () => {
           <div className='flex flex-col mt-6'>
             <input
               type='text'
-              name='matricNo'
-              value={input.matricNo || ""}
+              name='username'
+              value={input.username || ""}
               onChange={handleChange}
               className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina'
               placeholder='Matric No'
@@ -101,7 +111,7 @@ const Login = () => {
           <div className='mt-10'>
             <button
               type='Submit'
-              className='py-2 px-6 border rounded-lg items-center gap-3 bg-main-dark-bg my-0 w-full text-white font-bold font-Machina cursor-pointer hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-gray-400'
+              className='py-2 px-6 border rounded-lg gap-3 flex justify-center bg-main-dark-bg my-0 w-full text-white font-bold font-Machina cursor-pointer hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-gray-400 items-center'
               disabled={isLoading}
             >
              Login

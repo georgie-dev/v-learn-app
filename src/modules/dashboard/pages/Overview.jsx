@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const Overview = () => {
 
-  const select = useSelector(state=> state.user.userDetails)
+  const {firstname, matric_no} = useSelector(state=> state.user.userDetails)
 
 
   const boxes = [
@@ -56,8 +56,8 @@ const Overview = () => {
         h-44 bg-hero-pattern bg-no-repeat bg-left-top lg:bg-left-top'>
           <div className='flex flex-col'>
             <span className=' text-md text-zinc-600 dark:text-gray-100'>Welcome</span> {''}
-            <span className=' text-4xl mt-4 lg:text-2xl text-zinc-600 dark:text-gray-100 font-bold font-display'>{select.Username}</span>
-            <span className=' text-md text-zinc-600 dark:text-gray-100'>{select.MatricNumber}</span>
+            <span className=' text-4xl mt-4 lg:text-2xl text-zinc-600 dark:text-gray-100 font-bold font-display'>{firstname}</span>
+            <span className=' text-md text-zinc-600 dark:text-gray-100'>{matric_no}</span>
           </div>
         </div>
         <div className=' flex flex-wrap justify-center gap-1 items-center font-rokkitt'>
