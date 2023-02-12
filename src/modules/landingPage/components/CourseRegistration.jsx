@@ -22,7 +22,7 @@ const CourseRegistration = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { faculty, level, department} = useSelector(state => state.user.userDetails)
-  const {isLoading, isCourseRegister, userDetails} =useSelector(state=> state.user)
+  const {isLoading, isCourseRegister} =useSelector(state=> state.user)
 
 
   const Toast = Swal.mixin({
@@ -37,6 +37,7 @@ const CourseRegistration = () => {
     },
   });
   
+
 
 
   const handleSemesterSelect = (e) => {
@@ -120,7 +121,7 @@ const CourseRegistration = () => {
         title: 'You cannot register above 24 Credit Units'
       })
     } else {
-        dispatch(REGISTER_COURSE(isCheck, userDetails.id))
+        dispatch(REGISTER_COURSE(isCheck))
     }
   }
 

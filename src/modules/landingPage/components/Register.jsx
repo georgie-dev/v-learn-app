@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { ADD_USER } from '../../auth/user'
 import { useNavigate } from 'react-router-dom';
+// import axios from 'axios'
 
 const Register = () => {
   const [input, setInput] = useState({})
@@ -20,6 +21,8 @@ const Register = () => {
   const [departments, setDepartments] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [dropdown, setDropdown] = useState({});
+  // const [image, setImage]= useState('')
+  // const [imageUrl, setimageUrl] = useState('')
   const errors = [];
 
   const email = document.getElementById('email');
@@ -31,6 +34,7 @@ const Register = () => {
   const faculty = document.getElementById('faculty')
   const level = document.getElementById('level')
   const department = document.getElementById('department')
+
 
 
   const showPassword = () => {
@@ -121,6 +125,10 @@ const Register = () => {
     setDropdown(values => ({ ...values, [name]: value }));
   }
 
+// const handleImageSelect = (e) =>{
+//   const file= e.target.files[0]
+//   setImage(file)
+// }
 
 
   const checkInputs = () => {
@@ -201,16 +209,37 @@ const Register = () => {
     errors.pop();
   }
 
-  const handleSubmit = (event) => {
+  
+  // const uploadImage = async() =>{
+  //   const data= new FormData()
+  //   data.append('file', image)
+  //   data.append('upload_preset', "user-photo")
+  //   data.append('cloud_name', 'defldjtw2')
+    
+  // await axios.post('https://api.cloudinary.com/v1_1/defldjtw2/image/upload', data)
+  //   .then(data=> {
+  //     useEffect(() => {
+  //   setimageUrl(data.data.url)
+  // },[data])
+  
+  //     writeUserData(input, selectedFaculty, dropdown, imageUrl)
+  //   })
+  //   .catch(err =>{
+  //     console.log(err)
+  //     writeUserData(input, selectedFaculty, dropdown)
+  //   })
+  // }
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
     checkInputs();
-    formReset()
-    if (errors.length === 0) {
-      writeUserData(input, selectedFaculty, dropdown)
-    }
+  //  uploadImage()
+  //  console.log(imageUrl)
+  if( errors.length <= 0){
+    writeUserData(input, selectedFaculty, dropdown)
   }
-  console.log()
-
+   formReset()
+  }
 
   const formReset = () => {
     setInput({})
@@ -414,9 +443,8 @@ const Register = () => {
             <div className='flex flex-col mt-6 lg:w-full w-80'>
               <input
                 type='file'
-                name='image'
+                name='imageUrl'
                 id='image'
-                value={input.image || ""}
                 accept='image/*'
                 onChange={handleChange}
                 className='block w-full text-sm text-slate-500

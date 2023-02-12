@@ -43,8 +43,10 @@ export const ADD_USER = createAsyncThunk(
 export const REGISTER_COURSE = createAsyncThunk(
   "user/REGISTER_COURSE",
   async (userCourses, thunkAPI) => {
+    const {getState}= thunkAPI
+    const state= getState()
     try {
-      const courses = await axiosInstance.patch(`/api/users/${user.id}/`, {
+      const courses = await axiosInstance.patch(`/api/users/${state.user.userDetails.id}/`, {
         courses: userCourses,
       });
       Toast.fire({
@@ -102,20 +104,17 @@ export const userSlice = createSlice({
 
       .addCase(ADD_USER.pending, (state) => {
         state.isLoading = true;
-        state.isAuthenticated = false;
         state.isSuccess = false;
       })
 
       .addCase(ADD_USER.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userDetails = action.payload;
-        state.isAuthenticated = true;
         state.isSuccess = true;
       })
 
       .addCase(ADD_USER.rejected, (state) => {
         state.isLoading = false;
-        state.isAuthenticated = false;
         state.userDetails = {};
         state.isSuccess = false;
       })
@@ -125,7 +124,7 @@ export const userSlice = createSlice({
         state.isCourseRegister = false;
       })
 
-      .addCase(REGISTER_COURSE.fulfilled, (state, action) => {
+      .addCase(REGISTER_COURSE.fulfilled, (state) => {
         state.isLoading = false;
         state.isCourseRegister = true;
       })
@@ -152,7 +151,8 @@ export const userSlice = createSlice({
           level,
           department,
           is_staff,
-          lastname
+          lastname,
+          imageUrl
         } = action.payload;
 
         if (token) {
@@ -166,6 +166,7 @@ export const userSlice = createSlice({
             department,
             is_staff,
             lastname,
+            imageUrl
           };
           Toast.fire({
             icon: "success",

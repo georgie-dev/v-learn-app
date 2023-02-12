@@ -37,7 +37,7 @@ const Navbar = () => {
   const theme = document.body.classList
   const [dark, setdark] = useState(theme.value)
 
-  const {firstname} = useSelector(state=> state.user.userDetails)
+  const {firstname, imageUrl} = useSelector(state=> state.user.userDetails)
 
   useEffect(() => {
     
@@ -130,7 +130,7 @@ const Navbar = () => {
        onClick={()=>{handleClick("userProfile")}}
        >
 
-        <img src={George} alt='Profile' className='rounded-full w-8 h-8'/>
+        <img src={imageUrl} alt='Profile' className='rounded-full w-8 h-8'/>
 
         <p>
         <span className='text-14 text-light-gray dark:text-slate-400'>Hi,</span> {''}
