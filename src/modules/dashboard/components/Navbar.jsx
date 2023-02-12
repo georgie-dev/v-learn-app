@@ -9,8 +9,6 @@ import {RiNotification3Line} from 'react-icons/ri'
 import { MdKeyboardArrowDown, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { useStateContext } from '../../../contexts/ContextProvider'
 import {Chat, Notification, UserProfile} from './'
-
-import George from '../img/George.jpg'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -130,7 +128,7 @@ const Navbar = () => {
        onClick={()=>{handleClick("userProfile")}}
        >
 
-        <img src={imageUrl} alt='Profile' className='rounded-full w-8 h-8'/>
+        <img src={imageUrl === null? 'http://cdn.onlinewebfonts.com/svg/img_110805.png': imageUrl} alt='Profile' className='rounded-full w-8 h-8'/>
 
         <p>
         <span className='text-14 text-light-gray dark:text-slate-400'>Hi,</span> {''}

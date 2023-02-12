@@ -33,7 +33,7 @@ export const ADD_USER = createAsyncThunk(
     } catch (error) {
       Toast.fire({
         icon: "error",
-        title: "error",
+        title: error,
       });
       return thunkAPI.rejectWithValue(error);
     }
@@ -51,7 +51,8 @@ export const REGISTER_COURSE = createAsyncThunk(
       });
       Toast.fire({
         icon: "success",
-        title: "Registration Successful",
+        title: "Course Registration Successful",
+        text : 'Please Login'
       });
       return courses.data;
     } catch (error) {
@@ -152,7 +153,8 @@ export const userSlice = createSlice({
           department,
           is_staff,
           lastname,
-          imageUrl
+          imageUrl,
+          // courses
         } = action.payload;
 
         if (token) {
@@ -166,7 +168,8 @@ export const userSlice = createSlice({
             department,
             is_staff,
             lastname,
-            imageUrl
+            imageUrl,
+            // courses
           };
           Toast.fire({
             icon: "success",

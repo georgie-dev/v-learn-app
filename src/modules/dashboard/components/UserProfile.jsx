@@ -1,5 +1,4 @@
 import React from 'react'
-import George from '../img/George.jpg'
 import { MdOutlineCancel, } from 'react-icons/md'
 import {FaRegUserCircle} from 'react-icons/fa'
 import {AiOutlinePoweroff, AiOutlineSetting, AiOutlineWarning} from 'react-icons/ai'
@@ -23,7 +22,7 @@ const Icon=({ color, bgColor, icon})=>{
 }
 
 const UserProfile = () => {
-  const {firstname, email, department, lastname} = useSelector(state=> state.user.userDetails)
+  const {firstname, email, department, lastname, imageUrl} = useSelector(state=> state.user.userDetails)
   const {handleClose}= useStateContext()
   const dispatch = useDispatch()
 
@@ -46,7 +45,7 @@ const UserProfile = () => {
         
         <div className=' flex gap-3 items-center rounded-lg hover:bg-slate-100 p-3 dark:hover:bg-slate-500'>
 
-            <img src={George} alt='User Profile' className=' rounded-full w-20 h-20' />
+            <img src={imageUrl === null? 'http://cdn.onlinewebfonts.com/svg/img_110805.png': imageUrl} alt='User Profile' className=' rounded-full w-20 h-20' />
 
           <div className='flex flex-col'>
             <p className='font-extrabold font-display capitalize'>{`${firstname} ${lastname}`}</p>

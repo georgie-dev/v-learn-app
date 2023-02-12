@@ -19,9 +19,7 @@ const Login = () => {
   const { isLoading, isAuthenticated } = useSelector(state => state.user)
 
 
-  setTimeout(()=>{
-    dispatch(reset())
-  }, 1000)
+
 
   const [password, setpassword] = useState(false);
   const [input, setInput] = useState({});
@@ -55,6 +53,7 @@ const Login = () => {
     if(isAuthenticated){
       navigate('/dashboard')
     }
+    dispatch(reset())
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
   
