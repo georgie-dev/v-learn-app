@@ -1,5 +1,4 @@
 import React, { useContext, createContext, useState } from "react";
-import db from "../modules/auth/database";
 
 const StateContext = createContext();
 
@@ -40,7 +39,6 @@ export const ContextProvider = ({ children }) => {
                 screenSize,
                 setscreenSize,
                 handleClose,
-                db,
             }}
         >
             {children}

@@ -5,7 +5,7 @@ import {AiOutlinePoweroff, AiOutlineSetting, AiOutlineWarning} from 'react-icons
 import { useStateContext } from '../../../contexts/ContextProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { logout } from '../../auth/user'
+import { logout } from '../../../store/user'
 
 
 

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Cookies } from "react-cookie";
-import axiosInstance from "./axios";
-import Toast from "./Toast";
+import axiosInstance from "../modules/auth/axios";
+import Toast from "../modules/auth/Toast";
 
 
 

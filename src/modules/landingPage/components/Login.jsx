@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import { reset } from '../../auth/user';
-import { LOGIN } from '../../auth/user';
+import { reset } from '../../../store/user';
+import { LOGIN } from '../../../store/user';
 
 
 

@@ -5,7 +5,7 @@ import ScaleLoader from 'react-spinners/ScaleLoader'
 
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { ADD_USER } from '../../auth/user'
+import { ADD_USER } from '../../../store/user'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Toast from '../../auth/Toast';

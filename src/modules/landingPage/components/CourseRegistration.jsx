@@ -7,7 +7,7 @@ import ScaleLoader from 'react-spinners/ScaleLoader'
 import { useNavigate } from 'react-router-dom'
 
 import { BsBoxArrowRight } from 'react-icons/bs'
-import {REGISTER_COURSE} from '../../auth/user'
+import {REGISTER_COURSE} from '../../../store/user'
 import axiosInstance from '../../auth/axios'
 import Toast from '../../auth/Toast'
 
