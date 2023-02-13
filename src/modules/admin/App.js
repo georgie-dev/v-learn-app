@@ -2,13 +2,10 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 import {Navbar, Footer, Sidebar} from '../../components'
-// import {Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable} from './pages'
 
 
 import { useStateContext } from '../../contexts/ContextProvider'
-import { StudentSidebar } from '../../data/data'
-
-// import './App.css';
+import { AdminSidebar } from '../../data/data'
 
 
 const App = () => {
@@ -18,10 +15,10 @@ const App = () => {
         <div className="flex relative dark:bg-main-dark-bg">
             {activeMenu ? 
         (<div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white z-50">
-            <Sidebar data={StudentSidebar}/>
+            <Sidebar data={AdminSidebar}/>
         </div>) :
         (<div className="w-0 dark:bg-secondary-dark-bg">
-          <Sidebar data={StudentSidebar}/>
+            <Sidebar data={AdminSidebar}/>
         </div>)   
         }
         <div  className={

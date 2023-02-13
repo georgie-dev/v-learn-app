@@ -2,7 +2,7 @@ import React from 'react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { Eventcalendar, getJson, toast, localeEnGB } from '@mobiscroll/react';
 import { useState, useCallback, useEffect, useMemo } from 'react';
-import { Header } from '../components';
+import { Header } from '../../../components'
 import ClockLoader from 'react-spinners/ClockLoader'
 
 function Timetable() {

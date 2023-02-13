@@ -2,10 +2,10 @@ import React from 'react'
 import { MdOutlineCancel, } from 'react-icons/md'
 import {FaRegUserCircle} from 'react-icons/fa'
 import {AiOutlinePoweroff, AiOutlineSetting, AiOutlineWarning} from 'react-icons/ai'
-import { useStateContext } from '../../../contexts/ContextProvider'
+import { useStateContext } from '../contexts/ContextProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { logout } from '../../../store/user'
+import { logout } from '../store/user'
 
 
 

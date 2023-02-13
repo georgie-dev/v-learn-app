@@ -1,5 +1,6 @@
 import React from 'react'
-import { Header, AttendanceChart } from '../components'
+import { AttendanceChart } from '../components'
+import { Header } from '../../../components'
 
 const Attendance = () => {
   return (

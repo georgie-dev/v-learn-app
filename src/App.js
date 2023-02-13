@@ -2,8 +2,10 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import { Header, Login, Register, CourseRegistration, NotFound } from './modules/landingPage/components';
 import Home from './modules/landingPage/pages/Home'
+import AdminLogin from './modules/admin/pages/AdminLogin';
 
 import Dashboard from './modules/dashboard/App'
+import AdminDashboard from './modules/admin/App'
 import { Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable } from './modules/dashboard/pages'
 
 import { useSelector } from 'react-redux';
@@ -36,6 +38,7 @@ function App() {
         </Route>
         <Route path='/sign' element={<Sign />}>
           <Route index element={<Login />} />
+          <Route path='admin' element={<AdminLogin/>}/>
           <Route path='register' element={<Register />} />
           <Route path='CourseRegistration' element={<RequireReg />} />
         </Route>
@@ -46,14 +49,18 @@ function App() {
 
           <Route path="assignments" element={<Assignments />} />
           <Route path="classes" element={<Classes />} />
-          <Route path="courseMaterials" element={<CourseMaterials />} />
+          <Route path="course-materials" element={<CourseMaterials />} />
           <Route path="tests" element={<Tests />} />
 
           {/* Apps */}
           <Route path="attendance" element={<Attendance />} />
           <Route path="timetable" element={<Timetable />} />
         </Route>
-        <Route path='*' element={<NotFound />} />
+
+        <Route path='/admin' element={<AdminDashboard/>}>
+
+        </Route>
+        <Route path='*' element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
   );
