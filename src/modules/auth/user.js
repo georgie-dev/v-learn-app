@@ -154,7 +154,7 @@ export const userSlice = createSlice({
           is_staff,
           lastname,
           imageUrl,
-          // courses
+          courses
         } = action.payload;
 
         if (token) {
@@ -169,7 +169,7 @@ export const userSlice = createSlice({
             is_staff,
             lastname,
             imageUrl,
-            // courses
+            courses
           };
           Toast.fire({
             icon: "success",

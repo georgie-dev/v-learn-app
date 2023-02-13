@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 
 const CourseMaterials = () => {
-  const select = useSelector(state=> state.user.userDetails.courses)
+  const {courses} = useSelector(state=> state.user.userDetails)
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg">
       <Header category='Pages' title="Course Materials" />
 <div className=' w-full mt-12 p-2 h-auto flex flex-wrap gap-3 items-center justify-center'>
 
-   {select.map((items)=>(
+   {courses.map((items)=>(
       <div key={items.id} className=' text-gray-200 w-80 md:w-56 lg:w-80 mt-4 h-48 rounded-2xl p-4 pt-9 drop-shadow-2xl bg-white shadow-sm dark:bg-main-dark-bg relative'>
         <div key={items.id} className=' bg-cm opacity-20 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full'></div>
         <div className='flex flex-col gap-3 text-black dark:text-gray-200 px-4 items-center justify-center '>
