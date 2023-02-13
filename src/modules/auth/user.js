@@ -1,19 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Cookies } from "react-cookie";
 import axiosInstance from "./axios";
-import Swal from "sweetalert2";
+import Toast from "./Toast";
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: "bottom-start",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
-  },
-});
+
 
 const cookie = new Cookies();
 

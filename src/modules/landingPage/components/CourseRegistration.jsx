@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { BsBoxArrowRight } from 'react-icons/bs'
 import {REGISTER_COURSE} from '../../auth/user'
 import axiosInstance from '../../auth/axios'
-import Swal from "sweetalert2";
+import Toast from '../../auth/Toast'
 
 const CourseRegistration = () => {
 
@@ -24,19 +24,6 @@ const CourseRegistration = () => {
   const { faculty, level, department} = useSelector(state => state.user.userDetails)
   const {isLoading, isCourseRegister} =useSelector(state=> state.user)
 
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "bottom-start",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-  
 
 
 
@@ -109,14 +96,14 @@ const CourseRegistration = () => {
   
 
 
-  const courseRegister = async () => {
+  const courseRegister = () => {
     if (totalUnit === 0) {
-      await Toast.fire({
+      Toast.fire({
         icon: 'error',
         title: 'You must Register a minimum of one Course'
       })
     } else if (totalUnit > 24) {
-      await Toast.fire({
+      Toast.fire({
         icon: 'error',
         title: 'You cannot register above 24 Credit Units'
       })

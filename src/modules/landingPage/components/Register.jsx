@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { ADD_USER } from '../../auth/user'
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios'
+import axios from 'axios'
+import Toast from '../../auth/Toast';
 
 const Register = () => {
   const [input, setInput] = useState({})
@@ -21,8 +22,7 @@ const Register = () => {
   const [departments, setDepartments] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [dropdown, setDropdown] = useState({});
-  // const [image, setImage]= useState('')
-  // const [imageUrl, setimageUrl] = useState('')
+  const [image, setImage]= useState('')
   const errors = [];
 
   const email = document.getElementById('email');
@@ -125,10 +125,15 @@ const Register = () => {
     setDropdown(values => ({ ...values, [name]: value }));
   }
 
-// const handleImageSelect = (e) =>{
-//   const file= e.target.files[0]
-//   setImage(file)
-// }
+const handleImageSelect = (e) =>{
+  const file= e.target.files[0]
+  setImage(file)
+}
+
+useEffect(() => {
+  setImage(image)
+}, [image])
+
 
 
   const checkInputs = () => {
@@ -209,35 +214,38 @@ const Register = () => {
     errors.pop();
   }
 
+
   
-  // const uploadImage = async() =>{
-  //   const data= new FormData()
-  //   data.append('file', image)
-  //   data.append('upload_preset', "user-photo")
-  //   data.append('cloud_name', 'defldjtw2')
+  const uploadImage = async() =>{
+    const data= new FormData()
+    data.append('file', image)
+    data.append('upload_preset', "user-photo")
+    data.append('cloud_name', 'defldjtw2')
     
-  // await axios.post('https://api.cloudinary.com/v1_1/defldjtw2/image/upload', data)
-  //   .then(data=> {
-  //     useEffect(() => {
-  //   setimageUrl(data.data.url)
-  // },[data])
+    if(image === ''){
+      writeUserData(input, selectedFaculty, dropdown)
+    }else{
+      
+      await axios.post('https://api.cloudinary.com/v1_1/defldjtw2/image/upload', data)
+      .then(data=> {
+        writeUserData(input, selectedFaculty, dropdown, data.data.url)
+      })
+      .catch(err =>{
+        Toast.fire({
+          icon: "error",
+          title: err,
+        });
+      })
+    }
+  }
+
   
-  //     writeUserData(input, selectedFaculty, dropdown, imageUrl)
-  //   })
-  //   .catch(err =>{
-  //     console.log(err)
-  //     writeUserData(input, selectedFaculty, dropdown)
-  //   })
-  // }
+  
   
   const handleSubmit = async (event) => {
     event.preventDefault();
     checkInputs();
-  //  uploadImage()
-  //  console.log(imageUrl)
-  if( errors.length <= 0){
-    writeUserData(input, selectedFaculty, dropdown)
-  }
+  await uploadImage()
    formReset()
   }
 
@@ -248,11 +256,12 @@ const Register = () => {
     setSelectedFaculty("")
   }
 
-  const writeUserData = (input, faculty, dropdown) => {
+  const writeUserData = (input, faculty, dropdown, imageUrl=null) => {
     const details = {
       ...input,
       ...dropdown,
-      faculty
+      faculty,
+      imageUrl
     }
     dispatch(ADD_USER(details))
   }
@@ -446,7 +455,7 @@ const Register = () => {
                 name='imageUrl'
                 id='image'
                 accept='image/*'
-                onChange={handleChange}
+                onChange={handleImageSelect}
                 className='block w-full text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
