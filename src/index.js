@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { ContextProvider } from "./contexts/ContextProvider";
 
 import { Provider } from 'react-redux';
-import { store, persistor } from './modules/auth/store';
+import { store, persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react'
 
 

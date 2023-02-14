@@ -1,54 +1,16 @@
 import React from 'react'
-import {MdOutlineAssignment , MdOutlineClass} from 'react-icons/md'
-import {VscFileSubmodule} from 'react-icons/vsc'
-import {SiGoogleclassroom} from 'react-icons/si'
-import { OverviewAttendance, Button } from '../components'
+import { OverviewAttendance} from '../components'
+import { Button } from '../../../components'
 import {useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
+import { boxes } from '../../../data/data'
 
 const Overview = () => {
 
   const {firstname, matric_no} = useSelector(state=> state.user.userDetails)
 
 
-  const boxes = [
-    {
-      icon: <SiGoogleclassroom/>,
-      value: 2,
-      title: 'Today Class(es)',
-      bg: 'bg-class',
-      id: 1,
-      route: 'classes'
 
-    },
-    {
-      icon: <MdOutlineAssignment/>,
-      value: 4,
-      title: 'Pending Assignment(s)',
-      bg: 'bg-assignment',
-      id: 2,
-      route: 'assignments'
-
-    },
-    {
-      icon: <VscFileSubmodule/>,
-      value: 2,
-      title: 'New course Material(s)',
-      bg: 'bg-cm',
-      id: 3,
-      route: 'courseMaterials'
-
-    },
-    {
-      icon: <MdOutlineClass/>,
-      value: 1,
-      title: 'Upcoming Test(s)',
-      bg:'bg-test',
-      id: 4,
-      route: 'tests'
-
-    }
-  ]
   return (
     <div className='mt-12'>
       <div className='flex flex-wrap lg:flex-nowrap justify-center'>

@@ -29,7 +29,7 @@ const OverviewAttendance = () => {
           type: 'areaspline',
           backgroundColor:'lightgray',
           borderRadius: 20,
-          width: screenSize <900 ? 350 :1000
+          width: screenSize <500 ? 350 : screenSize <900 ? 600 : 1000
         },
         title: {
           text: 'Attendance Summary',
