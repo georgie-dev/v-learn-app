@@ -100,3 +100,43 @@ export const AdminSidebar= [
       },
 
 ];
+
+
+export const boxes = [
+  {
+    icon: <SiGoogleclassroom/>,
+    value: 2,
+    title: 'Today Class(es)',
+    bg: 'bg-class',
+    id: 1,
+    route: 'classes'
+
+  },
+  {
+    icon: <MdOutlineAssignment/>,
+    value: 4,
+    title: 'Pending Assignment(s)',
+    bg: 'bg-assignment',
+    id: 2,
+    route: 'assignments'
+
+  },
+  {
+    icon: <VscFileSubmodule/>,
+    value: 2,
+    title: 'New course Material(s)',
+    bg: 'bg-cm',
+    id: 3,
+    route: 'course-materials'
+
+  },
+  {
+    icon: <MdOutlineClass/>,
+    value: 1,
+    title: 'Upcoming Test(s)',
+    bg:'bg-test',
+    id: 4,
+    route: 'tests'
+
+  }
+]

@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
-import { Header, Login, Register, CourseRegistration, NotFound } from './modules/landingPage/components';
+import { Header, Login, Register, CourseRegistration } from './modules/landingPage/components';
+import { NotFound } from './components';
 import Home from './modules/landingPage/pages/Home'
-import AdminLogin from './modules/admin/pages/AdminLogin';
+import {AdminLogin} from './modules/admin/components';
 
 import Dashboard from './modules/dashboard/App'
 import AdminDashboard from './modules/admin/App'

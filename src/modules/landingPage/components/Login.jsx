@@ -59,7 +59,7 @@ const Login = () => {
   
 
   return (
-    <div className=' lg:bg-white bg-slate-100 lg:w-1/2 w-80 h-2/3 self-center mx-auto rounded-xl lg:flex block lg:mt-10 mt-4'>
+    <div className=' lg:bg-sky-50 bg-slate-100 lg:w-1/2 w-80 h-2/3 mx-auto rounded-xl lg:flex block mt-28 lg:mt-36 overflow-x-hidden '>
       <div className=' w-80 lg:w-1/2 lg:self-center mx-auto px-10'>
         <img src="https://cdni.iconscout.com/illustration/premium/thumb/man-using-secure-login-5840421-4873747.png" alt="" />
         <p className='text-center text-md font-bold font-Machina mt-4'>Login for full experience</p>
@@ -67,6 +67,9 @@ const Login = () => {
 
       <div className='p-8 w-full lg:w-1/2 bg-slate-100 rounded-r-xl rounded-l-xl'>
         <header className='font-Machina text-4xl font-bold p-5 text-center'>Login</header>
+        <small className=' float-right text-gray-500 hover:text-gray-800 rounded-xl'>
+          <Link to='admin'> Login as Lecturer</Link>
+        </small>
         <form onSubmit={handleSubmit}>
 
           <div className='flex flex-col mt-6'>

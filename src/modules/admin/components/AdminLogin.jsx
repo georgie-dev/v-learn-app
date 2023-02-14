@@ -48,6 +48,9 @@ const AdminLogin = () => {
 
       <div className='p-8 w-full lg:w-1/2 bg-slate-100 rounded-r-xl rounded-l-xl'>
         <header className='font-Machina text-4xl font-bold p-5 text-center'>Login</header>
+        <small className=' float-right text-gray-500 hover:text-gray-800 rounded-xl'>
+          <Link to='/sign/'> Login as Student</Link>
+        </small>
         <form onSubmit={handleSubmit}>
 
           <div className='flex flex-col mt-6'>

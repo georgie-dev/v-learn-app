@@ -9,7 +9,7 @@ const Sign = () => {
     window.history.back()
   }
   return (
-<div className=' w-full h-auto lg:h-screen block lg:flex overflow-hidden'>
+<div className=' w-full h-auto lg:h-screen block  lg:flex overflow-hidden'>
         <div className=' lg:px-6 px-4 py-4'>
           <BsArrowLeftCircleFill
           onClick={goBack}
