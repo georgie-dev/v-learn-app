@@ -58,7 +58,7 @@ export const AdminSidebar= [
         title: 'Overview',
         links: [
           {
-            name: 'dashboard',
+            name: 'admin-dashboard',
             icon: <MdDashboard/>
           },
         ],
@@ -67,7 +67,7 @@ export const AdminSidebar= [
         title: 'Pages',
         links: [
           {
-            name: 'courses',
+            name: 'live-class',
             icon: <SiGoogleclassroom/>,
           },
           {
@@ -93,7 +93,7 @@ export const AdminSidebar= [
             icon: <BsPersonCheck/>,
           },
           {
-            name: 'timetable',
+            name: 'class-schedule',
             icon: <AiOutlineSchedule/>,
           },
         ],

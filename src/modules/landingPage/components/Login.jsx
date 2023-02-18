@@ -16,7 +16,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated } = useSelector(state => state.user)
+  const { isLoading, isAuthenticated, userDetails } = useSelector(state => state.user)
 
 
 
@@ -50,8 +50,10 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if(isAuthenticated){
+    if(isAuthenticated && userDetails.is_staff === false){
       navigate('/dashboard')
+    } else if(isAuthenticated && userDetails.is_staff === true){
+      navigate('/admin')
     }
     dispatch(reset())
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,17 +61,17 @@ const Login = () => {
   
 
   return (
-    <div className=' lg:bg-sky-50 bg-slate-100 lg:w-1/2 w-80 h-2/3 mx-auto rounded-xl lg:flex block mt-28 lg:mt-36 overflow-x-hidden '>
+    <div className=' lg:bg-sky-50 bg-slate-100 lg:w-1/2 w-80 h-2/3 mx-auto rounded-xl lg:flex block mt-10 lg:mt-36 overflow-x-hidden '>
       <div className=' w-80 lg:w-1/2 lg:self-center mx-auto px-10'>
-        <img src="https://cdni.iconscout.com/illustration/premium/thumb/man-using-secure-login-5840421-4873747.png" alt="" />
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/school-building-6464827-5349409.png" alt="" />
         <p className='text-center text-md font-bold font-Machina mt-4'>Login for full experience</p>
       </div>
 
       <div className='p-8 w-full lg:w-1/2 bg-slate-100 rounded-r-xl rounded-l-xl'>
         <header className='font-Machina text-4xl font-bold p-5 text-center'>Login</header>
-        <small className=' float-right text-gray-500 hover:text-gray-800 rounded-xl'>
+        {/* <small className=' float-right text-gray-500 hover:text-gray-800 rounded-xl'>
           <Link to='admin'> Login as Lecturer</Link>
-        </small>
+        </small> */}
         <form onSubmit={handleSubmit}>
 
           <div className='flex flex-col mt-6'>
@@ -79,7 +81,7 @@ const Login = () => {
               value={input.username || ""}
               onChange={handleChange}
               className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina'
-              placeholder='Matric No'
+              placeholder='Student/Lecturer ID'
               required
             />
           </div>

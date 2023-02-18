@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Header, Login, Register, CourseRegistration } from './modules/landingPage/components';
 import { NotFound } from './components';
 import Home from './modules/landingPage/pages/Home'
-import {AdminLogin} from './modules/admin/components';
+// import {AdminLogin} from './modules/admin/components';
+
+import { AdminOverview } from './modules/admin/pages';
 
 import Dashboard from './modules/dashboard/App'
 import AdminDashboard from './modules/admin/App'
@@ -14,13 +16,22 @@ import Sign from './modules/landingPage/pages/Sign'
 
 import './App.css';
 
-const ProtectedRoute = ({ redirectPath = '/sign' }) => {
-  const {isAuthenticated} = useSelector(state => state.user)
-  if (!isAuthenticated) {
+const ProtectedRoute = ({ children, redirectPath = '/sign' }) => {
+  const {isAuthenticated, userDetails} = useSelector(state => state.user)
+  if (!isAuthenticated && !userDetails.token ) {
     return <Navigate to={redirectPath} />
   }
-  return <Dashboard />
+  return children
 }
+
+const AdminRoute = ({ children, redirectPath = '/sign' }) => {
+  const {isAuthenticated, userDetails,} = useSelector(state => state.user)
+  if (!isAuthenticated && !userDetails.token && !userDetails.is_staff) {
+    return <Navigate to={redirectPath} />
+  }
+  return children
+}
+
 
 const RequireReg =({redirectPath = '/sign/register'}) => {
   const {isSuccess} = useSelector(state => state.user)
@@ -39,13 +50,17 @@ function App() {
         </Route>
         <Route path='/sign' element={<Sign />}>
           <Route index element={<Login />} />
-          <Route path='admin' element={<AdminLogin/>}/>
+          {/* <Route path='admin' element={<AdminLogin/>}/> */}
           <Route path='register' element={<Register />} />
           <Route path='CourseRegistration' element={<RequireReg />} />
         </Route>
-        <Route path='/dashboard' element={<ProtectedRoute />}>
+        <Route path='/dashboard' element={
+        <ProtectedRoute>
+          <Dashboard/>
+        </ProtectedRoute>}>
           {/* OverView */}
           <Route index element={<Overview />} />
+
           {/* Functions */}
 
           <Route path="assignments" element={<Assignments />} />
@@ -58,7 +73,12 @@ function App() {
           <Route path="timetable" element={<Timetable />} />
         </Route>
 
-        <Route path='/admin' element={<AdminDashboard/>}>
+        <Route path='/admin' element={
+        <AdminRoute>
+         <AdminDashboard/>
+         </AdminRoute>}>
+
+         <Route index element={<AdminOverview />} />
 
         </Route>
         <Route path='*' element={<NotFound/>} />

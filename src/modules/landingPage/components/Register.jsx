@@ -286,9 +286,9 @@ useEffect(() => {
               <div className='flex flex-col lg:w-1/2 w-80 '>
                 <input
                   type='text'
-                  name='firstname'
+                  name='first_name'
                   id='firstName'
-                  value={input.firstname || ""}
+                  value={input.first_name || ""}
                   onChange={handleChange}
                   className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina'
                   placeholder='First Name'
@@ -299,9 +299,9 @@ useEffect(() => {
               <div className='flex flex-col mt-6 lg:m-0 lg:w-1/2 w-80'>
                 <input
                   type='text'
-                  name='lastname'
+                  name='last_name'
                   id='lastName'
-                  value={input.lastname || ""}
+                  value={input.last_name || ""}
                   onChange={handleChange}
                   className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina'
                   placeholder='Last Name'
