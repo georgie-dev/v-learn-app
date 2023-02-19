@@ -2,7 +2,7 @@ import {VscFileSubmodule} from 'react-icons/vsc'
 import {MdOutlineAssignment , MdOutlineClass, MdDashboard} from 'react-icons/md'
 import {SiGoogleclassroom} from 'react-icons/si'
 import {BsPersonCheck} from 'react-icons/bs'
-import {AiOutlineSchedule} from 'react-icons/ai'
+import {AiOutlineSchedule, AiOutlineCloudUpload} from 'react-icons/ai'
 
 
 export const StudentSidebar= [
@@ -134,6 +134,45 @@ export const boxes = [
     icon: <MdOutlineClass/>,
     value: 1,
     title: 'Upcoming Test(s)',
+    bg:'bg-test',
+    id: 4,
+    route: 'tests'
+
+  }
+]
+
+export const adminBoxes = [
+  {
+    icon: <SiGoogleclassroom/>,
+    value: 2,
+    title: 'Start a Live Class',
+    bg: 'bg-class',
+    id: 1,
+    route: 'classes'
+
+  },
+  {
+    icon: <AiOutlineCloudUpload/>,
+    value: 4,
+    title: 'Upload a Assignment',
+    bg: 'bg-assignment',
+    id: 2,
+    route: 'assignments'
+
+  },
+  {
+    icon: <AiOutlineCloudUpload/>,
+    value: 2,
+    title: 'Upload a new course Material',
+    bg: 'bg-cm',
+    id: 3,
+    route: 'course-materials'
+
+  },
+  {
+    icon: <MdOutlineClass/>,
+    value: 1,
+    title: 'Schedule a test',
     bg:'bg-test',
     id: 4,
     route: 'tests'

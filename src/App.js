@@ -1,11 +1,9 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import { Header, Login, Register, CourseRegistration } from './modules/landingPage/components';
+import { AdminAssignments, AdminOverview, AdminTests, AdminCourseMaterials, LiveClass } from './modules/admin/pages';
 import { NotFound } from './components';
 import Home from './modules/landingPage/pages/Home'
-// import {AdminLogin} from './modules/admin/components';
-
-import { AdminOverview } from './modules/admin/pages';
 
 import Dashboard from './modules/dashboard/App'
 import AdminDashboard from './modules/admin/App'
@@ -18,10 +16,10 @@ import './App.css';
 
 const ProtectedRoute = ({ children, redirectPath = '/sign' }) => {
   const {isAuthenticated, userDetails} = useSelector(state => state.user)
-  if (!isAuthenticated && !userDetails.token ) {
-    return <Navigate to={redirectPath} />
+  if (isAuthenticated && userDetails.token && !userDetails.is_staff ) {
+    return children
   }
-  return children
+  return <Navigate to={redirectPath} />
 }
 
 const AdminRoute = ({ children, redirectPath = '/sign' }) => {
@@ -79,6 +77,10 @@ function App() {
          </AdminRoute>}>
 
          <Route index element={<AdminOverview />} />
+         <Route path='live-class' element={<LiveClass/>} />
+         <Route path='assignments' element={<AdminAssignments/>}/>
+         <Route path='course-materials' element={<AdminCourseMaterials/>}/>
+         <Route path='tests' element={<AdminTests/>}/>
 
         </Route>
         <Route path='*' element={<NotFound/>} />
