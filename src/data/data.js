@@ -58,7 +58,7 @@ export const AdminSidebar= [
         title: 'Overview',
         links: [
           {
-            name: 'admin-dashboard',
+            name: 'admin',
             icon: <MdDashboard/>
           },
         ],
