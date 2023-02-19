@@ -154,7 +154,7 @@ export const adminBoxes = [
   {
     icon: <AiOutlineCloudUpload/>,
     value: 4,
-    title: 'Upload a Assignment',
+    title: 'Upload an Assignment',
     bg: 'bg-assignment',
     id: 2,
     route: 'assignments'
