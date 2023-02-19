@@ -150,6 +150,7 @@ export const userSlice = createSlice({
 
         if (token) {
           const details = {
+            token,
             user_id,
             firstname,
             email,
