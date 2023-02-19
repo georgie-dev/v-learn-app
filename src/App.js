@@ -26,10 +26,10 @@ const ProtectedRoute = ({ children, redirectPath = '/sign' }) => {
 
 const AdminRoute = ({ children, redirectPath = '/sign' }) => {
   const {isAuthenticated, userDetails,} = useSelector(state => state.user)
-  if (!isAuthenticated && !userDetails.token && !userDetails.is_staff) {
-    return <Navigate to={redirectPath} />
+  if (isAuthenticated && userDetails.token && userDetails.is_staff) {
+    return children
   }
-  return children
+  return <Navigate to={redirectPath} />
 }
 
 
