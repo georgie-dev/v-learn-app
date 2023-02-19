@@ -14,21 +14,22 @@ import Sign from './modules/landingPage/pages/Sign'
 
 import './App.css';
 
-const ProtectedRoute = ({ children, redirectPath = '/sign' }) => {
+const ProtectedRoute = ({redirectPath = '/sign' }) => {
   const {isAuthenticated, userDetails} = useSelector(state => state.user)
   if (isAuthenticated && userDetails.token && !userDetails.is_staff ) {
-    return children
+    return <Dashboard/>
   }
-  return <Navigate to={redirectPath} />
+  return <Navigate to={redirectPath}/>
 }
 
-const AdminRoute = ({ children, redirectPath = '/sign' }) => {
-  const {isAuthenticated, userDetails,} = useSelector(state => state.user)
-  if (isAuthenticated && userDetails.token && userDetails.is_staff) {
-    return children
+const AdminRoute = ({redirectPath = '/sign' }) => {
+  const {isAuthenticated, userDetails} = useSelector(state => state.user)
+  if (isAuthenticated && userDetails.token && userDetails.is_staff ) {
+    return <AdminDashboard/>
   }
-  return <Navigate to={redirectPath} />
+  return <Navigate to={redirectPath}/>
 }
+
 
 
 const RequireReg =({redirectPath = '/sign/register'}) => {
@@ -52,10 +53,7 @@ function App() {
           <Route path='register' element={<Register />} />
           <Route path='CourseRegistration' element={<RequireReg />} />
         </Route>
-        <Route path='/dashboard' element={
-        <ProtectedRoute>
-          <Dashboard/>
-        </ProtectedRoute>}>
+        <Route path='/dashboard' element={<ProtectedRoute/>}>
           {/* OverView */}
           <Route index element={<Overview />} />
 
@@ -71,10 +69,7 @@ function App() {
           <Route path="timetable" element={<Timetable />} />
         </Route>
 
-        <Route path='/admin' element={
-        <AdminRoute>
-         <AdminDashboard/>
-         </AdminRoute>}>
+        <Route path='/admin' element={<AdminRoute/>}>
 
          <Route index element={<AdminOverview />} />
          <Route path='live-class' element={<LiveClass/>} />
