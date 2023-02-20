@@ -56,6 +56,7 @@ const Login = () => {
       navigate('/admin')
     }
     dispatch(reset())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, userDetails])
   
 

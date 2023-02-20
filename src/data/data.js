@@ -148,7 +148,7 @@ export const adminBoxes = [
     title: 'Start a Live Class',
     bg: 'bg-class',
     id: 1,
-    route: 'classes'
+    route: 'live-class'
 
   },
   {
@@ -157,7 +157,7 @@ export const adminBoxes = [
     title: 'Upload an Assignment',
     bg: 'bg-assignment',
     id: 2,
-    route: 'assignments'
+    route: 'assignments/'
 
   },
   {

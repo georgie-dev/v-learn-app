@@ -1,18 +1,23 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
+// Landing Page Componenets
 import { Header, Login, Register, CourseRegistration } from './modules/landingPage/components';
-import { AdminAssignments, AdminOverview, AdminTests, AdminCourseMaterials, LiveClass } from './modules/admin/pages';
-import { NotFound } from './components';
-import Home from './modules/landingPage/pages/Home'
+import { Home, Sign } from './modules/landingPage/pages';
 
-import Dashboard from './modules/dashboard/App'
-import AdminDashboard from './modules/admin/App'
+// Student Dashboard componenets
 import { Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable } from './modules/dashboard/pages'
+import Dashboard from './modules/dashboard/App'
 
-import { useSelector } from 'react-redux';
-import Sign from './modules/landingPage/pages/Sign'
+// Admin Components
+import { AdminAssignments, AdminOverview, AdminTests, AdminCourseMaterials, LiveClass } from './modules/admin/pages';
+import AdminDashboard from './modules/admin/App'
+import { UploadedAssignments, SubmittedAssignments} from './modules/admin/components';
 
+// General Components
 import './App.css';
+import { NotFound } from './components';
+import { useSelector } from 'react-redux';
+
 
 const ProtectedRoute = ({redirectPath = '/sign' }) => {
   const {isAuthenticated, userDetails} = useSelector(state => state.user)
@@ -73,7 +78,10 @@ function App() {
 
          <Route index element={<AdminOverview />} />
          <Route path='live-class' element={<LiveClass/>} />
-         <Route path='assignments' element={<AdminAssignments/>}/>
+         <Route path='assignments/' element={<AdminAssignments/>}>
+          <Route index element={<SubmittedAssignments/>}/>
+          <Route path='uploaded-assignments' element={<UploadedAssignments/>}/>
+         </Route>
          <Route path='course-materials' element={<AdminCourseMaterials/>}/>
          <Route path='tests' element={<AdminTests/>}/>
 

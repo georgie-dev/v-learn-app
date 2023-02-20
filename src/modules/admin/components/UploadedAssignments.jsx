@@ -1,80 +1,44 @@
 import React from 'react'
-import { Header } from '../../../components'
-import { AiOutlineCloudDownload, AiOutlineCloudUpload } from 'react-icons/ai'
+import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+// import { ScaleLoader } from 'react-spinners'
 
-const CourseMaterials = () => {
-  const select= [1,2,3,4,5,6,7,8,9,10]
-  const [showModal, setshowModal] = useState(false)
-  const [input, setInput] = useState({})
+const UploadedAssignments = () => {
+    const [showModal, setshowModal] = useState(false)
+    const [input, setInput] = useState({})
 
-  const { courses } = useSelector(state => state.user.userDetails)
+    const { courses } = useSelector(state => state.user.userDetails)
 
-  const handleChange = (event)=>{
-  const name = event.target.name;
-  const value = event.target.value;
-  setInput(values => ({ ...values, [name]: value }))
-  }
+    const handleChange = (event)=>{
+    const name = event.target.name;
+    const value = event.target.value;
+    setInput(values => ({ ...values, [name]: value }))
+    }
 
-  const handleSubmit= (e) =>{
-      e.preventDefault()
-      console.log(input)
-  }
-  return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  dark:bg-secondary-dark-bg">
-    <Header category='Pages' title="Course Materials" />
+    const handleSubmit= (e) =>{
+        e.preventDefault()
+        console.log(input)
+    }
 
-    <div>
-        <div className='flex justify-between my-2'>
-        <input
-      type='search'
-      placeholder='Search by keyword'
-      className='border px-3 py-1 w-80 rounded-md placeholder:font-rokkitt text-gray-50 dark:text-slate-600'
-      />
-                  <button
+    return (
+        <div className=' mx-auto h-80 mt-10 p-2'>
+            <button
                 onClick={() => { setshowModal(true) }}
-                className='py-2 px-6 border rounded-full gap-1 flex justify-center items-center bg-main-dark-bg my-0 w-40 float-right text-white font-bold font-Machina cursor-pointer hover:bg-slate-700'
+                className='py-2 px-6 border dark:border-slate-400 dark:text-gray-300 rounded-full gap-1 flex justify-center items-center bg-main-dark-bg my-0 w-40 float-right text-white font-bold font-Machina cursor-pointer hover:bg-slate-700'
             >
                 Upload <AiOutlineCloudUpload />
             </button>
-        </div>
-      <div className='mt-6 w-full '>
-      <table className='mx-auto w-full rounded-md border'>
-          <thead>
-            <tr className='text-black text-sm lg:text-lg  dark:text-gray-300 border rounded-md'>
-                <th className=' text-center p-3 font-bold font-Machina lg:text-md' scope="col">Course Code</th>
-                <th className=' text-center p-3 font-bold font-Machina lg:text-md' scope="col">Title</th>
-            </tr>
-          </thead>
-          <tbody className='mt-10'>
-            {select.map((data)=>(
-              <tr key={data} className=' border-b p-4 rounded-lg text-slate-900 odd:bg-gray-200 mt-12  odd:dark:bg-slate-500 dark:text-gray-200'>
-                <td className=' text-center p-3 text-xs lg:text-sm font-bold font-display '>SEN 102</td>
-                <td className=' text-center p-3 text-xs lg:text-sm font-bold font-display '> Complete AI</td>
-                <td className=' justify-center items-center p-3 text-xs lg:text-sm font-bold font-display  flex gap-2'>
-                  <button
-                  type='button'
-                  className= ' bg-sky-700 px-4 py-1 gap-1 rounded-full flex text-white font-bold items-center hover:bg-sky-900'
-                  >
-                    <AiOutlineCloudDownload className=' text-lg'/><span className='hidden lg:flex'>Download</span>
-                  </button>
-                </td>
-              </tr>
-            ))
-              
-            }
-          </tbody>
-        </table>
-      </div>
-      {showModal ?
+
+
+            {showModal ?
                 <div className="fixed inset-0 z-10 overflow-y-auto">
                     <div
                         className="fixed inset-0 w-full h-full bg-black opacity-40"
                     ></div>
                     <div className="flex items-center min-h-screen px-4 py-8">
                         <div className="relative w-full max-w-lg p-4 mx-auto bg-white dark:bg-secondary-dark-bg rounded-md shadow-lg">
-                            <header className='font-Machina lg:text-xl text-lg font-bold p-2'>Upload a Course Material</header>
+                            <header className='font-Machina lg:text-xl text-lg font-bold p-2'>Upload an Assignment</header>
 
                             <div className='mt-6 lg:px-8 px-3 w-100 lg:w-7/12 mx-auto'>
                                 <form onSubmit={handleSubmit}>
@@ -109,7 +73,20 @@ const CourseMaterials = () => {
                                         </div>
                                     </div>
 
-                                        <div className='flex flex-col  w-full my-6 '>
+                                    <div className='flex gap-3 mt-6 mx-auto'>
+                                        <div className='flex flex-col  w-1/2 '>
+                                            <input
+                                                type='date'
+                                                name='first_name'
+                                                value={input.date || ""}
+                                                onChange={handleChange}
+                                                className='p-2 border rounded-lg border-slate-300 my-0 placeholder:font-Machina'
+                                                placeholder='First Name'
+                                            />
+                                            <small className='hidden'>Error message</small>
+                                        </div>
+
+                                        <div className='flex flex-col  w-1/2 '>
                                             <input
                                                 type='file'
                                                 name='file'
@@ -126,10 +103,22 @@ const CourseMaterials = () => {
                                             />
                                             <small className='hidden'>Error message</small>
                                         </div>
+                                    </div>
+
+                                    <div className='flex flex-col mt-6 w-full'>
+                                        <textarea
+                                            name='comment'
+                                            value={input.comment || ""}
+                                            onChange={handleChange}
+                                            className=' bg-gray-100 h-40 rounded-lg placeholder:p-2 placeholder:font-Machina'
+                                            placeholder='Comment'
+                                        ></textarea>
+                                        <small className='hidden'>Error message</small>
+                                    </div>
 
                                     <div className='flex justify-between my-2'>
                                         <button
-                                            className=" mt-2 p-2 w-40 text-gray-800 dark:text-black dark:bg-slate-300 rounded-md outline-none border "
+                                            className=" mt-2 p-2 w-40 text-gray-800 dark:text-black dark:bg-slate-300 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
                                             onClick={() => setshowModal(false)}
                                         >
                                             Cancel
@@ -138,7 +127,7 @@ const CourseMaterials = () => {
                                         <button
                                             type='submit'
                                             // onClick={courseRegister}
-                                            className= 'mt-2 p-2 w-40 text-white bg-main-dark-bg dark:text-black dark:bg-slate-300 rounded-md outline-none'
+                                            className='mt-2 p-2 w-40 text-white dark:text-black dark:bg-slate-300 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2 bg-main-dark-bg'
                                         >
                                             Upload
                                             {/* {!isLoading? <BsBoxArrowRight /> :
@@ -161,9 +150,8 @@ const CourseMaterials = () => {
                 </div>
                 :
                 null}
-    </div>
-    </div>
-  )
+        </div>
+    )
 }
 
-export default CourseMaterials
+export default UploadedAssignments
