@@ -10,13 +10,13 @@ const UploadedAssignments = () => {
 
     const { courses } = useSelector(state => state.user.userDetails)
 
-    const handleChange = (event)=>{
-    const name = event.target.name;
-    const value = event.target.value;
-    setInput(values => ({ ...values, [name]: value }))
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInput(values => ({ ...values, [name]: value }))
     }
 
-    const handleSubmit= (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         console.log(input)
     }
@@ -40,9 +40,9 @@ const UploadedAssignments = () => {
                         <div className="relative w-full max-w-lg p-4 mx-auto bg-white dark:bg-secondary-dark-bg rounded-md shadow-lg">
                             <header className='font-Machina lg:text-xl text-lg font-bold p-2'>Upload an Assignment</header>
 
-                            <div className='mt-6 lg:px-8 px-3 w-100 lg:w-7/12 mx-auto'>
+                            <div className='mt-6  px-3 w-full mx-auto'>
                                 <form onSubmit={handleSubmit}>
-                                    <div className='flex gap-3  mx-auto'>
+                                    <div className='flex gap-3 '>
                                         <div className='flex flex-col  w-1/2 '>
                                             <select
                                                 name="course"
@@ -118,7 +118,7 @@ const UploadedAssignments = () => {
 
                                     <div className='flex justify-between my-2'>
                                         <button
-                                            className=" mt-2 p-2 w-40 text-gray-800 dark:text-black dark:bg-slate-300 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
+                                            className=" mt-2 p-2 w-40 text-gray-800 dark:text-black dark:bg-slate-300 rounded-md outline-none border "
                                             onClick={() => setshowModal(false)}
                                         >
                                             Cancel
@@ -127,7 +127,7 @@ const UploadedAssignments = () => {
                                         <button
                                             type='submit'
                                             // onClick={courseRegister}
-                                            className='mt-2 p-2 w-40 text-white dark:text-black dark:bg-slate-300 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2 bg-main-dark-bg'
+                                            className='mt-2 p-2 w-40 text-white dark:text-black dark:bg-slate-500 rounded-md outline-none border  bg-main-dark-bg'
                                         >
                                             Upload
                                             {/* {!isLoading? <BsBoxArrowRight /> :

@@ -1,10 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./user";
+import fileUploadReducer from './fileUpload'
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-// import thunkMiddleware from 'redux-thunk'
-// import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from "redux-thunk";
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from "redux-persist";
+
 
 // const composedEnhancer= composeWithDevTools(applyMiddleware(thunkMiddleware))
 
@@ -13,13 +21,21 @@ const persistConfig = {
     storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, userReducer)
+const rootReducer = combineReducers({
+    user: userReducer,
+    fileUpload: fileUploadReducer
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-    reducer: {
-        user: persistedReducer,
-        middleware: [thunk]
-    },
-})
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  });
 
 export const persistor = persistStore(store)
