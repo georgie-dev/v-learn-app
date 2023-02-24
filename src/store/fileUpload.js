@@ -7,7 +7,11 @@ export const UPLOAD_COURSE = createAsyncThunk(
     "file_upload/UPLOAD_COURSE",
     async (courseMaterial, thunkAPI) => {
       try {
-        const course = await axiosInstance.post("/api/coursematerials/", courseMaterial);
+        const course = await axiosInstance.post("/api/coursematerials/", courseMaterial, {
+          headers: {
+            'content-type': 'multipart/form-data'
+        }
+        });
   
         Toast.fire({
           icon: "success",
@@ -37,11 +41,11 @@ export const fileUpload=createSlice({
         builder
 
         .addCase(UPLOAD_COURSE.pending, (state)=>{
-            state.isLoading= false
+            state.isLoading= true
         })
 
         .addCase(UPLOAD_COURSE.fulfilled, (state)=>{
-            state.isLoading= true
+            state.isLoading= false
         })
 
         .addCase(UPLOAD_COURSE.rejected, (state)=>{

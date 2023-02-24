@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { Header } from '../../../components'
+import { Header, Download, dateFormatter } from '../../../components'
 import {AiOutlineCloudUpload, AiFillFileAdd } from 'react-icons/ai'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import axiosInstance from '../../auth/axios'
-import Download from '../../../components/Download'
 import { UPLOAD_COURSE } from '../../../store/fileUpload'
-import ClipLoader from 'react-spinners/ClipLoader'
+import ScaleLoader from 'react-spinners/ScaleLoader'
 
 const CourseMaterials = () => {
     const [showModal, setshowModal] = useState(false)
     const [input, setInput] = useState({})
-    const [fileData, setFileData]= useState(null)
+    const [fileData, setFileData]= useState({})
     const [courseList, setCourseList] = useState([])
 
     const { title, firstname, courses } = useSelector(state => state.user.userDetails)
@@ -38,25 +37,34 @@ const CourseMaterials = () => {
 
     const handleFileSelect = (e) =>{
         const file = e.target.files[0]
+        console.log(file)
         setFileData(file)
       }
       
-    //   useEffect(() => {
-    //     setFileData(fileData)
-    //   }, [fileData])
+
+      const formReset = ()=>{
+        setInput({})
+        setFileData({})
+        const file= document.getElementById('file')
+        file.value=''
+        setshowModal(false)
+      }
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
         uploadCourse()
+        formReset()
     }
 
-    const uploadCourse = ()=>{
-        console.log(fileData, 'chisom')
+    const uploadCourse = () =>{
         const data = new FormData();
         data.append('file', fileData)
         data.append('title', input.title)
         data.append('lecturer', lecturer)
         data.append('course', input.course)
+        
+        console.log(fileData, 'chisom', data)
 
         dispatch(UPLOAD_COURSE(data))
     }
@@ -95,10 +103,10 @@ const CourseMaterials = () => {
                         </thead>
                         <tbody className='mt-10'>
                           {courseList.map((data) => (
-                            <tr key={data} className=' border-b p-4 rounded-lg text-slate-900 odd:bg-gray-200 mt-12  odd:dark:bg-slate-500 dark:text-gray-200'>
+                            <tr key={data.id} className=' border-b p-4 rounded-lg text-slate-900 odd:bg-gray-200 mt-12  odd:dark:bg-slate-500 dark:text-gray-200'>
                               <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>{data.course}</td>
-                              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>{data.title}</td>
-                              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>{data.uploaded_at}</td>
+                              <td className='lg:px-16 text-center p-3 text-ellipsis text-xs lg:text-sm font-bold font-display '>{data.title}</td>
+                              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>{dateFormatter(data.uploaded_at)}</td>
                               <td className='lg:px-16 justify-center items-center p-3 text-xs lg:text-sm font-bold font-display  flex gap-2'>
                                 <Download arg={data.file} fileName={`${data.course} ${data.title}`}/>
                               </td>
@@ -131,8 +139,8 @@ const CourseMaterials = () => {
                                                     required
                                                 >
                                                     <option value="">Select Course</option>
-                                                    {courses.map((course, key) => (
-                                                        <option key={key} value={course.courseCode}>
+                                                    {courses.map((course) => (
+                                                        <option key={course.id} value={course.courseCode}>
                                                             {course.courseCode}
                                                         </option>
                                                     ))}
@@ -158,8 +166,8 @@ const CourseMaterials = () => {
                                             <input
                                                 type='file'
                                                 name='file'
-                                                id='image'
-                                                onChange={(e) => handleFileSelect(e)}
+                                                id='file'
+                                                onChange={handleFileSelect}
                                                 className='block w-full text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
@@ -175,7 +183,7 @@ const CourseMaterials = () => {
                                         <div className='flex justify-between my-2'>
                                             <button
                                                 className=" mt-2 p-2 w-40 text-gray-800 dark:text-black dark:bg-slate-300 rounded-md outline-none border "
-                                                onClick={() => setshowModal(false)}
+                                                onClick={formReset}
                                             >
                                                 Cancel
                                             </button>
@@ -183,14 +191,14 @@ const CourseMaterials = () => {
                                             <button
                                                 type='submit'
                                                 // onClick={courseRegister}
-                                                className='mt-2 p-2 w-40 text-white bg-main-dark-bg dark:text-black dark:bg-slate-300 rounded-md outline-none'
+                                                className='mt-2 p-2 w-40 text-white bg-main-dark-bg dark:text-black flex justify-center dark:bg-slate-300 rounded-md outline-none disabled:cursor-not-allowed disabled:bg-gray-400 items-center'
                                                 disabled={isLoading}
                                             >
                                             Upload
-                                            <ClipLoader
+                                            <ScaleLoader
                                                 color='#B7E8EB'
                                                 loading={isLoading}
-                                                height={20}
+                                                height={10}
                                                 aria-label="Loading Spinner"
                                                 data-testid="loader"
                                             />

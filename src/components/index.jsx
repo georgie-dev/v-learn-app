@@ -7,3 +7,5 @@ export {default as Notification} from './Notification';
 export {default as Navbar} from './Navbar';
 export {default as Sidebar} from './Sidebar';
 export {default as NotFound} from './NotFound'
+export {default as Download} from './Download'
+export {default as dateFormatter} from './dateFormatter'
