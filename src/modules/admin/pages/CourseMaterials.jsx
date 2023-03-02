@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { Header, Download, dateFormatter } from '../../../components'
-import {AiOutlineCloudUpload, AiFillFileAdd } from 'react-icons/ai'
+import { Header, Table } from '../../../components'
+import {AiOutlineCloudUpload} from 'react-icons/ai'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import axiosInstance from '../../auth/axios'
@@ -18,6 +18,7 @@ const CourseMaterials = () => {
     const dispatch = useDispatch()
 
     const lecturer =title + ' ' + firstname
+    const headerList=['Course', 'Title', 'Upload Date', 'Download']
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -37,7 +38,6 @@ const CourseMaterials = () => {
 
     const handleFileSelect = (e) =>{
         const file = e.target.files[0]
-        console.log(file)
         setFileData(file)
       }
       
@@ -53,18 +53,16 @@ const CourseMaterials = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        uploadCourse()
+        uploadCourseMaterial()
         formReset()
     }
 
-    const uploadCourse = () =>{
+    const uploadCourseMaterial = () =>{
         const data = new FormData();
         data.append('file', fileData)
         data.append('title', input.title)
         data.append('lecturer', lecturer)
         data.append('course', input.course)
-        
-        console.log(fileData, 'chisom', data)
 
         dispatch(UPLOAD_COURSE(data))
     }
@@ -85,39 +83,7 @@ const CourseMaterials = () => {
                         Upload <AiOutlineCloudUpload />
                     </button>
                 </div>
-                <div className='mt-6 w-full '>
-                    {courseList.length === 0 ?
-                        <div className='flex flex-col justify-center items-center h-80 mx-auto'>
-                            <AiFillFileAdd className='text-6xl text-gray-300' />
-                            <p className='text-gray-300 text-2xl font-Machina'>No data to display</p>
-                        </div>
-                        :
-                        <table className='mx-auto w-full rounded-md border'>
-                        <thead>
-                          <tr className='text-black text-sm lg:text-lg  dark:text-gray-300 border rounded-md'>
-                            <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Course Code</th>
-                            <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Title</th>
-                            <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Upload Time</th>
-                            <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Download</th>
-                          </tr>
-                        </thead>
-                        <tbody className='mt-10'>
-                          {courseList.map((data) => (
-                            <tr key={data.id} className=' border-b p-4 rounded-lg text-slate-900 odd:bg-gray-200 mt-12  odd:dark:bg-slate-500 dark:text-gray-200'>
-                              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>{data.course}</td>
-                              <td className='lg:px-16 text-center p-3 text-ellipsis text-xs lg:text-sm font-bold font-display '>{data.title}</td>
-                              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>{dateFormatter(data.uploaded_at)}</td>
-                              <td className='lg:px-16 justify-center items-center p-3 text-xs lg:text-sm font-bold font-display  flex gap-2'>
-                                <Download arg={data.file} fileName={`${data.course} ${data.title}`}/>
-                              </td>
-                            </tr>
-                          ))
-            
-                          }
-                        </tbody>
-                      </table>
-                    }
-                </div>
+                <Table arg={courseList}  headers={headerList}></Table>
                 {showModal ?
                     <div className="fixed inset-0 z-10 overflow-y-auto">
                         <div

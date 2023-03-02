@@ -12,7 +12,7 @@ const Assignments = () => {
     <Header category='Pages' title="Assignment" />
 
     <div className=' bg-white dark:bg-secondary-dark-bg h-auto w-full rounded-xl'>
-      <div className='flex justify-center border dark:border-slate-400  rounded-lg'>
+      <div className='flex justify-center border dark:border-slate-400 rounded-lg'>
       <NavLink
       to='/admin/assignments/' 
       className={({ isActive }) => (isActive ? activeLink : normalLink)}

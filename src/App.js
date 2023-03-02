@@ -78,7 +78,7 @@ function App() {
 
          <Route index element={<AdminOverview />} />
          <Route path='live-class' element={<LiveClass/>} />
-         <Route path='assignments/' element={<AdminAssignments/>}>
+         <Route path='assignments' element={<AdminAssignments/>}>
           <Route index element={<SubmittedAssignments/>}/>
           <Route path='uploaded-assignments' element={<UploadedAssignments/>}/>
          </Route>

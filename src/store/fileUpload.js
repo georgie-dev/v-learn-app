@@ -30,6 +30,33 @@ export const UPLOAD_COURSE = createAsyncThunk(
     }
   );
 
+  export const UPLOAD_ASSIGNMENT = createAsyncThunk(
+    "file_upload/UPLOAD_ASSIGNMENT",
+    async (assignment, thunkAPI) => {
+      try {
+        const course = await axiosInstance.post("/api/uploadassignment/", assignment, {
+          headers: {
+            'content-type': 'multipart/form-data'
+        }
+        });
+  
+        Toast.fire({
+          icon: "success",
+          title: "Success",
+        });
+        console.log(course)
+        return course.data;
+      } catch (error) {
+        console.log(error)
+        Toast.fire({
+          icon: "error",
+          title: error,
+        });
+        return thunkAPI.rejectWithValue(error);
+      }
+    }
+  );
+
 
 export const fileUpload=createSlice({
     name: 'file_upload',
@@ -51,6 +78,18 @@ export const fileUpload=createSlice({
         .addCase(UPLOAD_COURSE.rejected, (state)=>{
             state.isLoading= false
         })
+
+        .addCase(UPLOAD_ASSIGNMENT.pending, (state)=>{
+          state.isLoading= true
+      })
+
+      .addCase(UPLOAD_ASSIGNMENT.fulfilled, (state)=>{
+          state.isLoading= false
+      })
+
+      .addCase(UPLOAD_ASSIGNMENT.rejected, (state)=>{
+          state.isLoading= false
+      })
     }
 });
 

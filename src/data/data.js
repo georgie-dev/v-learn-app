@@ -109,7 +109,7 @@ export const boxes = [
     title: 'Today Class(es)',
     bg: 'bg-class',
     id: 1,
-    route: 'classes'
+    route: 'classes/'
 
   },
   {
@@ -118,7 +118,7 @@ export const boxes = [
     title: 'Pending Assignment(s)',
     bg: 'bg-assignment',
     id: 2,
-    route: 'assignments'
+    route: 'assignments/'
 
   },
   {
@@ -127,7 +127,7 @@ export const boxes = [
     title: 'New course Material(s)',
     bg: 'bg-cm',
     id: 3,
-    route: 'course-materials'
+    route: 'course-materials/'
 
   },
   {
@@ -136,7 +136,7 @@ export const boxes = [
     title: 'Upcoming Test(s)',
     bg:'bg-test',
     id: 4,
-    route: 'tests'
+    route: 'tests/'
 
   }
 ]
