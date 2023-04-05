@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./user";
 import fileUploadReducer from './fileUpload'
-import storage from 'redux-persist/lib/storage';
+import storageSession from 'redux-persist/lib/storage/session'
 import {
     persistStore,
     persistReducer,
@@ -18,7 +18,7 @@ import {
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage: storageSession
 }
 
 const rootReducer = combineReducers({
