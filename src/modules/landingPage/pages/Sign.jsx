@@ -5,14 +5,12 @@ import style from '../assets/css/Sign.module.css'
 
 const Sign = () => {
 
-  const goBack = () => {
-    window.history.back()
-  }
+
   return (
 <div className=' w-full h-auto lg:h-screen block  lg:flex overflow-hidden'>
         <div className=' lg:px-6 px-4 py-4'>
           <BsArrowLeftCircleFill
-          onClick={goBack}
+          onClick={()=>{window.history.back()}}
           className="lg:text-5xl text-2xl text-black hover:text-slate-500"
           />
             </div>
