@@ -18,7 +18,7 @@ const CourseMaterials = () => {
           <p key={items.courseCode} className='text-2xl font-Machina font-extrabold relative'>{items.courseCode}</p>
           <p key={items.courseTitle} className='font-Machina text bold relative'>{items.courseTitle}</p>
         </div>
-        <Link to={items.courseCode.split(' ').join('-')} className='float-right bg-secondary-dark-bg font-Machina px-4 p-2 absolute bottom-2 right-2 rounded-full hover:bg-main-dark-bg'> View</Link>
+        <Link to={items.courseCode} className='float-right bg-secondary-dark-bg font-Machina px-4 p-2 absolute bottom-2 right-2 rounded-full hover:bg-main-dark-bg'> View</Link>
       </div>
     ))}
    </div>
