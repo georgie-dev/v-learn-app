@@ -7,7 +7,7 @@ const cookie = new Cookies();
 const token = cookie.get("token");
 
 const axiosInstance= axios.create({
-    baseURL :'http://localhost:8000/',
+    baseURL :'https://vlearn-backend-production.up.railway.app/',
     headers: {
         "Content-Type": "application/json",
         Authorization: token !== undefined ? `Bearer ${token}` : "",
