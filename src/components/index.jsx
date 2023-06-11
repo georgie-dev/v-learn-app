@@ -10,3 +10,5 @@ export {default as NotFound} from './NotFound'
 export {default as Download} from './Download'
 export {default as dateFormatter} from './dateFormatter'
 export {default as Table} from './Table';
+
+export {default as Assignment} from './Assignments'

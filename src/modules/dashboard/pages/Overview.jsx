@@ -32,7 +32,7 @@ const Overview = () => {
              <Button key={items.icon} color="black" bgColor="#03C9D7" icon={items.icon}/>
              <p key={items.id} className='text-5xl font-bold mx-auto font-display '>{items.value}</p>
              </div>
-             <small key={items.title} className=' text-xs lg:text-sm mt-4 font-semibold font-display '>{items.title}</small>
+             <small key={items.title} className=' text-xs lg:text-sm mt-4 font-semibold font-inter '>{items.title}</small>
            </div>
             </div>
             </Link>

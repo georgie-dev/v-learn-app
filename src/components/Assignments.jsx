@@ -6,24 +6,24 @@ import axiosInstance from '../../auth/axios'
 import { Table } from '../../../components'
 
 
-const Course = () => {
+const Assignment = ({page}) => {
 
   const { id } = useParams()
 
-  const [courseMaterials, setCourseMaterials] = useState([])
+  const [assignments, setAssignments] = useState([])
 
 
-  const headerList=['Course', 'Title', 'Upload Date', 'Download']
+  const headerList=['Assignment', 'Title', 'Due Date', 'Download']
 
   useEffect(() => {
-      axiosInstance.get(`/api/coursematerials/?course=${id}`)
+      axiosInstance.get(`/api/${page}/?course=${id}`)
           .then((data) => {
-              setCourseMaterials(data.data.results)
+              setAssignments(data.data.results)
           })
           .catch((error) => {
               console.log(error)
           })
-  }, [id])
+  }, [id, page])
 
 
   return (
@@ -35,11 +35,13 @@ const Course = () => {
         />
         <h3 className='text-lg font-display font-extrabold tracking-tight text-slate-900 dark:text-slate-400'>Go Back</h3>
       </div>
+
+      <h3 className='text-lg px-4 py-2 font-display font-extrabold tracking-tight text-slate-400'>{id}</h3>
       <div className=' w-full mt-12'>
-        <Table arg={courseMaterials} headers={headerList}></Table>
+        <Table arg={assignments} headers={headerList}></Table>
       </div>
     </div>
   )
 }
 
-export default Course
+export default Assignment

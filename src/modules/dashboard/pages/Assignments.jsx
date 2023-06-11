@@ -1,56 +1,24 @@
 import React from 'react'
 import Header from '../../../components/Header'
-import {AiOutlineCloudDownload, AiOutlineCloudUpload} from 'react-icons/ai'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Assignments = () => {
-  const select= [1,2,3,4,5,6,7,8,9,10]
+  const { courses } = useSelector(state => state.user.userDetails)
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg">
     <Header category='pages' title="Assignments " />
-    <div>
-      <div>
-        <input
-        type='search'
-        placeholder='Search by keyword'
-        className='border px-3 py-1 w-80 rounded-md placeholder:font-rokkitt text-gray-50 dark:text-slate-600'
-        />
-        <div className='mt-12 w-full '>
-        <table className='mx-auto w-full rounded-md border'>
-            <thead>
-              <tr className='text-black text-sm lg:text-lg  dark:text-gray-300 border p-2 rounded-md'>
-                  <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Course Code</th>
-                  <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Lecturer</th>
-                  <th className='lg:px-16 text-center p-3 font-bold font-Machina lg:text-md' scope="col">Due Date</th>
-              </tr>
-            </thead>
-            <tbody className='mt-10'>
-              {select.map((data)=>(
-                <tr key={data} className=' border-b p-4 rounded-lg text-slate-900 odd:bg-gray-200 mt-12  odd:dark:bg-slate-500 dark:text-gray-200'>
-                  <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>SEN 102</td>
-                  <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '>Bernard Ephraim</td>
-                  <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display '> 12/02/2023</td>
-                  <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-bold font-display  flex gap-2'>
-                    <button
-                    type='button'
-                    className= ' bg-sky-700 px-4 py-1 gap-1 rounded-full flex text-white font-bold items-center hover:bg-sky-900'
-                    >
-                      <AiOutlineCloudDownload/><span className='hidden lg:flex'>Download</span>
-                    </button>
-                    <button
-                    type='button'
-                    className= ' bg-red-700 px-4 py-1 gap-1 rounded-full flex text-white font-bold items-center hover:bg-red-900'
-                    >
-                      <AiOutlineCloudUpload/><span className='hidden lg:flex'>Submit</span>
-                    </button>
-                  </td>
-                </tr>
-              ))
-                
-              }
-            </tbody>
-          </table>
+    <div className=' w-full mt-12 p-2 h-auto flex flex-wrap gap-3 items-center justify-evenly'>
+      {courses.map((items) => (
+        <div key={items.id} className=' text-gray-200 w-80 md:w-56 lg:w-80 mt-4 h-48 rounded-2xl p-4 pt-9 drop-shadow-2xl bg-white shadow-sm dark:bg-main-dark-bg relative'>
+          <div key={items.id} className=' bg-assignment opacity-20 bg-no-repeat bg-cover bg-center absolute left-0 top-0 w-full h-full'></div>
+          <div className='flex flex-col gap-3 text-black dark:text-gray-200 px-4 items-center justify-center '>
+            <p key={items.courseCode} className='text-2xl font-Machina font-extrabold relative'>{items.courseCode}</p>
+            <p key={items.courseTitle} className='font-Machina text bold relative'>{items.courseTitle}</p>
+          </div>
+          <Link to={items.courseCode} className='float-right bg-secondary-dark-bg font-Machina px-4 p-2 absolute bottom-2 right-2 rounded-full hover:bg-main-dark-bg'> View</Link>
         </div>
-      </div>
+      ))}
     </div>
     </div>
   )
