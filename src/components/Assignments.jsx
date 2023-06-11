@@ -2,8 +2,8 @@ import React from 'react';
 import { RxCaretLeft } from 'react-icons/rx'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'
-import axiosInstance from '../../auth/axios'
-import { Table } from '../../../components'
+import axiosInstance from '../modules/auth/axios'
+import { Table } from '.'
 
 
 const Assignment = ({page}) => {
