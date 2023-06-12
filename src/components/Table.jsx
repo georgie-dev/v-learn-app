@@ -23,11 +23,11 @@ const Table = ({arg=[], headers=[]}) => {
         <tbody className='mt-10'>
           {arg.slice(0).reverse().map((data) => (
             <tr key={data.id} className=' border-b p-4 rounded-lg text-slate-900 odd:bg-gray-200 mt-12  odd:dark:bg-slate-500 dark:text-gray-200'>
-              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-semibold font-inter '>{data.course}</td>
+              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-semibold font-inter '>{headers[0]=== 'Student' ? data.student : data.course}</td>
               <td className='lg:px-16 text-center p-3 text-ellipsis text-xs lg:text-sm font-semibold font-inter '>{data.title}</td>
-              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-semibold font-inter '>{dateFormatter(data.uploaded_at|| data.due_date)}</td>
+              <td className='lg:px-16 text-center p-3 text-xs lg:text-sm font-semibold font-inter '>{dateFormatter(data.uploaded_at|| data.due_date || data.submit_date)}</td>
               <td className='lg:px-16 justify-center items-center p-3 text-xs lg:text-sm font-semibold font-inter  flex gap-2'>
-                <Download arg={data.file} fileName={`${data.course} ${data.title}`}/>
+                <Download arg={data.file} fileName={headers[0]=== 'Student' ? `${data.student} ${data.title}` :`${data.course} ${data.title}`}/>
               </td>
             </tr>
           ))

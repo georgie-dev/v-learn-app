@@ -4,7 +4,7 @@ import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { useState } from 'react'
 import { useSelector} from 'react-redux'
 import axiosInstance from '../../auth/axios'
-import { Upload } from '../components'
+import {Upload} from '../../../components'
 
 const CourseMaterials = () => {
     const [showModal, setShowModal] = useState(false)

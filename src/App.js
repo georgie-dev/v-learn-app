@@ -91,7 +91,7 @@ function App() {
             <Route index element={<SubmittedAssignments />} />
             <Route path='uploaded-assignments' element={<UploadedAssignments />} />
           </Route>
-            <Route path='assignments/:id' element={<Assignment page='submittedassignment' />} />
+            <Route path='assignments/:id' element={<Assignment page='submitassignment' />} />
           <Route path='course-materials' element={<AdminCourseMaterials />} />
           <Route path='tests' element={<AdminTests />} />
 

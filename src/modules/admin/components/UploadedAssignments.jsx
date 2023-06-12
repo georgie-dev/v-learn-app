@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import axiosInstance from '../../auth/axios'
 import { Table } from '../../../components'
-import { Upload } from '.'
+import {Upload} from '../../../components'
 
 const UploadedAssignments = () => {
     const [showModal, setShowModal] = useState(false)
