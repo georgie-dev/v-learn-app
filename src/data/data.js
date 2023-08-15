@@ -31,7 +31,7 @@ export const StudentSidebar= [
             icon: <VscFileSubmodule/>,
           },
           {
-            name: 'tests',
+            name: 'assessments',
             icon: <MdOutlineClass/>,
           },
         ],
@@ -79,7 +79,7 @@ export const AdminSidebar= [
             icon: <VscFileSubmodule/>,
           },
           {
-            name: 'tests',
+            name: 'assessments',
             icon: <MdOutlineClass/>,
           },
         ],
@@ -172,10 +172,10 @@ export const adminBoxes = [
   {
     icon: <MdOutlineClass/>,
     value: 1,
-    title: 'Schedule a test',
+    title: 'Schedule an assessment',
     bg:'bg-test',
     id: 4,
-    route: 'tests'
+    route: 'assessments/'
 
   }
 ]

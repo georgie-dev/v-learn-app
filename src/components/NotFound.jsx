@@ -1,5 +1,4 @@
 import React from 'react'
-import Error from '../assets/img/404.gif'
 
 const NotFound = () => {
 
@@ -10,7 +9,7 @@ const NotFound = () => {
   return (
     <>
     <div className='w-full lg:w-2/3 h-2/3 mx-auto flex justify-center items-center'>
-      <img src={Error} alt="404" />
+      <img src='/404.gif' alt="404" />
     </div>
     <div className=' text-center mx-auto'>
       <p className=' font-display text-lg font-bold'>Page not found. Please check the URL and try again.</p>

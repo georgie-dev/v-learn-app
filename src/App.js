@@ -74,7 +74,7 @@ function App() {
          </Route> */}
           <Route path='course-materials/:id' element={<Course />} />
           <Route path='assignments/:id' element={<Assignment page='uploadassignment' />} />
-          <Route path="tests" element={<Tests />} />
+          <Route path="assessments" element={<Tests />} />
 
           {/* Apps */}
           <Route path="attendance" element={<Attendance />} />
@@ -93,7 +93,7 @@ function App() {
           </Route>
             <Route path='assignments/:id' element={<Assignment page='submitassignment' />} />
           <Route path='course-materials' element={<AdminCourseMaterials />} />
-          <Route path='tests' element={<AdminTests />} />
+          <Route path='assessments' element={<AdminTests />} />
 
         </Route>
 
