@@ -43,9 +43,7 @@ const LiveClass = () => {
     const data = {
       lecturer: title + ' ' + firstname + ' ' + lastname,
       course: course,
-      link:
-        window.location.protocol + '//' +
-        window.location.host + window.location.pathname +
+      link: '/dashboard/classes/' +
         '?roomID=' +
         roomID,
     }
@@ -94,11 +92,9 @@ const LiveClass = () => {
       sharedLinks: [
         {
           name: 'Class link',
-          url:
-            window.location.protocol + '//' +
-            window.location.host + window.location.pathname +
-            '?roomID=' +
-            roomID,
+          url: '/dashboard/classes/' +
+          '?roomID=' +
+          roomID,
         },
       ],
       scenario: {
