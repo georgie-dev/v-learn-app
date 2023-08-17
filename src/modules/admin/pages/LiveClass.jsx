@@ -93,7 +93,7 @@ const LiveClass = () => {
         {
           name: 'Class link',
           url: window.location.protocol + '//' +
-            window.location.host + window.location.pathname +
+            window.location.host + 'test' +
             '?roomID=' +
             roomID,
         },
