@@ -39,34 +39,34 @@ const LiveClass = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
-    const data = {
-      lecturer: title + ' ' + firstname + ' ' + lastname,
-      course: course,
-      link: '/dashboard/classes/' +
-        '?roomID=' +
-        roomID,
-    }
-    axiosInstance.post('/api/class/', data)
-    .then((res)=>{
-      setShowModal(false) 
-      setLoading(false)
-      console.log(res)
-      Toast.fire({
-        icon: "success",
-        title: "Starting",
-      });
-    })
-    .catch((res)=>{
-      console(res)
-      Toast.fire({
-        icon: "error",
-        text : 'Failed to start'
-      });
-    })
-    .finally(()=>{
-          setStart(true); 
-    })
+    // setLoading(true)
+    // const data = {
+    //   lecturer: title + ' ' + firstname + ' ' + lastname,
+    //   course: course,
+    //   link: '/dashboard/classes/' +
+    //     '?roomID=' +
+    //     roomID,
+    // }
+    // axiosInstance.post('/api/class/', data)
+    // .then((res)=>{
+    //   setShowModal(false) 
+    //   setLoading(false)
+    //   console.log(res)
+    //   Toast.fire({
+    //     icon: "success",
+    //     title: "Starting",
+    //   });
+    // })
+    // .catch((res)=>{
+    //   console(res)
+    //   Toast.fire({
+    //     icon: "error",
+    //     text : 'Failed to start'
+    //   });
+    // })
+    // .finally(()=>{
+    //       setStart(true); 
+    // })
   }
 
   const myMeeting = (element) => {
@@ -92,9 +92,10 @@ const LiveClass = () => {
       sharedLinks: [
         {
           name: 'Class link',
-          url: '/dashboard/classes/' +
-          '?roomID=' +
-          roomID,
+          url: window.location.protocol + '//' +
+            window.location.host + window.location.pathname +
+            '?roomID=' +
+            roomID,
         },
       ],
       scenario: {
@@ -103,7 +104,6 @@ const LiveClass = () => {
       showRoomTimer: true,
       showLeavingView: false,
       onLeaveRoom: () => {
-
       },
     });
   }
@@ -160,8 +160,9 @@ const LiveClass = () => {
 
                     <button
                       type='submit'
+                      onClick={() => { setStart(true); setShowModal(false) }}
                       className='mt-2 p-2 w-40 text-white bg-main-dark-bg dark:text-black flex justify-center dark:bg-slate-300 rounded-md outline-none disabled:cursor-not-allowed disabled:bg-gray-400 items-center'
-                    disabled={loading}
+                    // disabled={loading}
                     >
                       Next
                     </button>
