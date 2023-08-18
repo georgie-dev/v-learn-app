@@ -34,46 +34,16 @@ const LiveClass = () => {
   const [loading, setLoading] = useState(false)
 
   const { courses, title, firstname, lastname } = useSelector(state => state.user.userDetails)
-  const roomID = getUrlParams().get('roomID') || randomID(5);
+  const roomID = course.split(' ').join('') + '-' + lastname
+  console.log(roomID)
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // setLoading(true)
-    // const data = {
-    //   lecturer: title + ' ' + firstname + ' ' + lastname,
-    //   course: course,
-    //   link: '/dashboard/classes/' +
-    //     '?roomID=' +
-    //     roomID,
-    // }
-    // axiosInstance.post('/api/class/', data)
-    // .then((res)=>{
-    //   setShowModal(false) 
-    //   setLoading(false)
-    //   console.log(res)
-    //   Toast.fire({
-    //     icon: "success",
-    //     title: "Starting",
-    //   });
-    // })
-    // .catch((res)=>{
-    //   console(res)
-    //   Toast.fire({
-    //     icon: "error",
-    //     text : 'Failed to start'
-    //   });
-    // })
-    // .finally(()=>{
-    //       setStart(true); 
-    // })
-  }
-
+  
   const myMeeting = (element) => {
     // generate Kit Token
     const appID = 144770395;
     const serverSecret = "8aea8350811100009ea325505ceb64c4";
-    const userID = 'Bernard';
+    const userID = randomID(5);
     const userName = title + ' ' + firstname + ' ' + lastname
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
@@ -82,6 +52,7 @@ const LiveClass = () => {
       userID,
       userName
     );
+    console.log(roomID)
 
     // Create instance object from Kit Token.
     const zp = ZegoUIKitPrebuilt.create(kitToken);
@@ -92,10 +63,7 @@ const LiveClass = () => {
       sharedLinks: [
         {
           name: 'Class link',
-          url: window.location.protocol + '//' +
-            window.location.host + 'test' +
-            '?roomID=' +
-            roomID,
+          url: `/dashboard/classes/${course.split(' ').join('-')}/join/${roomID}`
         },
       ],
       scenario: {
@@ -106,6 +74,35 @@ const LiveClass = () => {
       onLeaveRoom: () => {
       },
     });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setLoading(true)
+    const data = {
+      lecturer: title + ' ' + firstname + ' ' + lastname,
+      course: course,
+      link: `/dashboard/classes/${course.split(' ').join('-')}/join/${roomID}`
+    }
+    axiosInstance.post('/api/class/', data)
+      .then((res) => {
+        setShowModal(false)
+        setLoading(false)
+        console.log(roomID)
+        Toast.fire({
+          icon: "success",
+          title: "Starting",
+        });
+      })
+      .catch((res) => {
+        console(res)
+        Toast.fire({
+          icon: "error",
+          text: 'Failed to start'
+        });
+      })
+      .finally(() => {
+        setStart(true);
+      })
   }
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  dark:bg-secondary-dark-bg">
@@ -160,9 +157,8 @@ const LiveClass = () => {
 
                     <button
                       type='submit'
-                      onClick={() => { setStart(true); setShowModal(false) }}
                       className='mt-2 p-2 w-40 text-white bg-main-dark-bg dark:text-black flex justify-center dark:bg-slate-300 rounded-md outline-none disabled:cursor-not-allowed disabled:bg-gray-400 items-center'
-                    // disabled={loading}
+                      disabled={loading}
                     >
                       Next
                     </button>
