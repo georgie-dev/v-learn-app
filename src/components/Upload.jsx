@@ -79,7 +79,7 @@ const Upload = ({ uploadType = '', closeModal, id = '' }) => {
     }
     return (
 
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div className="fixed inset-0 z-10 overflow-y-auto md:ml-72">
             <div
                 className="fixed inset-0 w-full h-full bg-black opacity-40"
             ></div>

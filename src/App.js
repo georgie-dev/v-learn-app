@@ -9,7 +9,7 @@ import { Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Tim
 import Dashboard from './modules/dashboard/App'
 
 // Admin Components
-import { AdminAssignments, AdminOverview, AdminTests, AdminCourseMaterials, LiveClass } from './modules/admin/pages';
+import { AdminAssignments, AdminOverview, AdminTests, AdminCourseMaterials, LiveClass, CreateQuestions } from './modules/admin/pages';
 import AdminDashboard from './modules/admin/App'
 import { UploadedAssignments, SubmittedAssignments } from './modules/admin/components';
 
@@ -68,8 +68,8 @@ function App() {
           {/* Functions */}
 
           <Route path="assignments" element={<Assignments />} />
-          <Route path="classes" element={<Classes/>} />
-          <Route path="classes/:courseCode/join/:roomID" element={<JoinClass/>}/>
+          <Route path="classes" element={<Classes />} />
+          <Route path="classes/:courseCode/join/:roomID" element={<JoinClass />} />
           <Route path="course-materials" element={<CourseMaterials />} />
           {/* <Route path=':id' element={<Course/>}/>
          </Route> */}
@@ -92,10 +92,10 @@ function App() {
             <Route index element={<SubmittedAssignments />} />
             <Route path='uploaded-assignments' element={<UploadedAssignments />} />
           </Route>
-            <Route path='assignments/:id' element={<Assignment page='submitassignment' />} />
+          <Route path='assignments/:id' element={<Assignment page='submitassignment' />} />
           <Route path='course-materials' element={<AdminCourseMaterials />} />
           <Route path='assessments' element={<AdminTests />} />
-
+          <Route path='assessments/:id' element={<CreateQuestions />} />
         </Route>
 
         {/* Not found Route  */}

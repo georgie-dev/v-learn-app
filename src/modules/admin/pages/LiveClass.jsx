@@ -120,7 +120,7 @@ const LiveClass = () => {
         <small className='text-center flex justify-center items-center text-4xl p-8 font-Machina text-gray-300'>Start a class</small>
       </div>
       {showModal ?
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div className="fixed inset-0 z-10 overflow-y-auto md:ml-72">
           <div
             className="fixed inset-0 w-full h-full bg-black opacity-40"
           ></div>
