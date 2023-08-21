@@ -98,11 +98,7 @@ const TestPage = () => {
             original_order: originalOrder
         }
         console.log(data)
-        axiosInstance.post('/api/submissions/', data, {
-            headers: {
-                'Access-Control-Allow-Origin-': '*'
-            }
-        })
+        axiosInstance.post('/api/submissions/', data)
             .then((res) => {
                 console.log(res)
                 setTestResult(res.data)
@@ -239,7 +235,7 @@ const TestPage = () => {
                         <div className="flex items-center min-h-screen px-4 py-8">
                                 <div className="relative w-full max-w-sm p-4 mx-auto bg-white dark:bg-secondary-dark-bg rounded-md shadow-lg">
                                     <div className='flex justify-between items-center'>
-                                        <header className='font-Machina lg:text-xl text-lg font-bold p-2'>Test Result</header>
+                                        <header className='font-Machina lg:text-xl text-lg font-bold p-2'>Here's your test results</header>
                                     </div>
                                     <div className='mt-6 px-3 w-full justify-center flex flex-col gap-4'>
                                         <div className='flex flex-wrap gap-0 border items-center'>
@@ -257,7 +253,7 @@ const TestPage = () => {
                                             </div>
                                             <div className='flex flex-col border font-Machina w-1/2 p-3 items-center font-semibold'>
                                                 <small>Percentage Scores</small>
-                                                <small className='text-lg'>{testResult.percent}</small>
+                                                <small className='text-lg'>{`${testResult.percent}%`}</small>
                                             </div>
                                         </div>
                                     </div>
@@ -265,6 +261,7 @@ const TestPage = () => {
                                         onClick={finishTest}
                                         className='mt-6 p-2 w-40 text-white bg-main-dark-bg dark:text-black flex gap-3 justify-center dark:bg-slate-300 rounded-md outline-none disabled:cursor-not-allowed disabled:bg-gray-400 items-center'
                                     >
+                                    Done
                                     </button>
                                 </div>
                         </div>
