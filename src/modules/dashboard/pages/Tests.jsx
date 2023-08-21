@@ -73,9 +73,8 @@ const Tests = () => {
                       <td className='lg:px-16 text-center p-5 text-xs lg:text-sm font-semibold font-inter '>{data.course}</td>
                       <td className='lg:px-16 text-center p-5 text-ellipsis text-xs lg:text-sm font-semibold font-inter '>{dateFormatter(data.assessment_date)}</td>
                       <td className='lg:px-16 text-center p-5 text-xs lg:text-sm font-semibold font-inter '>
-                        <Link to={`/dashboard/assessments/${data.id}`}
-                        // {currentDate < new Date(data.assessment_date) ? null : `/dashboard/tests/${data.id}`}
-                          className={`rounded-md py-3 shadow-md px-6 text-white text-md font-semibold bg-blue-400 cursor-pointer`}
+                        <Link to={currentDate < new Date(data.assessment_date) ? null : `/dashboard/assessments/${data.id}`}
+                          className={`rounded-md py-3 shadow-md px-6 text-white text-md font-semibold ${currentDate < new Date(data.assessment_date) ? 'bg-gray-400 cursor-not-allowed' :'bg-blue-400 cursor-pointer'}`}
                         >{currentDate < new Date(data.assessment_date) ? 'Not available Yet' : 'Take Test'}
                         </Link>
                       </td>
