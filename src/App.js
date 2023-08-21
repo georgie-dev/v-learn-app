@@ -5,7 +5,7 @@ import { Header, Login, Register, CourseRegistration } from './modules/landingPa
 import { Home, Sign } from './modules/landingPage/pages';
 
 // Student Dashboard componenets
-import { Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable, Course, JoinClass } from './modules/dashboard/pages'
+import { Assignments, Classes, CourseMaterials, Overview, Tests, Attendance, Timetable, Course, JoinClass, TestPage } from './modules/dashboard/pages'
 import Dashboard from './modules/dashboard/App'
 
 // Admin Components
@@ -76,6 +76,7 @@ function App() {
           <Route path='course-materials/:id' element={<Course />} />
           <Route path='assignments/:id' element={<Assignment page='uploadassignment' />} />
           <Route path="assessments" element={<Tests />} />
+          <Route path="assessments/:id" element={<TestPage/>} />
 
           {/* Apps */}
           <Route path="attendance" element={<Attendance />} />
