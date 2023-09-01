@@ -51,9 +51,9 @@ const Login = () => {
 
   useEffect(() => {
     if(isAuthenticated && !userDetails.is_staff){
-      navigate('/dashboard')
+      navigate('/dashboard/')
     } else if(isAuthenticated && userDetails.is_staff){
-      navigate('/admin')
+      navigate('/admin/')
     }
     dispatch(reset())
   // eslint-disable-next-line react-hooks/exhaustive-deps

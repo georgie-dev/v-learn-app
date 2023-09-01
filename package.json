@@ -13,7 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@zegocloud/zego-uikit-prebuilt": "^1.8.10",
     "animejs": "^3.2.1",
-    "axios": "^1.2.6",
+    "axios": "^1.5.0",
     "babel-plugin-macros": "^3.1.0",
     "cloudinary": "^1.33.0",
     "firebase": "^9.15.0",
