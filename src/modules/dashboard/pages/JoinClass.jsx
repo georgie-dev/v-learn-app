@@ -4,6 +4,19 @@ import { Header } from '../../../components'
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useSelector } from 'react-redux';
 
+function randomID(len) {
+    let result = '';
+    if (result) return result;
+    var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',
+      maxPos = chars.length,
+      i;
+    len = len || 5;
+    for (i = 0; i < len; i++) {
+      result += chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return result;
+  }
+
 
 const JoinClass = () => {
 
@@ -12,9 +25,9 @@ const JoinClass = () => {
     console.log(roomID)
 
     const myMeeting = (element) => {
-        const appID = 144770395;
-        const serverSecret = "8aea8350811100009ea325505ceb64c4";
-        const userID = 'Bernard'
+        const appID = 1451316291;
+        const serverSecret = "a77e5395e9847b7e3e7d0fe1c7d7ff4c";
+        const userID = randomID(5);
         const userName = firstname + ' ' + lastname
         const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
             appID,
