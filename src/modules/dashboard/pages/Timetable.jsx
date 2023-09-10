@@ -1,44 +1,44 @@
 import React from 'react';
-import '@mobiscroll/react/dist/css/mobiscroll.min.css';
-import { Eventcalendar, getJson, toast, localeEnGB } from '@mobiscroll/react';
-import { useState, useCallback, useEffect, useMemo } from 'react';
+// import '@mobiscroll/react/dist/css/mobiscroll.min.css';
+// import { Eventcalendar, getJson, toast, localeEnGB } from '@mobiscroll/react';
+// import { useState, useCallback, useEffect, useMemo } from 'react';
 import { Header } from '../../../components'
-import ClockLoader from 'react-spinners/ClockLoader'
+// import ClockLoader from 'react-spinners/ClockLoader'
 
 function Timetable() {
 
-    const [myEvents, setEvents] = useState([]);
-    const [loading, setloading] = useState(true)
+    // const [myEvents, setEvents] = useState([]);
+    // const [loading, setloading] = useState(true)
 
 
   
 
 
-    useEffect(() => {
-        getJson('https://trial.mobiscroll.com/events/?vers=5', (events) => {
-            setEvents(events);
-            setloading(false)
-        }, 'jsonp');
-    }, []);
+    // useEffect(() => {
+    //     getJson('https://trial.mobiscroll.com/events/?vers=5', (events) => {
+    //         setEvents(events);
+    //         setloading(false)
+    //     }, 'jsonp');
+    // }, []);
 
-    const onEventClick = useCallback((event) => {
-        toast({
-            message: event.event.title
-        });
-    }, []);
+    // const onEventClick = useCallback((event) => {
+    //     toast({
+    //         message: event.event.title
+    //     });
+    // }, []);
 
-    const view = useMemo(() => {
-        return {
-            calendar: { 
-              popover: true, 
-              count: true }
-        };
-    }, []);
+    // const view = useMemo(() => {
+    //     return {
+    //         calendar: { 
+    //           popover: true, 
+    //           count: true }
+    //     };
+    // }, []);
 
     return (
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl  dark:bg-secondary-dark-bg">
       <Header category='Tools' title="Timetable" />
-
+{/* 
       { loading ?
       <div className='flex flex-col gap-10 items-center justify-center'>
         <ClockLoader
@@ -63,7 +63,7 @@ function Timetable() {
       view={view}
       onEventClick={onEventClick}
  />
-      }
+      } */}
       </div>
     ); 
 }

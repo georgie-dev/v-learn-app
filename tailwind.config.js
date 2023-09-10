@@ -7,7 +7,8 @@ module.exports = {
       display: ['Open Sans', 'sans-serif'],
       rokkitt: ['Rokkitt', 'serif'],
       V: ['Script MT Bold', 'sans-serif'],
-      Machina: ['Neue Machina', 'sans-serif']
+      Machina: ['Neue Machina', 'sans-serif'],
+      inter: [ 'Inter', 'sans-serif']
     },
     extend: {
             backgroundColor: {

@@ -42,7 +42,7 @@ const Sidebar = (data) => {
                 </p>
                 {item.links.map((link) => (
                   <NavLink
-                    to={link.name === 'dashboard' ? `/${link.name}/` : `${link.name}`}
+                    to={link.name === 'dashboard' || link.name === 'admin' ? `/${link.name}/` : `${link.name}/`}
                     key={link.name}
                     onClick={handleCloseSidebar}
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}

@@ -7,13 +7,13 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.21.2.tgz",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@zegocloud/zego-uikit-prebuilt": "^1.8.10",
     "animejs": "^3.2.1",
-    "axios": "^1.2.6",
+    "axios": "^1.5.0",
     "babel-plugin-macros": "^3.1.0",
     "cloudinary": "^1.33.0",
     "firebase": "^9.15.0",
@@ -31,7 +31,9 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sweetalert2": "^11.7.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zego-express-engine-webrtc": "^2.25.6",
+    "zego-superboard-web": "^2.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

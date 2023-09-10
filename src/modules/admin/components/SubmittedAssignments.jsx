@@ -1,13 +1,11 @@
-import React from 'react'
-import Header from '../../../components/Header'
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const Assignments = () => {
+const CourseMaterials = () => {
   const { courses } = useSelector(state => state.user.userDetails)
+
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg">
-    <Header category='pages' title="Assignments " />
     <div className=' w-full mt-12 p-2 h-auto flex flex-wrap gap-3 items-center justify-evenly'>
       {courses.map((items) => (
         <div key={items.id} className=' text-gray-200 w-80 md:w-56 lg:w-80 mt-4 h-48 rounded-2xl p-4 pt-9 drop-shadow-2xl bg-white shadow-sm dark:bg-main-dark-bg relative'>
@@ -20,8 +18,7 @@ const Assignments = () => {
         </div>
       ))}
     </div>
-    </div>
   )
 }
 
-export default Assignments
+export default CourseMaterials

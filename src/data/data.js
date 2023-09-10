@@ -2,7 +2,7 @@ import {VscFileSubmodule} from 'react-icons/vsc'
 import {MdOutlineAssignment , MdOutlineClass, MdDashboard} from 'react-icons/md'
 import {SiGoogleclassroom} from 'react-icons/si'
 import {BsPersonCheck} from 'react-icons/bs'
-import {AiOutlineSchedule} from 'react-icons/ai'
+import {AiOutlineSchedule, AiOutlineCloudUpload} from 'react-icons/ai'
 
 
 export const StudentSidebar= [
@@ -31,7 +31,7 @@ export const StudentSidebar= [
             icon: <VscFileSubmodule/>,
           },
           {
-            name: 'tests',
+            name: 'assessments',
             icon: <MdOutlineClass/>,
           },
         ],
@@ -58,7 +58,7 @@ export const AdminSidebar= [
         title: 'Overview',
         links: [
           {
-            name: 'dashboard',
+            name: 'admin',
             icon: <MdDashboard/>
           },
         ],
@@ -67,7 +67,7 @@ export const AdminSidebar= [
         title: 'Pages',
         links: [
           {
-            name: 'courses',
+            name: 'live-class',
             icon: <SiGoogleclassroom/>,
           },
           {
@@ -79,7 +79,7 @@ export const AdminSidebar= [
             icon: <VscFileSubmodule/>,
           },
           {
-            name: 'tests',
+            name: 'assessments',
             icon: <MdOutlineClass/>,
           },
         ],
@@ -93,7 +93,7 @@ export const AdminSidebar= [
             icon: <BsPersonCheck/>,
           },
           {
-            name: 'timetable',
+            name: 'class-schedule',
             icon: <AiOutlineSchedule/>,
           },
         ],
@@ -109,7 +109,7 @@ export const boxes = [
     title: 'Today Class(es)',
     bg: 'bg-class',
     id: 1,
-    route: 'classes'
+    route: 'classes/'
 
   },
   {
@@ -118,7 +118,7 @@ export const boxes = [
     title: 'Pending Assignment(s)',
     bg: 'bg-assignment',
     id: 2,
-    route: 'assignments'
+    route: 'assignments/'
 
   },
   {
@@ -127,7 +127,7 @@ export const boxes = [
     title: 'New course Material(s)',
     bg: 'bg-cm',
     id: 3,
-    route: 'course-materials'
+    route: 'course-materials/'
 
   },
   {
@@ -136,7 +136,46 @@ export const boxes = [
     title: 'Upcoming Test(s)',
     bg:'bg-test',
     id: 4,
-    route: 'tests'
+    route: 'tests/'
+
+  }
+]
+
+export const adminBoxes = [
+  {
+    icon: <SiGoogleclassroom/>,
+    value: 2,
+    title: 'Start a Live Class',
+    bg: 'bg-class',
+    id: 1,
+    route: 'live-class'
+
+  },
+  {
+    icon: <AiOutlineCloudUpload/>,
+    value: 4,
+    title: 'Upload an Assignment',
+    bg: 'bg-assignment',
+    id: 2,
+    route: 'assignments/'
+
+  },
+  {
+    icon: <AiOutlineCloudUpload/>,
+    value: 2,
+    title: 'Upload a new course Material',
+    bg: 'bg-cm',
+    id: 3,
+    route: 'course-materials'
+
+  },
+  {
+    icon: <MdOutlineClass/>,
+    value: 1,
+    title: 'Schedule an assessment',
+    bg:'bg-test',
+    id: 4,
+    route: 'assessments/'
 
   }
 ]
