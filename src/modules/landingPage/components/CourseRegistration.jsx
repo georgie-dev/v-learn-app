@@ -210,7 +210,7 @@ const CourseRegistration = () => {
             onClick={courseRegister}
             className='py-2 text-xs lg:text-sm px-6 border rounded-lg bg-main-dark-bg my-0 text-white font-bold font-Machina cursor-pointer items-center hover:bg-slate-700 flex gap-2 disabled:cursor-not-allowed disabled:bg-gray-400'
           >
-            Proceed to Dashboard {!isLoading? <BsBoxArrowRight /> :
+            Proceed {!isLoading? <BsBoxArrowRight /> :
               <ScaleLoader
                 color='#B7E8EB'
                 loading={isLoading}

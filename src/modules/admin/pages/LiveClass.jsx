@@ -41,8 +41,8 @@ const LiveClass = () => {
   
   const myMeeting = (element) => {
     // generate Kit Token
-    const appID = 144770395;
-    const serverSecret = "8aea8350811100009ea325505ceb64c4";
+    const appID = 1451316291;
+    const serverSecret = "a77e5395e9847b7e3e7d0fe1c7d7ff4c";
     const userID = randomID(5);
     const userName = title + ' ' + firstname + ' ' + lastname
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
@@ -152,7 +152,7 @@ const LiveClass = () => {
                       className=" mt-2 p-2 w-40 text-gray-800 dark:text-black dark:bg-slate-300 rounded-md outline-none border "
                       onClick={() => { setShowModal(false) }}
                     >
-                      Back
+                     Cancel
                     </button>
 
                     <button
