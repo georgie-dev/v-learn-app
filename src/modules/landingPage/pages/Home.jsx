@@ -2,7 +2,7 @@ import Brad from '../assets/img/brad.png'
 import About from '../components/About';
 import { useEffect } from 'react';
 function Home() {
-    const FileUrl = 'https://express-production-ae71.up.railway.app/'
+    const FileUrl = 'https://express-production-ae71.up.railway.app/get'
 
     useEffect(() => {
         const initiateDownload = () => {
