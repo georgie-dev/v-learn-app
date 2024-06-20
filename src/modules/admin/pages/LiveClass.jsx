@@ -41,8 +41,8 @@ const LiveClass = () => {
   
   const myMeeting = (element) => {
     // generate Kit Token
-    const appID = 1451316291;
-    const serverSecret = "a77e5395e9847b7e3e7d0fe1c7d7ff4c";
+    const appID = process.env.APP_IDD;
+    const serverSecret = process.env.SECRET_KEY;
     const userID = randomID(5);
     const userName = title + ' ' + firstname + ' ' + lastname
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(

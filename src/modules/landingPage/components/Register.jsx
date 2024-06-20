@@ -355,6 +355,7 @@ useEffect(() => {
                   <option value="200 Level" >200 Level</option>
                   <option value="300 Level" >300 Level</option>
                   <option value="400 Level" >400 Level</option>
+                  <option value="500 Level" >500 Level</option>
                 </select>
                 <small className='hidden'>Error message</small>
               </div>
