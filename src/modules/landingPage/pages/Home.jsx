@@ -20,11 +20,7 @@ function Home() {
             <div className='lg:flex block pt-12 lg:p-auto shadow-lg' style={{ background: '#015871' }}>
                 <div className=' w-full lg:w-1/2 self-center p-10 lg:px-28 text-white'>
                     <h1 className='text-6xl font-extrabold font-Machina'><span className=' font-V'>V-</span>Learn</h1>
-                    <p className='text-xl font-Machina mt-4'> Lorem ipsum dolor sit amet consectetur,
-                        adipisicing elit. Veniam reiciendis perferendis
-                        asperiores veritatis nostrum voluptas,
-                        doloribus aliquam odit dignissimos saepe consequuntur.
-                        Quasi, vel aperiam culpa obcaecati ad quae repudiandae veniam.
+                    <p className='text-xl font-Machina mt-4'> Welcome to V-learn, your gateway to the future of education. Our platform redefines learning with state-of-the-art virtual classrooms for students and educators. Explore a wide range of courses, participate in interactive lessons, and collaborate in real-time, all from the comfort of your home. At V-learn, we make high-quality education accessible, engaging, and effective. Step into the next generation of learning, where knowledge knows no boundaries.
                     </p>
                 </div>
                 <div className='w-full lg:w-1/2 p-7 relative'>
